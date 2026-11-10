@@ -19,7 +19,7 @@ void sub_0207C6AC(void);
 void sub_0207C730(void);
 void sub_0207C770(void);
 UnkStruct_0207C8C4 *sub_0207C894(UnkStruct_0207C894 *param0);
-void sub_0207C8C4(UnkStruct_0207C8C4 *param0, int param1);
+void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
 BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
 void sub_0207C8F4(UnkStruct_0207C8C4 *param0);
 static u32 sub_0207C794(u32 param0, BOOL param1);
@@ -185,7 +185,7 @@ UnkStruct_0207C8C4 *sub_0207C894(UnkStruct_0207C894 *param0)
     return v4;
 }
 
-void sub_0207C8C4(UnkStruct_0207C8C4 *param0, int param1)
+void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1)
 {
     int v0;
     int v1;
