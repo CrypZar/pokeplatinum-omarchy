@@ -67,7 +67,7 @@ static void ov59_021D1354(BgConfig *param0);
 static void ov59_021D1388(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D1474(void);
 static void ov59_021D14A4(UnkStruct_020961E8 *param0, NARC *param1);
-static void ov59_021D1598(UnkStruct_020961E8 *param0);
+static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0);
 static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan);
 static void ov59_021D17C8(UnkStruct_020961E8 *param0);
 static void ov59_021D1994(UnkStruct_020961E8 *unused);
@@ -200,7 +200,7 @@ int ov59_021D0D80(ApplicationManager *appMan, int *param1)
         ov59_021D1250(v0, v1);
         ov59_021D1474();
         ov59_021D14A4(v0, v1);
-        ov59_021D1598(v0);
+        Overlay059_CreateLobbySprites(v0);
         ov59_021D16A0(v0, appMan);
 
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_SUB_52, SEQ_NONE, 0);
@@ -592,7 +592,7 @@ static void ov59_021D14A4(UnkStruct_020961E8 *param0, NARC *param1)
     SpriteTransfer_RequestPlttWholeRange(param0->unk_1F0[2][1]);
 }
 
-static const u16 Unk_ov59_021D32C4[][2] = {
+static const u16 Overlay059LobbySpritePositions[][2] = {
     { 0xCC, 0x54 },
     { 0xCC, 0x35 },
     { 0xE9, 0x48 },
@@ -601,7 +601,7 @@ static const u16 Unk_ov59_021D32C4[][2] = {
     { 0xAE, 0x48 }
 };
 
-static void ov59_021D1598(UnkStruct_020961E8 *param0)
+static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0)
 {
 
     SpriteResourcesHeader_Init(&param0->unk_268, 2, 2, 2, 2, 0xffffffff, 0xffffffff, 0, 1, param0->unk_1E0[0], param0->unk_1E0[1], param0->unk_1E0[2], param0->unk_1E0[3], NULL, NULL);
@@ -619,8 +619,8 @@ static void ov59_021D1598(UnkStruct_020961E8 *param0)
         v1.priority = 1;
         v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
         v1.heapID = HEAP_ID_51;
-        v1.position.x = FX32_ONE * Unk_ov59_021D32C4[0][0];
-        v1.position.y = FX32_ONE * Unk_ov59_021D32C4[0][1];
+        v1.position.x = FX32_ONE * Overlay059LobbySpritePositions[0][0];
+        v1.position.y = FX32_ONE * Overlay059LobbySpritePositions[0][1];
 
         param0->unk_28C[0] = SpriteList_AddAffine(&v1);
 
@@ -628,8 +628,8 @@ static void ov59_021D1598(UnkStruct_020961E8 *param0)
         Sprite_SetDrawFlag(param0->unk_28C[0], TRUE);
 
         for (int i = 0; i < 5; i++) {
-            v1.position.x = FX32_ONE * Unk_ov59_021D32C4[i + 1][0];
-            v1.position.y = FX32_ONE * Unk_ov59_021D32C4[i + 1][1];
+            v1.position.x = FX32_ONE * Overlay059LobbySpritePositions[i + 1][0];
+            v1.position.y = FX32_ONE * Overlay059LobbySpritePositions[i + 1][1];
 
             param0->unk_28C[i + 1] = SpriteList_AddAffine(&v1);
 
