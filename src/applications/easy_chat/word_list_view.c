@@ -1,4 +1,4 @@
-#include "applications/easy_chat/ov20_021D40E8.h"
+#include "applications/easy_chat/word_list_view.h"
 
 #include <nitro.h>
 #include <string.h>
@@ -36,16 +36,16 @@ typedef struct UnkStruct_ov20_021D4210_t {
     int unk_88;
     int unk_8C;
     int unk_90;
-} UnkStruct_ov20_021D4210;
+} EasyChatWordListView;
 
-static void ov20_021D4210(UnkStruct_ov20_021D4210 *param0);
-static void ov20_021D45AC(UnkStruct_ov20_021D4210 *param0, int param1);
-static void ov20_021D4638(UnkStruct_ov20_021D4210 *param0);
-static void ov20_021D4658(UnkStruct_ov20_021D4210 *param0, u32 param1, u32 param2);
+static void EasyChatWordListView_CreateCursorAndArrows(EasyChatWordListView *param0);
+static void EasyChatWordListView_ClearRowsForScroll(EasyChatWordListView *param0, int param1);
+static void EasyChatWordListView_ResetScrollPosition(EasyChatWordListView *param0);
+static void EasyChatWordListView_DrawWordRow(EasyChatWordListView *param0, u32 param1, u32 param2);
 
-UnkStruct_ov20_021D4210 *ov20_021D40E8(UnkStruct_ov20_021D2128 *param0, const EasyChatApp *param1, const EasyChatWordList *param2)
+EasyChatWordListView *EasyChatWordListView_New(UnkStruct_ov20_021D2128 *param0, const EasyChatApp *param1, const EasyChatWordList *param2)
 {
-    UnkStruct_ov20_021D4210 *v0 = Heap_Alloc(HEAP_ID_35, sizeof(UnkStruct_ov20_021D4210));
+    EasyChatWordListView *v0 = Heap_Alloc(HEAP_ID_35, sizeof(EasyChatWordListView));
 
     v0->unk_00 = param0;
     v0->unk_04 = param1;
@@ -63,7 +63,7 @@ UnkStruct_ov20_021D4210 *ov20_021D40E8(UnkStruct_ov20_021D2128 *param0, const Ea
     return v0;
 }
 
-void ov20_021D4164(UnkStruct_ov20_021D4210 *param0)
+void EasyChatWordListView_Free(EasyChatWordListView *param0)
 {
     if (param0->unk_30) {
         Sprite_Delete(param0->unk_30);
@@ -86,7 +86,7 @@ void ov20_021D4164(UnkStruct_ov20_021D4210 *param0)
     Heap_Free(param0);
 }
 
-void ov20_021D41A8(UnkStruct_ov20_021D4210 *param0)
+void EasyChatWordListView_PrepareDisplay(EasyChatWordListView *param0)
 {
     BgConfig *v0;
     u32 v1;
@@ -101,12 +101,12 @@ void ov20_021D41A8(UnkStruct_ov20_021D4210 *param0)
     Window_LoadTiles(&param0->unk_10);
     Bg_CopyTilemapBufferToVRAM(v0, 2);
 
-    ov20_021D4210(param0);
+    EasyChatWordListView_CreateCursorAndArrows(param0);
 
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 0);
 }
 
-static void ov20_021D4210(UnkStruct_ov20_021D4210 *param0)
+static void EasyChatWordListView_CreateCursorAndArrows(EasyChatWordListView *param0)
 {
     SpriteResourcesHeader v0;
 
@@ -125,12 +125,12 @@ static void ov20_021D4210(UnkStruct_ov20_021D4210 *param0)
     Sprite_SetDrawFlag(param0->unk_38, FALSE);
 }
 
-void ov20_021D4294(UnkStruct_ov20_021D4210 *param0)
+void EasyChatWordListView_DrawPage(EasyChatWordListView *param0)
 {
     u32 v0, v1, v2;
 
     Window_FillTilemap(&param0->unk_10, 0);
-    ov20_021D4638(param0);
+    EasyChatWordListView_ResetScrollPosition(param0);
 
     v0 = ov20_021D1FE4(param0->unk_04);
 
@@ -141,7 +141,7 @@ void ov20_021D4294(UnkStruct_ov20_021D4210 *param0)
     v1 = param0->unk_8C;
 
     for (v2 = 0; v2 < v0; v2++) {
-        ov20_021D4658(param0, v2, v1);
+        EasyChatWordListView_DrawWordRow(param0, v2, v1);
 
         if (v2 & 1) {
             v1 += 24;
@@ -151,7 +151,7 @@ void ov20_021D4294(UnkStruct_ov20_021D4210 *param0)
     Window_LoadTiles(&param0->unk_10);
 }
 
-void ov20_021D42E4(UnkStruct_ov20_021D4210 *param0)
+void EasyChatWordListView_BeginShowTransition(EasyChatWordListView *param0)
 {
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 0, 16);
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 1);
@@ -168,7 +168,7 @@ void ov20_021D42E4(UnkStruct_ov20_021D4210 *param0)
     EasyChatBlendAnimation_StartAlpha(&param0->unk_40, GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 0, 124, (6 * 2));
 }
 
-BOOL ov20_021D4390(UnkStruct_ov20_021D4210 *param0)
+BOOL EasyChatWordListView_IsShowTransitionComplete(EasyChatWordListView *param0)
 {
     switch (param0->unk_80) {
     case 0:
@@ -183,13 +183,13 @@ BOOL ov20_021D4390(UnkStruct_ov20_021D4210 *param0)
     return 0;
 }
 
-void ov20_021D43B4(UnkStruct_ov20_021D4210 *param0)
+void EasyChatWordListView_BeginHideTransition(EasyChatWordListView *param0)
 {
     param0->unk_80 = 0;
     EasyChatBlendAnimation_StartAlpha(&param0->unk_40, GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 124, 0, (6 * 2));
 }
 
-BOOL ov20_021D43D8(UnkStruct_ov20_021D4210 *param0)
+BOOL EasyChatWordListView_IsHideTransitionComplete(EasyChatWordListView *param0)
 {
     switch (param0->unk_80) {
     case 0:
@@ -207,7 +207,7 @@ BOOL ov20_021D43D8(UnkStruct_ov20_021D4210 *param0)
     return 0;
 }
 
-void ov20_021D4440(UnkStruct_ov20_021D4210 *param0, BOOL param1)
+void EasyChatWordListView_SetSelectionIndicatorsVisible(EasyChatWordListView *param0, BOOL param1)
 {
     Sprite_SetDrawFlag(param0->unk_30, param1);
 
@@ -220,7 +220,7 @@ void ov20_021D4440(UnkStruct_ov20_021D4210 *param0, BOOL param1)
     }
 }
 
-void ov20_021D4480(UnkStruct_ov20_021D4210 *param0, u32 param1)
+void EasyChatWordListView_SetCursorIndex(EasyChatWordListView *param0, u32 param1)
 {
     VecFx32 v0;
     u32 v1 = param1 & 1;
@@ -234,11 +234,11 @@ void ov20_021D4480(UnkStruct_ov20_021D4210 *param0, u32 param1)
     Sprite_SetAnim(param0->unk_30, 8);
 }
 
-void ov20_021D44BC(UnkStruct_ov20_021D4210 *param0, int param1)
+void EasyChatWordListView_ScrollByRows(EasyChatWordListView *param0, int param1)
 {
     int v0, v1, v2, v3, v4, v5, v6;
 
-    ov20_021D45AC(param0, param1);
+    EasyChatWordListView_ClearRowsForScroll(param0, param1);
 
     v1 = param0->unk_90 + (param1 * 2);
     v0 = (param0->unk_8C + (param1 * 24)) & 255;
@@ -261,7 +261,7 @@ void ov20_021D44BC(UnkStruct_ov20_021D4210 *param0, int param1)
     }
 
     for (v2 = 0; v2 < v5; v2++) {
-        ov20_021D4658(param0, v4 + v2, v3);
+        EasyChatWordListView_DrawWordRow(param0, v4 + v2, v3);
 
         if (v2 & 1) {
             v3 = (v3 + 24) & 255;
@@ -275,7 +275,7 @@ void ov20_021D44BC(UnkStruct_ov20_021D4210 *param0, int param1)
     EasyChatBgScrollAnimation_Start(&(param0->unk_60), param0->unk_0C, 2, 1, param1 * 24, v6);
 }
 
-BOOL ov20_021D4578(UnkStruct_ov20_021D4210 *param0)
+BOOL EasyChatWordListView_IsScrollComplete(EasyChatWordListView *param0)
 {
     if (EasyChatBgScrollAnimation_IsComplete(&param0->unk_60)) {
         Sprite_SetDrawFlag(param0->unk_34, ov20_021D204C(param0->unk_04));
@@ -286,7 +286,7 @@ BOOL ov20_021D4578(UnkStruct_ov20_021D4210 *param0)
     return 0;
 }
 
-static void ov20_021D45AC(UnkStruct_ov20_021D4210 *param0, int param1)
+static void EasyChatWordListView_ClearRowsForScroll(EasyChatWordListView *param0, int param1)
 {
     int v0, v1;
 
@@ -306,7 +306,7 @@ static void ov20_021D45AC(UnkStruct_ov20_021D4210 *param0, int param1)
     }
 }
 
-static void ov20_021D4638(UnkStruct_ov20_021D4210 *param0)
+static void EasyChatWordListView_ResetScrollPosition(EasyChatWordListView *param0)
 {
     param0->unk_8C = 48;
     param0->unk_90 = 0;
@@ -314,7 +314,7 @@ static void ov20_021D4638(UnkStruct_ov20_021D4210 *param0)
     Bg_SetOffset(param0->unk_0C, BG_LAYER_MAIN_2, 3, 0);
 }
 
-static void ov20_021D4658(UnkStruct_ov20_021D4210 *param0, u32 param1, u32 param2)
+static void EasyChatWordListView_DrawWordRow(EasyChatWordListView *param0, u32 param1, u32 param2)
 {
     ov20_021D2008(param0->unk_04, param1, param0->unk_3C);
 
