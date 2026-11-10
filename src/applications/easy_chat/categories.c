@@ -6,10 +6,10 @@
 #include "applications/easy_chat/defs.h"
 #include "applications/easy_chat/main.h"
 #include "applications/easy_chat/ov20_021D2098.h"
-#include "applications/easy_chat/ov20_021D4E38.h"
+#include "applications/easy_chat/transition_animations.h"
 #include "applications/easy_chat/struct_ov20_021D2128_decl.h"
-#include "applications/easy_chat/struct_ov20_021D4E8C.h"
-#include "applications/easy_chat/struct_ov20_021D4FF0.h"
+#include "applications/easy_chat/bg_scroll_animation.h"
+#include "applications/easy_chat/blend_animation.h"
 
 #include "bg_window.h"
 #include "easy_chat_word_list.h"
@@ -276,20 +276,20 @@ void EasyChatCategories_DrawCursor(EasyChatCategoriesContext *ctx, u32 selectedI
 void EasyChatCategories_BeginShowAnimation(EasyChatCategoriesContext *ctx)
 {
     ctx->unk_14 = 0;
-    ov20_021D4FB0(&(ctx->unk_1C), GX_BLEND_PLANEMASK_BG1, -10, 0, 16);
+    EasyChatBlendAnimation_StartBrightness(&(ctx->unk_1C), GX_BLEND_PLANEMASK_BG1, -10, 0, 16);
 }
 
 BOOL EasyChatCategories_IsShowAnimationComplete(EasyChatCategoriesContext *ctx)
 {
     switch (ctx->unk_14) {
     case 0:
-        if (ov20_021D4FF0(&ctx->unk_1C)) {
-            ov20_021D4E38(&(ctx->unk_3C), ctx->bgConfig, 1, 1, 24, 6);
+        if (EasyChatBlendAnimation_IsBrightnessComplete(&ctx->unk_1C)) {
+            EasyChatBgScrollAnimation_Start(&(ctx->unk_3C), ctx->bgConfig, 1, 1, 24, 6);
             ctx->unk_14++;
         }
         break;
     case 1:
-        return ov20_021D4E8C(&(ctx->unk_3C));
+        return EasyChatBgScrollAnimation_IsComplete(&(ctx->unk_3C));
     }
 
     return 0;
@@ -298,20 +298,20 @@ BOOL EasyChatCategories_IsShowAnimationComplete(EasyChatCategoriesContext *ctx)
 void EasyChatCategories_BeginHideAnimation(EasyChatCategoriesContext *ctx)
 {
     ctx->unk_14 = 0;
-    ov20_021D4E38(&(ctx->unk_3C), ctx->bgConfig, 1, 1, -24, 6);
+    EasyChatBgScrollAnimation_Start(&(ctx->unk_3C), ctx->bgConfig, 1, 1, -24, 6);
 }
 
 BOOL EasyChatCategories_IsHideAnimationComplete(EasyChatCategoriesContext *ctx)
 {
     switch (ctx->unk_14) {
     case 0:
-        if (ov20_021D4E8C(&(ctx->unk_3C))) {
-            ov20_021D4FB0(&(ctx->unk_1C), GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
+        if (EasyChatBgScrollAnimation_IsComplete(&(ctx->unk_3C))) {
+            EasyChatBlendAnimation_StartBrightness(&(ctx->unk_1C), GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
             ctx->unk_14++;
         }
         break;
     case 1:
-        return ov20_021D4FF0(&ctx->unk_1C);
+        return EasyChatBlendAnimation_IsBrightnessComplete(&ctx->unk_1C);
     }
 
     return 0;
@@ -324,22 +324,22 @@ void EasyChatCategories_ResetVerticalOffset(EasyChatCategoriesContext *ctx)
 
 void EasyChatCategories_BeginFadeToBlack(EasyChatCategoriesContext *ctx)
 {
-    ov20_021D4FB0(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
+    EasyChatBlendAnimation_StartBrightness(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
 }
 
 BOOL EasyChatCategories_IsFadeToBlackComplete(EasyChatCategoriesContext *ctx)
 {
-    return ov20_021D4FF0(&ctx->unk_1C);
+    return EasyChatBlendAnimation_IsBrightnessComplete(&ctx->unk_1C);
 }
 
 void EasyChatCategories_BeginAlphaFadeOut(EasyChatCategoriesContext *ctx)
 {
-    ov20_021D4F1C(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 124, 0, (6 * 2));
+    EasyChatBlendAnimation_StartAlpha(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 124, 0, (6 * 2));
 }
 
 BOOL EasyChatCategories_FinishAlphaFadeOutAndHideLayer(EasyChatCategoriesContext *ctx)
 {
-    if (ov20_021D4F4C(&ctx->unk_1C)) {
+    if (EasyChatBlendAnimation_IsAlphaComplete(&ctx->unk_1C)) {
         Bg_ToggleLayer(BG_LAYER_MAIN_1, FALSE);
         return TRUE;
     }
@@ -351,12 +351,12 @@ void EasyChatCategories_BeginAlphaFadeIn(EasyChatCategoriesContext *ctx)
 {
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 16);
     Bg_ToggleLayer(BG_LAYER_MAIN_1, TRUE);
-    ov20_021D4F1C(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 124, (6 * 2));
+    EasyChatBlendAnimation_StartAlpha(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 124, (6 * 2));
 }
 
 BOOL EasyChatCategories_IsAlphaFadeInComplete(EasyChatCategoriesContext *ctx)
 {
-    return ov20_021D4F4C(&ctx->unk_1C);
+    return EasyChatBlendAnimation_IsAlphaComplete(&ctx->unk_1C);
 }
 
 void EasyChatCategories_SetModeOffset(EasyChatCategoriesContext *ctx)
@@ -382,10 +382,10 @@ void EasyChatCategories_BeginModeSlide(EasyChatCategoriesContext *ctx)
         v0 = ABC_MODE_BG_X_OFFSET - GROUP_MODE_BG_X_OFFSET;
     }
 
-    ov20_021D4E38(&ctx->unk_3C, ctx->bgConfig, 1, 0, v0, 16);
+    EasyChatBgScrollAnimation_Start(&ctx->unk_3C, ctx->bgConfig, 1, 0, v0, 16);
 }
 
 BOOL EasyChatCategories_IsModeSlideComplete(EasyChatCategoriesContext *ctx)
 {
-    return ov20_021D4E8C(&ctx->unk_3C);
+    return EasyChatBgScrollAnimation_IsComplete(&ctx->unk_3C);
 }
