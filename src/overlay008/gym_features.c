@@ -1453,7 +1453,7 @@ static BOOL FieldTask_CanalaveGym_MovePlatformEastWest(FieldTask *taskMan)
         }
     case 3:
         if (LocalMapObj_CheckAnimationFinished(playerObj) == TRUE) {
-            sub_020656AC(playerObj);
+            LocalMapObj_CheckAnimationFinishedAndClear(playerObj);
             Sound_PlayEffect(SEQ_SE_DP_KI_GASYAN_sseq);
             (*state)++;
         }
@@ -1529,7 +1529,7 @@ static BOOL FieldTask_CanalaveGym_MovePlatformNorthSouth(FieldTask *taskMan)
         MapObject *playerObj = PlayerAvatar_GetMapObject(fieldSystem->playerAvatar);
 
         if (LocalMapObj_CheckAnimationFinished(playerObj) == TRUE) {
-            sub_020656AC(playerObj);
+            LocalMapObj_CheckAnimationFinishedAndClear(playerObj);
             Sound_PlayEffect(SEQ_SE_DP_KI_GASYAN_sseq);
             (*state)++;
         }
@@ -3271,7 +3271,7 @@ static BOOL FieldTask_VeilstoneGym_HitPunchingBagNoMovement(FieldTask *taskMan)
         break;
     case 1:
         if (LocalMapObj_CheckAnimationFinished(playerObj) == TRUE && VeilstoneGymObjectRenderer_IsPunchingBagAnimFinished(bagAnim->punchingBag->obj.animManager) == TRUE) {
-            sub_020656AC(playerObj);
+            LocalMapObj_CheckAnimationFinishedAndClear(playerObj);
             Heap_Free(bagAnim);
             return TRUE;
         }
@@ -3488,7 +3488,7 @@ static int VeilstoneGym_AnimationState_WaitForAnimationFinished(VeilstoneGym_Bag
     MapObject *playerObj = PlayerAvatar_GetMapObject(bagAnim->gymSystem->fieldSystem->playerAvatar);
 
     if (LocalMapObj_CheckAnimationFinished(playerObj) == TRUE) {
-        sub_020656AC(playerObj);
+        LocalMapObj_CheckAnimationFinishedAndClear(playerObj);
         bagAnim->state = VEILSTONE_ANIM_STATE_FREE;
     }
 
