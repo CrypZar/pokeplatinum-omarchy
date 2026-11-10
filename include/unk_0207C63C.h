@@ -6,7 +6,7 @@
 
 #include "g3d_pipeline.h"
 
-void sub_0207C63C(void);
+void EvolutionScene_HideAllPlanes(void);
 void sub_0207C664(void);
 G3DPipelineBuffers *EvolutionScene_Init3DPipeline(enum HeapID heapID);
 void EvolutionScene_Configure3DRenderState(void);
