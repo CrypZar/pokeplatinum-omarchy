@@ -1007,7 +1007,7 @@ static u8 ov10_02220700(UnkStruct_ov10_0221FB28 *param0)
     case 1: {
         int v0;
 
-        v0 = sub_0202F41C(param0->trainerIntroData->dto->saveData, param0->trainerIntroData->recordingType, 0, 0, &param0->unk_B78, &param0->unk_B7A);
+        v0 = BattleRecording_SaveToSaveData(param0->trainerIntroData->dto->saveData, param0->trainerIntroData->recordingType, 0, 0, &param0->unk_B78, &param0->unk_B7A);
 
         if (v0 == 2) {
             MessageLoader_GetString(param0->unk_BA0, 6, param0->unk_BA8);

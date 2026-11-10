@@ -123,7 +123,7 @@ int ov62_02248598(SaveData *saveData, int param1, u8 param2, u16 *param3, u16 *p
         (*param3)++;
         break;
     case 1:
-        v0 = sub_0202F3AC(saveData, gBattleRecording, param1, param4);
+        v0 = BattleRecording_SaveStep(saveData, gBattleRecording, param1, param4);
         return v0;
     }
 
@@ -148,7 +148,7 @@ int ov62_02248658(SaveData *saveData, u64 param1, u16 *param2, u16 *param3)
         (*param2)++;
         break;
     case 1:
-        v0 = sub_0202F3AC(saveData, gBattleRecording, 0, param3);
+        v0 = BattleRecording_SaveStep(saveData, gBattleRecording, 0, param3);
         return v0;
     }
 
