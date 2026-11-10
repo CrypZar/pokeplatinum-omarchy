@@ -34,7 +34,7 @@
 #include "sys_task_manager.h"
 #include "trainer_info.h"
 #include "union_room.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 static void sub_0205C304(SysTask *param0, void *param1);
 static void sub_0205C44C(UnkStruct_0205C22C *param0, UnionRoomManager *param1, MapObjectManager *param2, PalPad *param3);
