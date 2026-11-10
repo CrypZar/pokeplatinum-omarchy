@@ -119,7 +119,7 @@ EvolutionData *Evolution_Begin(Party *party, Pokemon *mon, int targetSpecies, Op
 
     EvolutionScene_HideAllPlanes();
     EvolutionScene_ConfigureBlendAlpha();
-    sub_0207C730();
+    EvolutionParticleSystem_InitializeResources();
     Evolution_InitGraphics(evolutionData, evolutionData->bgConfig);
     Window_Add(evolutionData->bgConfig, evolutionData->window, BG_LAYER_MAIN_1, 2, 19, 27, 4, 11, (18 + 12) + 1);
     Window_FillTilemap(evolutionData->window, 0xFF);

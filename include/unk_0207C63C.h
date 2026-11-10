@@ -10,7 +10,7 @@ void EvolutionScene_HideAllPlanes(void);
 void EvolutionScene_ConfigureBlendAlpha(void);
 G3DPipelineBuffers *EvolutionScene_Init3DPipeline(enum HeapID heapID);
 void EvolutionScene_Configure3DRenderState(void);
-void sub_0207C730(void);
+void EvolutionParticleSystem_InitializeResources(void);
 void EvolutionParticleSystem_DrawAndUpdate(void);
 UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
 void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
