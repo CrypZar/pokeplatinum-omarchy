@@ -90,7 +90,7 @@ u8 FieldSystem_TryGetFacingInteractableMapObject(FieldSystem *fieldSystem, MapOb
     FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, param1);
 
     if (*param1 != NULL) {
-        if ((sub_02062D9C(*param1) == 1) && (PlayerAvatar_IsAtSameHeightAsMapObject(fieldSystem->playerAvatar, *param1) == 1)) {
+        if ((MapObject_IsInteractionEnabled(*param1) == 1) && (PlayerAvatar_IsAtSameHeightAsMapObject(fieldSystem->playerAvatar, *param1) == 1)) {
             return 1;
         }
     }
