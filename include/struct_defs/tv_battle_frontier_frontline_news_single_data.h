@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_STRUCT_0202E810_H
-#define POKEPLATINUM_STRUCT_0202E810_H
+#ifndef POKEPLATINUM_TV_BATTLE_FRONTIER_FRONTLINE_NEWS_SINGLE_DATA_H
+#define POKEPLATINUM_TV_BATTLE_FRONTIER_FRONTLINE_NEWS_SINGLE_DATA_H
 
 typedef struct {
     u8 unk_00;
@@ -10,6 +10,6 @@ typedef struct {
     u8 metGame;
     u8 hasNickname;
     charcode_t nickname[MON_NAME_LEN + 1];
-} UnkStruct_0202E810;
+} TVBattleFrontierFrontlineNewsSingleData;
 
 #endif // POKEPLATINUM_STRUCT_0202E810_H

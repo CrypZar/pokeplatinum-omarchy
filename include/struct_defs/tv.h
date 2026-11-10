@@ -7,7 +7,7 @@
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
-#include "struct_defs/struct_0202E810.h"
+#include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/struct_0202E81C.h"
 #include "struct_defs/struct_0202E828.h"
 #include "struct_defs/struct_0202E834.h"
@@ -57,7 +57,7 @@ typedef struct TVBroadcast {
     TVPoffinCornerData unk_B02;
     TVBattleTowerCornerOutcome unk_B04;
     UnkStruct_0202E808 safariGame;
-    UnkStruct_0202E810 unk_B10;
+    TVBattleFrontierFrontlineNewsSingleData unk_B10;
     UnkStruct_0202E81C unk_B2E;
     TVBroadcast_BattlePointData battlePointData;
     TVBroadcast_GTSData gtsData;
