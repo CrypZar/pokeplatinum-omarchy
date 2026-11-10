@@ -85,7 +85,7 @@ void FieldSystem_GetMapObjectAtFacingPosition(FieldSystem *fieldSystem, MapObjec
     *param1 = sub_0206326C(fieldSystem->mapObjMan, v0, v1, 0);
 }
 
-u8 sub_0203CA40(FieldSystem *fieldSystem, MapObject **param1)
+u8 FieldSystem_TryGetFacingInteractableMapObject(FieldSystem *fieldSystem, MapObject **param1)
 {
     FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, param1);
 
@@ -195,7 +195,7 @@ u8 sub_0203CBE0(FieldSystem *fieldSystem, MapObject **param1)
         return 0;
     }
 
-    if (sub_0203CA40(fieldSystem, param1) == 1) {
+    if (FieldSystem_TryGetFacingInteractableMapObject(fieldSystem, param1) == 1) {
         u32 v0 = MapObject_GetGraphicsID(*param1);
 
         if ((v0 == 0x5b) || (v0 == 0x5c) || (v0 == 0x5d) || (v0 == 0x5e) || (v0 == 0x5f) || (v0 == 0x60)) {
