@@ -23,7 +23,7 @@
 #include "tv_segment.h"
 #include "underground.h"
 #include "unk_0202E2CC.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 #include "vars_flags.h"
 #include "wifi_history_save_data.h"
 
