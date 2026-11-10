@@ -63,7 +63,7 @@
 #include "trainer_encounter.h"
 #include "trainer_info.h"
 #include "trainer_types.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "vars_flags.h"
 
 #include "res/field/props/models/prop_models.naix"
