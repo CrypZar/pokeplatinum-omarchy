@@ -5,10 +5,10 @@
 
 #include "applications/easy_chat/main.h"
 #include "applications/easy_chat/ov20_021D2098.h"
-#include "applications/easy_chat/ov20_021D4E38.h"
+#include "applications/easy_chat/transition_animations.h"
 #include "applications/easy_chat/struct_ov20_021D2128_decl.h"
-#include "applications/easy_chat/struct_ov20_021D4E8C.h"
-#include "applications/easy_chat/struct_ov20_021D4FF0.h"
+#include "applications/easy_chat/bg_scroll_animation.h"
+#include "applications/easy_chat/blend_animation.h"
 
 #include "bg_window.h"
 #include "easy_chat_word_list.h"
@@ -29,8 +29,8 @@ typedef struct UnkStruct_ov20_021D4210_t {
     Sprite *unk_34;
     Sprite *unk_38;
     String *unk_3C;
-    UnkStruct_ov20_021D4FF0 unk_40;
-    UnkStruct_ov20_021D4E8C unk_60;
+    EasyChatBlendAnimation unk_40;
+    EasyChatBgScrollAnimation unk_60;
     u32 unk_80;
     GXWndPlane unk_84;
     int unk_88;
@@ -165,14 +165,14 @@ void ov20_021D42E4(UnkStruct_ov20_021D4210 *param0)
     GX_SetVisibleWnd(GX_WNDMASK_W1);
 
     param0->unk_80 = 0;
-    ov20_021D4F1C(&param0->unk_40, GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 0, 124, (6 * 2));
+    EasyChatBlendAnimation_StartAlpha(&param0->unk_40, GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 0, 124, (6 * 2));
 }
 
 BOOL ov20_021D4390(UnkStruct_ov20_021D4210 *param0)
 {
     switch (param0->unk_80) {
     case 0:
-        if (ov20_021D4F4C(&param0->unk_40)) {
+        if (EasyChatBlendAnimation_IsAlphaComplete(&param0->unk_40)) {
             return 1;
         }
         break;
@@ -186,14 +186,14 @@ BOOL ov20_021D4390(UnkStruct_ov20_021D4210 *param0)
 void ov20_021D43B4(UnkStruct_ov20_021D4210 *param0)
 {
     param0->unk_80 = 0;
-    ov20_021D4F1C(&param0->unk_40, GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 124, 0, (6 * 2));
+    EasyChatBlendAnimation_StartAlpha(&param0->unk_40, GX_BLEND_PLANEMASK_BG2, GX_BLEND_ALL, 124, 0, (6 * 2));
 }
 
 BOOL ov20_021D43D8(UnkStruct_ov20_021D4210 *param0)
 {
     switch (param0->unk_80) {
     case 0:
-        if (ov20_021D4F4C(&param0->unk_40)) {
+        if (EasyChatBlendAnimation_IsAlphaComplete(&param0->unk_40)) {
             Bg_ToggleLayer(BG_LAYER_MAIN_2, 0);
             G2_SetWndOutsidePlane(param0->unk_84.planeMask, param0->unk_84.effect);
             GX_SetVisibleWnd(param0->unk_88);
@@ -272,12 +272,12 @@ void ov20_021D44BC(UnkStruct_ov20_021D4210 *param0, int param1)
     param0->unk_90 = v1;
 
     Window_LoadTiles(&param0->unk_10);
-    ov20_021D4E38(&(param0->unk_60), param0->unk_0C, 2, 1, param1 * 24, v6);
+    EasyChatBgScrollAnimation_Start(&(param0->unk_60), param0->unk_0C, 2, 1, param1 * 24, v6);
 }
 
 BOOL ov20_021D4578(UnkStruct_ov20_021D4210 *param0)
 {
-    if (ov20_021D4E8C(&param0->unk_60)) {
+    if (EasyChatBgScrollAnimation_IsComplete(&param0->unk_60)) {
         Sprite_SetDrawFlag(param0->unk_34, ov20_021D204C(param0->unk_04));
         Sprite_SetDrawFlag(param0->unk_38, ov20_021D2060(param0->unk_04));
         return 1;
