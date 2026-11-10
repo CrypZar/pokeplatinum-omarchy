@@ -88,7 +88,7 @@ static void Overlay059_FreeParticipantSpriteAppearanceData(UnkStruct_020961E8 *p
 static void Overlay059_LoadRemoteParticipantSpriteAppearance(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4);
 static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *param1);
 static int ov59_021D28D4(UnkStruct_020961E8 *param0);
-static void ov59_021D28D8(UnkStruct_020961E8 *param0, int param1);
+static void Overlay059_SetMaximumConnectionCount(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1);
 static void ov59_021D1864(UnkStruct_020961E8 *param0);
 static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1);
@@ -727,7 +727,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
 
                 CommSys_SendData(117, &v0, 1);
 
-                ov59_021D28D8(param0, 0);
+                Overlay059_SetMaximumConnectionCount(param0, 0);
             } else {
                 Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
             }
@@ -747,7 +747,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
                 Overlay059_ShowMessage(param0, 4, 0);
                 Overlay059_SetMessageWaitState(param0, 4);
                 CommSys_SendData(117, &v1, 1);
-                ov59_021D28D8(param0, 0);
+                Overlay059_SetMaximumConnectionCount(param0, 0);
             } else {
                 Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
             }
@@ -861,7 +861,7 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
                 int v2 = 0;
 
                 CommSys_SendData(117, &v2, 1);
-                ov59_021D28D8(param0, 1);
+                Overlay059_SetMaximumConnectionCount(param0, 1);
             }
 
             Overlay059_SetMessageWaitState(param0, 0);
@@ -968,7 +968,7 @@ static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *
             int v2 = 0;
 
             CommSys_SendData(117, &v2, 1);
-            ov59_021D28D8(param0, 1);
+            Overlay059_SetMaximumConnectionCount(param0, 1);
             Overlay059_SetMessageWaitState(param0, 0);
         } else {
             if (CommSys_CurNetId() == 0) {
@@ -1127,7 +1127,7 @@ static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *pa
             param0->overlayState = 0;
 
             CommSys_SendData(117, &v1, 1);
-            ov59_021D28D8(param0, 1);
+            Overlay059_SetMaximumConnectionCount(param0, 1);
         } else {
             param0->overlayState = 13;
             CommSys_SendData(113, NULL, 0);
@@ -1224,7 +1224,7 @@ static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1)
     param0->overlayState = 20;
 
     if (CommSys_CurNetId() == 0) {
-        ov59_021D28D8(param0, 0);
+        Overlay059_SetMaximumConnectionCount(param0, 0);
     }
 
     param0->unk_4ABC = CommSys_ConnectedCount();
@@ -1264,7 +1264,7 @@ static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1)
         param0->overlayState = 0;
 
         if (CommSys_CurNetId() == 0) {
-            ov59_021D28D8(param0, 1);
+            Overlay059_SetMaximumConnectionCount(param0, 1);
         }
     }
 
@@ -1335,7 +1335,7 @@ void ov59_021D22EC(UnkStruct_020961E8 *param0, int param1, u8 param2)
         switch (param1) {
         case 1:
             StringTemplate_SetPlayerName(param0->unk_24, 0, CommInfo_TrainerInfo(param2));
-            ov59_021D28D8(param0, 1);
+            Overlay059_SetMaximumConnectionCount(param0, 1);
 
             param0->overlayState = param1;
             param0->unk_4AAC = CommSys_ConnectedCount();
@@ -1628,7 +1628,7 @@ static int ov59_021D28D4(UnkStruct_020961E8 *param0)
     return 1;
 }
 
-static void ov59_021D28D8(UnkStruct_020961E8 *param0, int param1)
+static void Overlay059_SetMaximumConnectionCount(UnkStruct_020961E8 *param0, int param1)
 {
     if (CommSys_CurNetId() == 0) {
         if (param1 == -1) {
@@ -1644,11 +1644,11 @@ static void ov59_021D28D8(UnkStruct_020961E8 *param0, int param1)
         }
 
         if (param1 == -1) {
-            param0->unk_4AB9 = 2;
+            param0->participantConnectionLimitMode = 2;
         } else if (param1 == 0) {
-            param0->unk_4AB9 = 1;
+            param0->participantConnectionLimitMode = 1;
         } else {
-            param0->unk_4AB9 = 0;
+            param0->participantConnectionLimitMode = 0;
         }
     }
 }
@@ -1677,7 +1677,7 @@ static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1)
         }
 
         param0->overlayState = 17;
-        ov59_021D28D8(param0, -1);
+        Overlay059_SetMaximumConnectionCount(param0, -1);
 
         if (param0->unk_384 != NULL) {
             Menu_DestroyForExit(param0->unk_384, 51);
@@ -1692,12 +1692,12 @@ static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1)
         UnionRoom_SetStatus(UR_STATUS_MIXING_RECORDS);
 
         if (v0 < param0->unk_4AA8) {
-            switch (param0->unk_4AB9) {
+            switch (param0->participantConnectionLimitMode) {
             case 0:
-                ov59_021D28D8(param0, param1);
+                Overlay059_SetMaximumConnectionCount(param0, param1);
                 break;
             case 1:
-                ov59_021D28D8(param0, 0);
+                Overlay059_SetMaximumConnectionCount(param0, 0);
                 break;
             }
 
@@ -1706,7 +1706,7 @@ static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1)
         break;
     case 5:
         UnionRoom_SetStatus(UR_STATUS_UNK_09);
-        ov59_021D28D8(param0, param1);
+        Overlay059_SetMaximumConnectionCount(param0, param1);
         break;
     }
 

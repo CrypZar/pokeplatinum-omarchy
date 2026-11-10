@@ -77,7 +77,7 @@ struct UnkStruct_020961E8_t {
     int unk_4AB0;
     u32 unk_4AB4;
     u8 unk_4AB8;
-    s8 unk_4AB9;
+    s8 participantConnectionLimitMode;
     u8 unk_4ABA;
     u8 unk_4ABB;
     s32 unk_4ABC;
