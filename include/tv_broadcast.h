@@ -4,7 +4,7 @@
 #include "struct_decls/tv_broadcast.h"
 #include "struct_defs/struct_0202E7E4.h"
 #include "struct_defs/struct_0202E7F0.h"
-#include "struct_defs/struct_0202E7FC.h"
+#include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
 #include "struct_defs/struct_0202E81C.h"
@@ -41,7 +41,7 @@ int TVBroadcast_MakeWifiEpisodeSlotID(int param0);
 TVSegment_ContestHall_ShowcasedPokemon *TVBroadcast_GetShowcasedPokemon(TVBroadcast *broadcast);
 UnkStruct_0202E7E4 *sub_0202E7E4(TVBroadcast *broadcast);
 UnkStruct_0202E7F0 *sub_0202E7F0(TVBroadcast *broadcast);
-UnkStruct_0202E7FC *sub_0202E7FC(TVBroadcast *broadcast);
+TVBattleTowerCornerOutcome *TVBroadcast_GetBattleTowerCornerOutcome(TVBroadcast *broadcast);
 UnkStruct_0202E808 *TVBroadcast_GetSafariGameData(TVBroadcast *broadcast);
 UnkStruct_0202E810 *sub_0202E810(TVBroadcast *broadcast);
 UnkStruct_0202E81C *sub_0202E81C(TVBroadcast *broadcast);

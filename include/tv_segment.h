@@ -23,7 +23,7 @@ void sub_0206CF48(TVBroadcast *broadcast, Pokemon *mon, enum HeapID heapID);
 void sub_0206CF9C(TVBroadcast *broadcast, int param1);
 void sub_0206CFB4(TVBroadcast *broadcast, int param1);
 void sub_0206CFCC(TVBroadcast *broadcast, int param1);
-void sub_0206CFE4(TVBroadcast *broadcast, BOOL param1, u16 param2);
+void TVBroadcast_SetBattleTowerCornerOutcome(TVBroadcast *broadcast, BOOL param1, u16 param2);
 void TVBroadcast_ResetSafariGameData(TVBroadcast *broadcast);
 void TVBroadcast_UpdateSafariGameData(TVBroadcast *broadcast, Pokemon *mon);
 void sub_0206D048(TVBroadcast *broadcast, Pokemon *mon);
