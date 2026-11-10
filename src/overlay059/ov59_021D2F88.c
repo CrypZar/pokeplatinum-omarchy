@@ -136,12 +136,12 @@ static void ov59_021D30DC(const UnkStruct_ov59_021D2FBC *param0)
 static const UnkStruct_ov59_021D33FC Unk_ov59_021D33FC[] = {
     { ov59_021D2F88, ov59_021D2F94, ov59_021D2FBC },
     { ov59_021D2FD4, ov59_021D2FE0, ov59_021D300C },
-    { (UnkFuncPtr_ov59_021D33FC)ov59_021D2B4C, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D2C70, NULL },
+    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetTrainerSightingsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateFilteredTrainerSightingsBatch, NULL },
     { (UnkFuncPtr_ov59_021D33FC)ov59_021D2B54, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D2CB4, NULL },
     { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetInterviewsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateFilteredInterviewsBatch, NULL },
     { (UnkFuncPtr_ov59_021D33FC)RankingsEntries_Size, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D3088, ov59_021D3090 },
     { (UnkFuncPtr_ov59_021D33FC)WifiPlayerProfile_Size, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D30B4, ov59_021D30DC },
-    { (UnkFuncPtr_ov59_021D33FC)ov59_021D2B4C, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D2D3C, ov59_021D3028 },
+    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetTrainerSightingsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateTrainerSightingsBatch, ov59_021D3028 },
     { (UnkFuncPtr_ov59_021D33FC)ov59_021D2B54, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D2D80, ov59_021D3048 },
     { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetInterviewsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateInterviewsBatch, ov59_021D3068 }
 };
