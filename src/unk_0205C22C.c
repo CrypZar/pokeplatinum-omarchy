@@ -275,7 +275,7 @@ static void sub_0205C51C(UnkStruct_0205C22C *param0, MapObjectManager *param1)
                     continue;
                 }
 
-                sub_020656AC(v0);
+                LocalMapObj_CheckAnimationFinishedAndClear(v0);
                 MapObject_SetInteractionDisabled(v0, 0);
 
                 if ((param0->unk_0C[v1].unk_00 == 1) && (param0->unk_0C[v1].unk_09 == 0)) {
@@ -302,7 +302,7 @@ static void sub_0205C51C(UnkStruct_0205C22C *param0, MapObjectManager *param1)
             break;
         case 3:
             if (LocalMapObj_IsAnimationSet(v0) == 1) {
-                sub_020656AC(v0);
+                LocalMapObj_CheckAnimationFinishedAndClear(v0);
 
                 param0->unk_0C[v1].unk_01 = 4;
                 param0->unk_0C[v1].unk_00 = 0;

@@ -294,12 +294,12 @@ void sub_02064690(MapObject *mapObj)
         v0 = MapObject_GetFacingDir(mapObj);
         v0 = MovementAction_TurnActionTowardsDir(v0, MOVEMENT_ACTION_FACE_NORTH);
 
-        sub_02065668(mapObj, v0);
+        LocalMapObj_SetMovementActionAndResetStep(mapObj, v0);
 
         v1->unk_00++;
         break;
     case 1:
-        if (sub_020658DC(mapObj) == 0) {
+        if (LocalMapObj_UpdateMovementAction(mapObj) == 0) {
             break;
         }
 
@@ -342,12 +342,12 @@ void sub_02064690(MapObject *mapObj)
 
         v0 = MovementAction_TurnActionTowardsDir(v0, v1->unk_08);
 
-        sub_02065668(mapObj, v0);
+        LocalMapObj_SetMovementActionAndResetStep(mapObj, v0);
         sub_02062D04(mapObj);
 
         v1->unk_00++;
     case 4:
-        if (sub_020658DC(mapObj) == 0) {
+        if (LocalMapObj_UpdateMovementAction(mapObj) == 0) {
             break;
         }
 
@@ -523,7 +523,7 @@ static int sub_020649CC(MapObject *mapObj, UnkStruct_0206496C *param1)
     }
 
     v0 = MovementAction_TurnActionTowardsDir(v0, MOVEMENT_ACTION_FACE_NORTH);
-    sub_02065668(mapObj, v0);
+    LocalMapObj_SetMovementActionAndResetStep(mapObj, v0);
     param1->unk_02 = 1;
 
     return 1;
@@ -531,7 +531,7 @@ static int sub_020649CC(MapObject *mapObj, UnkStruct_0206496C *param1)
 
 static int sub_02064A00(MapObject *mapObj, UnkStruct_0206496C *param1)
 {
-    if (sub_020658DC(mapObj) == 0) {
+    if (LocalMapObj_UpdateMovementAction(mapObj) == 0) {
         return 0;
     }
 
@@ -622,7 +622,7 @@ static int sub_02064B20(MapObject *mapObj, UnkStruct_0206496C *param1)
     int v0 = MapObject_GetFacingDir(mapObj);
 
     v0 = MovementAction_TurnActionTowardsDir(v0, MOVEMENT_ACTION_FACE_NORTH);
-    sub_02065668(mapObj, v0);
+    LocalMapObj_SetMovementActionAndResetStep(mapObj, v0);
     param1->unk_02 = 1;
 
     return 1;
@@ -630,7 +630,7 @@ static int sub_02064B20(MapObject *mapObj, UnkStruct_0206496C *param1)
 
 static int sub_02064B40(MapObject *mapObj, UnkStruct_0206496C *param1)
 {
-    if (sub_020658DC(mapObj) == 0) {
+    if (LocalMapObj_UpdateMovementAction(mapObj) == 0) {
         return 0;
     }
 
@@ -783,7 +783,7 @@ static int sub_02064CA8(MapObject *mapObj, UnkStruct_02064C28 *param1)
         }
 
         v6 = MovementAction_TurnActionTowardsDir(v5, v6);
-        sub_02065668(mapObj, v6);
+        LocalMapObj_SetMovementActionAndResetStep(mapObj, v6);
 
         if (sub_0206553C(mapObj) == 1) {
             sub_02065568(mapObj, &param1->unk_04);
@@ -798,7 +798,7 @@ static int sub_02064CA8(MapObject *mapObj, UnkStruct_02064C28 *param1)
 
 static int sub_02064D68(MapObject *mapObj, UnkStruct_02064C28 *param1)
 {
-    if (sub_020658DC(mapObj) == 1) {
+    if (LocalMapObj_UpdateMovementAction(mapObj) == 1) {
         sub_02062D10(mapObj);
 
         if (sub_0206553C(mapObj) == 1) {
@@ -985,7 +985,7 @@ static int sub_02064EEC(MapObject *mapObj, UnkStruct_02064D98 *param1)
         }
 
         v10 = MovementAction_TurnActionTowardsDir(v9, v10);
-        sub_02065668(mapObj, v10);
+        LocalMapObj_SetMovementActionAndResetStep(mapObj, v10);
 
         if (sub_0206553C(mapObj) == 1) {
             sub_02065568(mapObj, &param1->unk_08);
@@ -1000,7 +1000,7 @@ static int sub_02064EEC(MapObject *mapObj, UnkStruct_02064D98 *param1)
 
 static int sub_02064FFC(MapObject *mapObj, UnkStruct_02064D98 *param1)
 {
-    if (sub_020658DC(mapObj) == 1) {
+    if (LocalMapObj_UpdateMovementAction(mapObj) == 1) {
         sub_02062D10(mapObj);
 
         if (sub_0206553C(mapObj) == 1) {
@@ -1105,7 +1105,7 @@ static int sub_02065124(MapObject *mapObj, UnkStruct_0206502C *param1)
         if (v4 != -1) {
             int v5 = MovementAction_TurnActionTowardsDir(v2, MOVEMENT_ACTION_JUMP_ON_SPOT_FAST_NORTH);
 
-            sub_02065668(mapObj, v4);
+            LocalMapObj_SetMovementActionAndResetStep(mapObj, v4);
             sub_02062D04(mapObj);
             param1->unk_00 = 1;
             return 1;
@@ -1119,7 +1119,7 @@ static int sub_02065124(MapObject *mapObj, UnkStruct_0206502C *param1)
 
 static int sub_02065188(MapObject *mapObj, UnkStruct_0206502C *param1)
 {
-    if (sub_020658DC(mapObj) == 1) {
+    if (LocalMapObj_UpdateMovementAction(mapObj) == 1) {
         sub_02062D10(mapObj);
         param1->unk_00 = 2;
     }
@@ -1194,7 +1194,7 @@ static int sub_020651A4(MapObject *mapObj, UnkStruct_0206502C *param1)
         }
 
         v10 = MovementAction_TurnActionTowardsDir(v9, v10);
-        sub_02065668(mapObj, v10);
+        LocalMapObj_SetMovementActionAndResetStep(mapObj, v10);
 
         if (sub_0206553C(mapObj) == 1) {
             sub_02065568(mapObj, &param1->unk_08);
@@ -1209,7 +1209,7 @@ static int sub_020651A4(MapObject *mapObj, UnkStruct_0206502C *param1)
 
 static int sub_020652BC(MapObject *mapObj, UnkStruct_0206502C *param1)
 {
-    if (sub_020658DC(mapObj) == 1) {
+    if (LocalMapObj_UpdateMovementAction(mapObj) == 1) {
         sub_02062D10(mapObj);
 
         if (sub_0206553C(mapObj) == 1) {
