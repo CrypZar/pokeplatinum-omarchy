@@ -47,7 +47,7 @@
 #include "sys_task.h"
 #include "sys_task_manager.h"
 #include "system.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 typedef struct MonRideTask {
     BOOL playCutIn;

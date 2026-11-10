@@ -22,7 +22,7 @@
 #include "sound_playback.h"
 #include "terrain_collision_manager.h"
 #include "unk_02056B30.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 #include "res/field/props/models/prop_models.naix"
 
