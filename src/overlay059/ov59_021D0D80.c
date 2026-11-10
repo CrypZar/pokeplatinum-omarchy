@@ -91,7 +91,7 @@ static int Overlay059_GetMessageTextSpeed(UnkStruct_020961E8 *param0);
 static void Overlay059_SetMaximumConnectionCount(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1);
 static void Overlay059_HandleParticipantLobbyInput(UnkStruct_020961E8 *param0);
-static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_InitializeParticipantLobby(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateParticipantLobby(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1D14(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
@@ -124,7 +124,7 @@ static int Overlay059_UpdateMixedRecordsSaveExitDelay(UnkStruct_020961E8 *param0
 static int Overlay059_UpdateParticipantConfirmationExitDelay(UnkStruct_020961E8 *param0, int param1);
 
 static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
-    ov59_021D17F8,
+    Overlay059_InitializeParticipantLobby,
     ov59_021D1998,
     ov59_021D19E4,
     Overlay059_UpdateParticipantLobby,
@@ -683,7 +683,7 @@ static void ov59_021D17C8(UnkStruct_020961E8 *param0)
     Window_Remove(&param0->unk_34C);
 }
 
-static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_InitializeParticipantLobby(UnkStruct_020961E8 *param0, int param1)
 {
     CommManager_SetErrorHandling(0, 1);
 
