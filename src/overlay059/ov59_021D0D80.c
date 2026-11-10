@@ -102,7 +102,7 @@ static int Overlay059_ShowParticipantConnectionPrompt(UnkStruct_020961E8 *param0
 static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ResetConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_CompleteConnectionHandshake(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1E98(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1);
@@ -132,7 +132,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_UpdateParticipantConnectionPrompt,
     Overlay059_ResetConnectionHandshakeStability,
     Overlay059_UpdateConnectionHandshakeStability,
-    ov59_021D1C14,
+    Overlay059_CompleteConnectionHandshake,
     ov59_021D1E98,
     ov59_021D1EB8,
     ov59_021D1EF4,
@@ -930,7 +930,7 @@ static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *par
     return param1;
 }
 
-static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_CompleteConnectionHandshake(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_4AB8 = 0;
 
