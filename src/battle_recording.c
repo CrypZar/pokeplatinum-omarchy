@@ -168,7 +168,7 @@ BOOL BattleRecording_IsSavedRecordingValid(SaveData *saveData, int param1, int *
     return 1;
 }
 
-int sub_0202F3AC(SaveData *saveData, BattleRecording *param1, int param2, u16 *param3)
+int BattleRecording_SaveStep(SaveData *saveData, BattleRecording *param1, int param2, u16 *param3)
 {
     int v0;
 
@@ -202,7 +202,7 @@ int sub_0202F3AC(SaveData *saveData, BattleRecording *param1, int param2, u16 *p
     return 0;
 }
 
-int sub_0202F41C(SaveData *saveData, int param1, int param2, int param3, u16 *param4, u16 *param5)
+int BattleRecording_SaveToSaveData(SaveData *saveData, int param1, int param2, int param3, u16 *param4, u16 *param5)
 {
     UnkStruct_0202F41C *v0;
     UnkStruct_0202F298 *v1;
@@ -231,7 +231,7 @@ int sub_0202F41C(SaveData *saveData, int param1, int param2, int param3, u16 *pa
         (*param4)++;
         break;
     case 1:
-        v2 = sub_0202F3AC(saveData, gBattleRecording, param3, param5);
+        v2 = BattleRecording_SaveStep(saveData, gBattleRecording, param3, param5);
         return v2;
     }
 
