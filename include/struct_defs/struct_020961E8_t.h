@@ -3,7 +3,7 @@
 
 #include <nnsys.h>
 
-#include "struct_defs/struct_0203DE34.h"
+#include "struct_defs/overlay059_app_args.h"
 #include "struct_defs/struct_020961E8_sub1.h"
 
 #include "overlay059/status_palette_animation.h"
@@ -24,7 +24,7 @@
 struct UnkStruct_020961E8_t {
     BgConfig *unk_00;
     BOOL unk_04;
-    UnkStruct_0203DE34 *unk_08;
+    Overlay059AppArgs *appArgs;
     Overlay059StatusPaletteAnimationState statusPaletteAnimation;
     SysTask *unk_20;
     StringTemplate *unk_24;

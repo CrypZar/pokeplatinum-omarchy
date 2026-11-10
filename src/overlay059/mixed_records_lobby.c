@@ -6,7 +6,7 @@
 #include "generated/trainer_score_events.h"
 
 #include "struct_decls/struct_020961E8_decl.h"
-#include "struct_defs/struct_0203DE34.h"
+#include "struct_defs/overlay059_app_args.h"
 #include "struct_defs/struct_020961E8_t.h"
 #include "struct_defs/struct_02096274.h"
 
@@ -180,8 +180,8 @@ int Overlay059_Init(ApplicationManager *appMan, int *param1)
         memset(v0, 0, sizeof(UnkStruct_020961E8));
 
         v0->unk_00 = BgConfig_New(HEAP_ID_51);
-        v0->unk_08 = (UnkStruct_0203DE34 *)ApplicationManager_Args(appMan);
-        v0->saveData = v0->unk_08->saveData;
+        v0->appArgs = (Overlay059AppArgs *)ApplicationManager_Args(appMan);
+        v0->saveData = v0->appArgs->saveData;
         v0->unk_24 = StringTemplate_Default(HEAP_ID_51);
         v0->unk_28 = MessageLoader_Init(MSG_LOADER_PRELOAD_ENTIRE_BANK, NARC_INDEX_MSGDATA__PL_MSG, TEXT_BANK_UNK_0533, HEAP_ID_51);
 
@@ -308,7 +308,7 @@ int Overlay059_Exit(ApplicationManager *appMan, int *unused)
 
     CommManager_SetMaxNumConnections(2);
     CommManager_UnionRestartSearch();
-    sub_0205C2C8(v0->unk_08->unk_04);
+    sub_0205C2C8(v0->appArgs->unk_04);
     MessageLoader_Free(v0->unk_28);
     StringTemplate_Free(v0->unk_24);
 
@@ -553,7 +553,7 @@ static void Overlay059_LoadBackgroundGraphics(UnkStruct_020961E8 *param0, NARC *
     Graphics_LoadTilemapToBgLayer(NARC_INDEX_GRAPHIC__POKETCH, 11, bgConfig, 6, 0, 0, 1, HEAP_ID_51);
     Graphics_LoadTilesToBgLayerFromOpenNARC(param1, 2, bgConfig, 1, 0, 32 * 8 * 0x20, 1, HEAP_ID_51);
     Graphics_LoadTilemapToBgLayerFromOpenNARC(param1, 3, bgConfig, 1, 0, 32 * 24 * 2, 1, HEAP_ID_51);
-    LoadMessageBoxGraphics(bgConfig, BG_LAYER_MAIN_0, 1, 10, Options_Frame(param0->unk_08->options), HEAP_ID_51);
+    LoadMessageBoxGraphics(bgConfig, BG_LAYER_MAIN_0, 1, 10, Options_Frame(param0->appArgs->options), HEAP_ID_51);
     LoadStandardWindowGraphics(bgConfig, BG_LAYER_MAIN_0, 1 + (18 + 12), 11, 0, HEAP_ID_51);
 }
 
@@ -1039,8 +1039,8 @@ static int Overlay059_BeginMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int 
 
     void *journalEntryOnlineEvent = JournalEntry_CreateEventMixedRecords(51);
 
-    JournalEntry_SaveData(param0->unk_08->journalEntry, journalEntryOnlineEvent, JOURNAL_ONLINE_EVENT);
-    GameRecords_IncrementTrainerScore(param0->unk_08->records, TRAINER_SCORE_EVENT_UNK_20);
+    JournalEntry_SaveData(param0->appArgs->journalEntry, journalEntryOnlineEvent, JOURNAL_ONLINE_EVENT);
+    GameRecords_IncrementTrainerScore(param0->appArgs->records, TRAINER_SCORE_EVENT_UNK_20);
     sub_02038ED4(&param0->mixedRecordsSaveSyncState);
 
     param0->overlayState = 28;
@@ -1053,7 +1053,7 @@ static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int
         (void)0;
     }
 
-    if (sub_02038EDC(param0->unk_08->saveData, 2, &param0->mixedRecordsSaveSyncState)) {
+    if (sub_02038EDC(param0->appArgs->saveData, 2, &param0->mixedRecordsSaveSyncState)) {
         Sound_StopEffect(1624, 8);
         Overlay059_ShowMessage(param0, 13, 0);
         Overlay059_SetMessageWaitState(param0, 29);
