@@ -19,9 +19,9 @@ int TVSegment_LoadMessage(int programTypeID, FieldSystem *fieldSystem, StringTem
 BOOL TVSegment_IsEligible(int programTypeID, FieldSystem *fieldSystem, TVEpisode *episode);
 
 void TVBroadcast_SetContestHallShowInfo(TVBroadcast *broadcast, Pokemon *mon, enum PokemonContestType contestType, enum PokemonContestRank contestRank, int contestPlacement);
-void sub_0206CF48(TVBroadcast *broadcast, Pokemon *mon, enum HeapID heapID);
-void sub_0206CF9C(TVBroadcast *broadcast, int param1);
-void sub_0206CFB4(TVBroadcast *broadcast, int param1);
+void TVBroadcast_SetAmitySquareWatchPokemon(TVBroadcast *broadcast, Pokemon *mon, enum HeapID heapID);
+void TVBroadcast_SetAmitySquareWatchAccessory(TVBroadcast *broadcast, int param1);
+void TVBroadcast_SetAmitySquareWatchItem(TVBroadcast *broadcast, int param1);
 void TVBroadcast_SetPoffinCornerData(TVBroadcast *broadcast, int param1);
 void TVBroadcast_SetBattleTowerCornerOutcome(TVBroadcast *broadcast, BOOL param1, u16 param2);
 void TVBroadcast_ResetSafariGameData(TVBroadcast *broadcast);
