@@ -424,7 +424,7 @@ static void sub_0202F860(void *param0, u32 param1, u32 param2)
     DecodeData(param0, param1, param2);
 }
 
-void sub_0202F868(int param0, int param1, u8 param2)
+void BattleRecording_WriteBattlerInputByte(int param0, int param1, u8 param2)
 {
     if (gBattleRecording == NULL) {
         return;
@@ -433,7 +433,7 @@ void sub_0202F868(int param0, int param1, u8 param2)
     gBattleRecording->unk_E8.unk_150.unk_00[param0][param1] = param2;
 }
 
-u8 sub_0202F884(int param0, int param1)
+u8 BattleRecording_ReadBattlerInputByte(int param0, int param1)
 {
     GF_ASSERT(gBattleRecording != NULL);
     return gBattleRecording->unk_E8.unk_150.unk_00[param0][param1];
