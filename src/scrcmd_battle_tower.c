@@ -283,7 +283,7 @@ BOOL ScrCmd_1E2(ScriptContext *ctx)
     u16 v0 = ScriptContext_ReadHalfWord(ctx);
 
     if (sub_0205E6D8(ctx->fieldSystem->saveData) == 1) {
-        sub_0206BD88(ctx->fieldSystem->task, destVarID, v0);
+        BattleTower_StartReceivedDataTask(ctx->fieldSystem->task, destVarID, v0);
     } else {
         battleTower->unk_8DA = v0;
         battleTower->unk_8D5 = destVarID;
