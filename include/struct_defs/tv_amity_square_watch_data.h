@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_STRUCT_0202E7E4_H
-#define POKEPLATINUM_STRUCT_0202E7E4_H
+#ifndef POKEPLATINUM_TV_AMITY_SQUARE_WATCH_DATA_H
+#define POKEPLATINUM_TV_AMITY_SQUARE_WATCH_DATA_H
 
 #include "constants/string.h"
 
@@ -19,6 +19,6 @@ typedef struct {
     u8 unk_20;
     u8 padding_21;
     u16 unk_22;
-} UnkStruct_0202E7E4;
+} TVAmitySquareWatchData;
 
 #endif // POKEPLATINUM_STRUCT_0202E7E4_H
