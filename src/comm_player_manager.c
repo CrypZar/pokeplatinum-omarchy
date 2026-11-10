@@ -1209,7 +1209,7 @@ void CommPlayer_StopSlideAnimation(int netId)
     if (sCommPlayerManager->slideAnimationDir[netId] != DIR_NONE) {
         MapObject *obj = PlayerAvatar_GetMapObject(sCommPlayerManager->playerAvatar[netId]);
 
-        sub_020656AC(obj);
+        LocalMapObj_CheckAnimationFinishedAndClear(obj);
         MapObject_SetStatusFlagOff(obj, MAP_OBJ_STATUS_LOCK_DIR);
         MapObject_SetStatusFlagOff(obj, MAP_OBJ_STATUS_PAUSE_ANIMATION);
 

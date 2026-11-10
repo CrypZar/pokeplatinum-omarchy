@@ -11,17 +11,17 @@
 
 BOOL LocalMapObj_IsAnimationSet(const MapObject *mapObj);
 void LocalMapObj_SetAnimationCode(MapObject *mapObj, enum MovementAction movementAction);
-void sub_02065668(MapObject *mapObj, enum MovementAction movementAction);
+void LocalMapObj_SetMovementActionAndResetStep(MapObject *mapObj, enum MovementAction movementAction);
 BOOL LocalMapObj_CheckAnimationFinished(const MapObject *mapObj);
-BOOL sub_020656AC(MapObject *mapObj);
-void sub_020656DC(MapObject *mapObj);
+BOOL LocalMapObj_CheckAnimationFinishedAndClear(MapObject *mapObj);
+void LocalMapObj_StopAnimation(MapObject *mapObj);
 SysTask *MapObject_StartAnimation(MapObject *mapObj, const MapObjectAnimCmd *animCmd);
 BOOL MapObject_HasAnimationEnded(SysTask *task);
 void MapObject_FinishAnimation(SysTask *task);
 enum MovementAction MovementAction_TurnActionTowardsDir(int targetDir, enum MovementAction movementAction);
 int MovementAction_GetDirFromAction(enum MovementAction movementAction);
 void MapObject_DoMovementAction(MapObject *mapObj);
-BOOL sub_020658DC(MapObject *mapObj);
+BOOL LocalMapObj_UpdateMovementAction(MapObject *mapObj);
 
 extern BOOL (*const gMovementActionFuncs_FaceNorth[])(MapObject *);
 extern BOOL (*const gMovementActionFuncs_FaceSouth[])(MapObject *);
