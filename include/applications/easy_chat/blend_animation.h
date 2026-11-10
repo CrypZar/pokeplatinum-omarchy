@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_STRUCT_OV20_021D4FF0_H
-#define POKEPLATINUM_STRUCT_OV20_021D4FF0_H
+#ifndef POKEPLATINUM_EASY_CHAT_BLEND_ANIMATION_H
+#define POKEPLATINUM_EASY_CHAT_BLEND_ANIMATION_H
 
 #include "sys_task_manager.h"
 
@@ -12,6 +12,6 @@ typedef struct {
     int unk_14;
     int unk_18;
     SysTask *unk_1C;
-} UnkStruct_ov20_021D4FF0;
+} EasyChatBlendAnimation;
 
-#endif // POKEPLATINUM_STRUCT_OV20_021D4FF0_H
+#endif // POKEPLATINUM_EASY_CHAT_BLEND_ANIMATION_H
