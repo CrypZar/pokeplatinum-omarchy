@@ -107,12 +107,12 @@ static void Overlay059_ApplyInterviewsEpisodePayload(const Overlay059MixedRecord
     TVBroadcast_MergeInterviewsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
-static void *ov59_021D3088(SaveData *saveData, enum HeapID heapID, u32 param2)
+static void *Overlay059_CreateRankingEntriesPayload(SaveData *saveData, enum HeapID heapID, u32 param2)
 {
     return SaveData_GetRankingEntries(saveData, heapID);
 }
 
-static void ov59_021D3090(const Overlay059MixedRecordsApplyContext *param0)
+static void Overlay059_ApplyReceivedRankingEntries(const Overlay059MixedRecordsApplyContext *param0)
 {
     Rankings *v0 = SaveData_GetRankings(param0->saveData);
 
@@ -139,7 +139,7 @@ static const Overlay059MixedRecordsDataAdapter Overlay059MixedRecordsDataAdapter
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredTrainerSightingsBatch, NULL },
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredRecordsBatch, NULL },
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetInterviewsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredInterviewsBatch, NULL },
-    { (Overlay059MixedRecordsPayloadSizeFunc)RankingsEntries_Size, (Overlay059MixedRecordsBuildPayloadFunc)ov59_021D3088, ov59_021D3090 },
+    { (Overlay059MixedRecordsPayloadSizeFunc)RankingsEntries_Size, (Overlay059MixedRecordsBuildPayloadFunc)Overlay059_CreateRankingEntriesPayload, Overlay059_ApplyReceivedRankingEntries },
     { (Overlay059MixedRecordsPayloadSizeFunc)WifiPlayerProfile_Size, (Overlay059MixedRecordsBuildPayloadFunc)ov59_021D30B4, ov59_021D30DC },
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateTrainerSightingsBatch, Overlay059_ApplyTrainerSightingsEpisodePayload },
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateRecordsBatch, Overlay059_ApplyRecordsEpisodePayload },
