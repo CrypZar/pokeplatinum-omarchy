@@ -64,7 +64,7 @@
 #include "overlay007/accessory_shop.h"
 #include "overlay022/ov22_02255D44.h"
 #include "overlay022/ov22_0225B660.h"
-#include "overlay058/ov58_021D0D80.h"
+#include "overlay058/drawing_app.h"
 #include "overlay059/mixed_records_lobby.h"
 #include "overlay064/ov64_0222DCE0.h"
 #include "overlay101/ov101_021D0D80.h"

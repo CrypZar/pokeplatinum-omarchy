@@ -8,7 +8,7 @@
 #include "struct_defs/struct_02095EAC_t.h"
 #include "struct_defs/struct_02095FE4.h"
 
-#include "overlay058/ov58_021D0D80.h"
+#include "overlay058/drawing_app.h"
 #include "overlay058/struct_ov58_021D2820.h"
 
 #include "bg_window.h"
