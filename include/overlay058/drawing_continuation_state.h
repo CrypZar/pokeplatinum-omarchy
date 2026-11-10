@@ -1,0 +1,10 @@
+#ifndef POKEPLATINUM_OVERLAY058_DRAWING_CONTINUATION_STATE_H
+#define POKEPLATINUM_OVERLAY058_DRAWING_CONTINUATION_STATE_H
+
+typedef struct {
+    u8 lastPointX;
+    u8 lastPointY;
+    u16 previousPointCount;
+} Overlay058DrawingContinuationState;
+
+#endif // POKEPLATINUM_OVERLAY058_DRAWING_CONTINUATION_STATE_H
