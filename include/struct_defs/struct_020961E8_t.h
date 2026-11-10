@@ -6,7 +6,7 @@
 #include "struct_defs/struct_0203DE34.h"
 #include "struct_defs/struct_020961E8_sub1.h"
 
-#include "overlay059/struct_ov59_021D109C.h"
+#include "overlay059/status_palette_animation.h"
 #include "overlay059/struct_ov59_021D30E0.h"
 
 #include "bg_window.h"
@@ -25,7 +25,7 @@ struct UnkStruct_020961E8_t {
     BgConfig *unk_00;
     BOOL unk_04;
     UnkStruct_0203DE34 *unk_08;
-    UnkStruct_ov59_021D109C unk_0C;
+    Overlay059StatusPaletteAnimationState statusPaletteAnimation;
     SysTask *unk_20;
     StringTemplate *unk_24;
     MessageLoader *unk_28;

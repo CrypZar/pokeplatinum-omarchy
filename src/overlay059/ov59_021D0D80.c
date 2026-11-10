@@ -11,7 +11,7 @@
 #include "struct_defs/struct_02096274.h"
 
 #include "overlay059/ov59_021D2F88.h"
-#include "overlay059/struct_ov59_021D109C.h"
+#include "overlay059/status_palette_animation.h"
 
 #include "appearance.h"
 #include "bg_window.h"
@@ -86,7 +86,7 @@ static void ov59_021D26E8(UnkStruct_020961E8 *param0);
 static void ov59_021D27FC(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D28A4(UnkStruct_020961E8 *param0);
 static void ov59_021D2860(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4);
-static void ov59_021D109C(SysTask *sysTask, void *param1);
+static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *param1);
 static int ov59_021D28D4(UnkStruct_020961E8 *param0);
 static void ov59_021D28D8(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1);
@@ -215,7 +215,7 @@ int ov59_021D0D80(ApplicationManager *appMan, int *param1)
         NetworkIcon_Init();
         ov59_021D30E0(v0->saveData, &v0->unk_418);
 
-        v0->unk_20 = SysTask_ExecuteOnVBlank(ov59_021D109C, v0, 5);
+        v0->unk_20 = SysTask_ExecuteOnVBlank(Overlay059_UpdateStatusPaletteAnimation, v0, 5);
 
         NARC_dtor(v1);
         (*param1)++;
@@ -332,26 +332,26 @@ static const u8 Overlay059StatusPaletteAnimationSteps[][2] = {
     { 0x0, 0xFF }
 };
 
-static void ov59_021D109C(SysTask *sysTask, void *param1)
+static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *param1)
 {
     UnkStruct_020961E8 *v0 = (UnkStruct_020961E8 *)param1;
-    UnkStruct_ov59_021D109C *v1 = &v0->unk_0C;
+    Overlay059StatusPaletteAnimationState *v1 = &v0->statusPaletteAnimation;
 
-    if (v1->unk_00) {
-        if (v1->unk_08 > Overlay059StatusPaletteAnimationSteps[v1->unk_04][0]) {
+    if (v1->isActive) {
+        if (v1->framesInCurrentStep > Overlay059StatusPaletteAnimationSteps[v1->currentStepIndex][0]) {
             u16 *v2;
 
-            v1->unk_08 = 0;
-            v1->unk_04++;
+            v1->framesInCurrentStep = 0;
+            v1->currentStepIndex++;
 
-            if (Overlay059StatusPaletteAnimationSteps[v1->unk_04][1] == 0xff) {
-                v1->unk_04 = 0;
+            if (Overlay059StatusPaletteAnimationSteps[v1->currentStepIndex][1] == 0xff) {
+                v1->currentStepIndex = 0;
             }
 
-            v2 = (u16 *)v1->unk_10->pRawData;
-            GX_LoadOBJPltt(&v2[16 * Overlay059StatusPaletteAnimationSteps[v1->unk_04][1]], 0, 32);
+            v2 = (u16 *)v1->paletteData->pRawData;
+            GX_LoadOBJPltt(&v2[16 * Overlay059StatusPaletteAnimationSteps[v1->currentStepIndex][1]], 0, 32);
         } else {
-            v0->unk_0C.unk_08++;
+            v0->statusPaletteAnimation.framesInCurrentStep++;
         }
 
         ov59_021D23B0(&v0->unk_408);
@@ -507,10 +507,10 @@ static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1)
     ov59_021D27FC(param0, param1);
 
     param0->unk_40C = sub_0205CA4C(HEAP_ID_51);
-    param0->unk_0C.unk_00 = 0;
-    param0->unk_0C.unk_08 = 0;
-    param0->unk_0C.unk_04 = 0;
-    param0->unk_0C.unk_0C = Graphics_GetPlttDataFromOpenNARC(param1, 1, &param0->unk_0C.unk_10, HEAP_ID_51);
+    param0->statusPaletteAnimation.isActive = 0;
+    param0->statusPaletteAnimation.framesInCurrentStep = 0;
+    param0->statusPaletteAnimation.currentStepIndex = 0;
+    param0->statusPaletteAnimation.paletteDataBuffer = Graphics_GetPlttDataFromOpenNARC(param1, 1, &param0->statusPaletteAnimation.paletteData, HEAP_ID_51);
     param0->unk_4AA8 = 0;
     param0->unk_384 = NULL;
     param0->unk_4AAC = 2;
@@ -520,7 +520,7 @@ static void ov59_021D131C(UnkStruct_020961E8 *param0)
 {
     ov59_021D28A4(param0);
 
-    Heap_Free(param0->unk_0C.unk_0C);
+    Heap_Free(param0->statusPaletteAnimation.paletteDataBuffer);
     Heap_Free(param0->unk_40C);
 
     for (int i = 0; i < 5; i++) {
@@ -1004,7 +1004,7 @@ void Overlay059_ShowMixedRecordsExchangeStatus(UnkStruct_020961E8 *param0)
     ov59_021D1784(&param0->unk_36C, param0->unk_48, TEXT_SPEED_INSTANT);
     Sprite_SetAnim(param0->unk_28C[0], 37);
 
-    param0->unk_0C.unk_00 = 1;
+    param0->statusPaletteAnimation.isActive = 1;
 }
 
 static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1)
@@ -1059,7 +1059,7 @@ static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int
         Overlay059_SetMessageWaitState(param0, 29);
         Sprite_SetAnim(param0->unk_28C[0], 0);
 
-        param0->unk_0C.unk_00 = 0;
+        param0->statusPaletteAnimation.isActive = 0;
         param0->stateTimer = 0;
         gSystem.inhibitReset = 0;
         param0->unk_4AA4 = 0;
