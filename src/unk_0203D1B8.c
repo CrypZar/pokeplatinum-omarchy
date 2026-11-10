@@ -17,7 +17,7 @@
 #include "struct_defs/hall_of_fame_display_data.h"
 #include "struct_defs/image_clips.h"
 #include "struct_defs/struct_0203DA00.h"
-#include "struct_defs/struct_0203DDFC.h"
+#include "struct_defs/overlay058_drawing_app_args.h"
 #include "struct_defs/overlay059_app_args.h"
 #include "struct_defs/struct_0203E348.h"
 #include "struct_defs/struct_0203E6C0.h"
@@ -1064,7 +1064,7 @@ void sub_0203DDDC(FieldTask *taskMan)
     FieldTask_InitCall(taskMan, sub_0203DBF0, v0);
 }
 
-const ApplicationManagerTemplate Unk_020EA258 = {
+const ApplicationManagerTemplate gOverlay058AppTemplate = {
     Overlay058_Init,
     Overlay058_Main,
     Overlay058_Exit,
@@ -1078,15 +1078,15 @@ const ApplicationManagerTemplate gOverlay059AppTemplate = {
     FS_OVERLAY_ID(overlay59)
 };
 
-void sub_0203DDFC(FieldSystem *fieldSystem)
+void FieldSystem_OpenDrawingApp(FieldSystem *fieldSystem)
 {
-    UnkStruct_0203DDFC *v0 = Heap_Alloc(HEAP_ID_FIELD3, sizeof(UnkStruct_0203DDFC));
+    Overlay058DrawingAppArgs *v0 = Heap_Alloc(HEAP_ID_FIELD3, sizeof(Overlay058DrawingAppArgs));
 
     v0->unk_00 = fieldSystem->unk_80;
     v0->unk_04 = fieldSystem->journalEntry;
     v0->options = SaveData_GetOptions(fieldSystem->saveData);
 
-    FieldSystem_StartChildProcess(fieldSystem, &Unk_020EA258, v0);
+    FieldSystem_StartChildProcess(fieldSystem, &gOverlay058AppTemplate, v0);
 }
 
 void *FieldSystem_OpenMixedRecordsLobby(FieldSystem *fieldSystem)
