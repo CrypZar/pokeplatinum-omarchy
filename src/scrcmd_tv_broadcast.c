@@ -37,7 +37,7 @@
 #include "string_template.h"
 #include "tv_segment.h"
 #include "unk_020298BC.h"
-#include "unk_0202E2CC.h"
+#include "tv_broadcast.h"
 #include "unk_02054884.h"
 
 #include "res/text/bank/tv_reporter_interviews.h"
