@@ -22,7 +22,7 @@
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/tv_battle_points_news_data.h"
-#include "struct_defs/struct_0202E834.h"
+#include "struct_defs/tv_global_trade_news_data.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
 #include "applications/poketch/poketch_system.h"
@@ -228,7 +228,7 @@ typedef struct TVSegment_BattlePointScoringMaster {
 } TVSegment_BattlePointScoringMaster;
 
 typedef struct TVSegment_GTSMaster {
-    TVBroadcast_GTSData data;
+    TVGlobalTradeNewsData data;
 } TVSegment_GTSMaster;
 
 typedef struct TVSegment_BattleTowerCorner {
@@ -670,7 +670,7 @@ void TVBroadcast_ResetBattlePointData(TVBroadcast *broadcast)
 
 void TVBroadcast_UpdateGTSData(TVBroadcast *broadcast)
 {
-    TVBroadcast_GTSData *data = TVBroadcast_GetGTSData(broadcast);
+    TVGlobalTradeNewsData *data = TVBroadcast_GetGTSData(broadcast);
 
     data->dummy = 1;
     data->tradedCount++;
@@ -684,7 +684,7 @@ void TVBroadcast_UpdateGTSData(TVBroadcast *broadcast)
 
 void TVBroadcast_ResetGTSData(TVBroadcast *broadcast)
 {
-    TVBroadcast_GTSData *data = TVBroadcast_GetGTSData(broadcast);
+    TVGlobalTradeNewsData *data = TVBroadcast_GetGTSData(broadcast);
 
     data->tradedCount = 0;
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
@@ -1597,7 +1597,7 @@ void TVSegment_Save_GTSMaster(SaveData *saveData)
 {
     TVSegmentData segments;
     TVSegment_GTSMaster *segment = &segments.gtsMaster;
-    TVBroadcast_GTSData *data = TVBroadcast_GetGTSData(SaveData_GetTVBroadcast(saveData));
+    TVGlobalTradeNewsData *data = TVBroadcast_GetGTSData(SaveData_GetTVBroadcast(saveData));
 
     if (data->tradedCount >= 10) {
         segment->data = *data;
