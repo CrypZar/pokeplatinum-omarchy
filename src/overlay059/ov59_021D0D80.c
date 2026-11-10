@@ -110,8 +110,8 @@ static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *pa
 static int Overlay059_ShowParticipantConfirmationMessage(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_StartExitSynchronization(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ShowSingleParticipantMessage(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_WaitForSingleParticipantMessage(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_PrepareParticipantWait(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1);
@@ -141,8 +141,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_UpdateParticipantConfirmationExitDelay,
     Overlay059_StartExitSynchronization,
     Overlay059_UpdateExitSynchronization,
-    ov59_021D20A4,
-    ov59_021D20D0,
+    Overlay059_ShowSingleParticipantMessage,
+    Overlay059_WaitForSingleParticipantMessage,
     Overlay059_PrepareParticipantWait,
     ov59_021D2154,
     ov59_021D2190,
@@ -1192,7 +1192,7 @@ static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int 
     return param1;
 }
 
-static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ShowSingleParticipantMessage(UnkStruct_020961E8 *param0, int param1)
 {
     if (Overlay059_IsMessagePrinterDone(param0->unk_4C)) {
         Overlay059_ShowMessage(param0, 9, 0);
@@ -1204,7 +1204,7 @@ static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_WaitForSingleParticipantMessage(UnkStruct_020961E8 *param0, int param1)
 {
     if (Overlay059_IsMessagePrinterDone(param0->unk_4C)) {
         param0->overlayState = 10;
