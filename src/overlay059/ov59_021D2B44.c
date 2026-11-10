@@ -145,7 +145,7 @@ static BOOL TVWifiEpisode_IsSegmentIdAllowed(int param0, int param1)
     return 0;
 }
 
-static void ov59_021D2B90(SaveData *saveData, TVWifiEpisode *param1, TVSegmentInstance *param2, int param3, int param4, int param5)
+static void TVWifiEpisode_BuildFromSegmentInstances(SaveData *saveData, TVWifiEpisode *param1, TVSegmentInstance *param2, int param3, int param4, int param5)
 {
     int v0;
     TrainerInfo *v1 = SaveData_GetTrainerInfo(saveData);
@@ -175,7 +175,7 @@ TVWifiEpisode *ov59_021D2C28(SaveData *saveData, enum HeapID heapID, u32 param2)
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
     GF_ASSERT(param2 == ov59_021D2B44(saveData));
-    ov59_021D2B90(saveData, v0, broadcast->unk_17C, 4, 1, 3);
+    TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_17C, 4, 1, 3);
 
     return v0;
 }
@@ -186,7 +186,7 @@ TVWifiEpisode *ov59_021D2C70(SaveData *saveData, enum HeapID heapID, u32 param2)
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
     GF_ASSERT(param2 == ov59_021D2B4C(saveData));
-    ov59_021D2B90(saveData, v0, broadcast->unk_0C, 4, 1, 4);
+    TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_0C, 4, 1, 4);
 
     return v0;
 }
@@ -197,7 +197,7 @@ TVWifiEpisode *ov59_021D2CB4(SaveData *saveData, enum HeapID heapID, u32 param2)
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
     GF_ASSERT(param2 == ov59_021D2B54(saveData));
-    ov59_021D2B90(saveData, v0, broadcast->unk_C4, 4, 1, 5);
+    TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_C4, 4, 1, 5);
 
     return v0;
 }
@@ -208,7 +208,7 @@ TVWifiEpisode *ov59_021D2CF8(SaveData *saveData, enum HeapID heapID, u32 param2)
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
     GF_ASSERT(param2 == ov59_021D2B44(saveData));
-    ov59_021D2B90(saveData, v0, broadcast->unk_17C, 4, 0, 0);
+    TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_17C, 4, 0, 0);
 
     return v0;
 }
@@ -219,7 +219,7 @@ TVWifiEpisode *ov59_021D2D3C(SaveData *saveData, enum HeapID heapID, u32 param2)
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
     GF_ASSERT(param2 == ov59_021D2B4C(saveData));
-    ov59_021D2B90(saveData, v0, broadcast->unk_0C, 4, 0, 1);
+    TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_0C, 4, 0, 1);
 
     return v0;
 }
@@ -230,7 +230,7 @@ TVWifiEpisode *ov59_021D2D80(SaveData *saveData, enum HeapID heapID, u32 param2)
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
     GF_ASSERT(param2 == ov59_021D2B54(saveData));
-    ov59_021D2B90(saveData, v0, broadcast->unk_C4, 4, 0, 2);
+    TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_C4, 4, 0, 2);
 
     return v0;
 }
