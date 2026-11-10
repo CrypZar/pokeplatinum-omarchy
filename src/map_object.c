@@ -2144,7 +2144,7 @@ void MapObject_SetSpriteTerrainOffset(MapObject *mapObj, const VecFx32 *spriteOf
     mapObj->spriteTerrainOffset = *spriteOffset;
 }
 
-int sub_020630DC(const MapObject *mapObj)
+int MapObject_GetHeightLevel(const MapObject *mapObj)
 {
     fx32 v0 = MapObject_GetPosY(mapObj);
     int v1 = ((v0) >> 3) / FX32_ONE;

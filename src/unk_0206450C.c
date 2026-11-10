@@ -1304,8 +1304,8 @@ static int sub_0206537C(MapObject *mapObj)
 
         {
             const MapObject *v5 = PlayerAvatar_GetMapObject(playerAvatar);
-            int v6 = sub_020630DC(v5);
-            int v7 = sub_020630DC(mapObj);
+            int v6 = MapObject_GetHeightLevel(v5);
+            int v7 = MapObject_GetHeightLevel(mapObj);
 
             if (v6 != v7) {
                 return -1;
