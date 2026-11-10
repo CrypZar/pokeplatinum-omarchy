@@ -5,20 +5,20 @@
 
 #include "record_mixed_rng.h"
 
-static void ov59_021D2A78(RecordMixedRNG *param0, int param1);
-static void ov59_021D2A34(RecordMixedRNG *param0, const RecordMixedRNG *param1);
+static void RecordMixedRNG_RemoveQueueEntry(RecordMixedRNG *param0, int param1);
+static void RecordMixedRNG_PushQueueEntry(RecordMixedRNG *param0, const RecordMixedRNG *param1);
 
-u32 ov59_021D2A2C(RecordMixedRNG *param0)
+u32 RecordMixedRNG_GetEntrySize(RecordMixedRNG *param0)
 {
     return sizeof(RecordMixedRNG);
 }
 
-void *ov59_021D2A30(RecordMixedRNG *param0)
+void *RecordMixedRNG_GetPlayerOverrideEntry(RecordMixedRNG *param0)
 {
     return &param0[1];
 }
 
-static void ov59_021D2A34(RecordMixedRNG *param0, const RecordMixedRNG *param1)
+static void RecordMixedRNG_PushQueueEntry(RecordMixedRNG *param0, const RecordMixedRNG *param1)
 {
     int v0;
 
@@ -29,7 +29,7 @@ static void ov59_021D2A34(RecordMixedRNG *param0, const RecordMixedRNG *param1)
     param0[2] = *param1;
 }
 
-static void ov59_021D2A78(RecordMixedRNG *param0, int param1)
+static void RecordMixedRNG_RemoveQueueEntry(RecordMixedRNG *param0, int param1)
 {
     int v0;
     RecordMixedRNG *v1;
@@ -46,7 +46,7 @@ static void ov59_021D2A78(RecordMixedRNG *param0, int param1)
     v1->playerName[0] = 0xffff;
 }
 
-void ov59_021D2AC4(int param0, int param1, RecordMixedRNG *param2, const void **param3)
+void RecordMixedRNG_MergeReceivedQueueEntries(int param0, int param1, RecordMixedRNG *param2, const void **param3)
 {
     int v0, v1;
     RecordMixedRNG *v2;
@@ -72,10 +72,10 @@ void ov59_021D2AC4(int param0, int param1, RecordMixedRNG *param2, const void **
 
         for (v1 = 0; v1 < 4; v1++) {
             if (RecordMixedRNG_AreEntriesEqual(v2, &param2[2 + v1])) {
-                ov59_021D2A78(param2, 2 + v1);
+                RecordMixedRNG_RemoveQueueEntry(param2, 2 + v1);
             }
         }
 
-        ov59_021D2A34(param2, v2);
+        RecordMixedRNG_PushQueueEntry(param2, v2);
     }
 }
