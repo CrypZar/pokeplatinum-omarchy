@@ -1,7 +1,7 @@
 #ifndef POKEPLATINUM_EVOLUTION_H
 #define POKEPLATINUM_EVOLUTION_H
 
-#include "struct_defs/struct_0207C8C4.h"
+#include "struct_defs/evolution_particle_system.h"
 
 #include "applications/pokemon_summary_screen/main.h"
 
@@ -31,7 +31,7 @@ typedef struct EvolutionData {
     Party *party;
     Pokemon *mon;
     Options *options;
-    UnkStruct_0207C8C4 *unk_30;
+    EvolutionParticleSystem *unk_30;
     G3DPipelineBuffers *pipelineBuffers;
     ApplicationManager *summaryScreenAppMan;
     PokemonSummary *monSummary;
