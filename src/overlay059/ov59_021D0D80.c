@@ -107,7 +107,7 @@ static int ov59_021D1E98(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ShowParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ShowParticipantConfirmationMessage(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_StartExitSynchronization(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1);
@@ -137,7 +137,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1EB8,
     Overlay059_ShowParticipantConfirmationPrompt,
     Overlay059_UpdateParticipantConfirmationPrompt,
-    ov59_021D1FD0,
+    Overlay059_ShowParticipantConfirmationMessage,
     Overlay059_UpdateParticipantConfirmationExitDelay,
     Overlay059_StartExitSynchronization,
     Overlay059_UpdateExitSynchronization,
@@ -1141,7 +1141,7 @@ static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *pa
     return param1;
 }
 
-static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ShowParticipantConfirmationMessage(UnkStruct_020961E8 *param0, int param1)
 {
     if (CommSys_CurNetId() == 0) {
         ov59_021D2628(param0, 5, 0);
