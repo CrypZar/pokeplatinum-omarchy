@@ -387,7 +387,7 @@ static BOOL ScrCmd_OpenPokemonStorage(ScriptContext *ctx);
 static BOOL ScrCmd_0AC(ScriptContext *ctx);
 static BOOL ScrCmd_OpenUnionRoomTrainerCase(ScriptContext *ctx);
 static BOOL ScrCmd_0AE(ScriptContext *ctx);
-static BOOL ScrCmd_0AF(ScriptContext *ctx);
+static BOOL ScrCmd_OpenMixedRecordsLobby(ScriptContext *ctx);
 static BOOL ScrCmd_ClearGame(ScriptContext *ctx);
 static BOOL ScrCmd_OpenPCHallOfFameScreen(ScriptContext *ctx);
 static BOOL ScrCmd_CheckIsHallOfFameCorrupted(ScriptContext *ctx);
@@ -3324,11 +3324,11 @@ static BOOL ScrCmd_0AE(ScriptContext *ctx)
     return TRUE;
 }
 
-static BOOL ScrCmd_0AF(ScriptContext *ctx)
+static BOOL ScrCmd_OpenMixedRecordsLobby(ScriptContext *ctx)
 {
     void **v0 = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_PARTY_MANAGEMENT_DATA);
 
-    *v0 = sub_0203DE34(ctx->fieldSystem);
+    *v0 = FieldSystem_OpenMixedRecordsLobby(ctx->fieldSystem);
     ScriptContext_Pause(ctx, sub_02041CC8);
 
     return TRUE;
