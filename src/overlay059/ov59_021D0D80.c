@@ -70,7 +70,7 @@ static void Overlay059_InitializeSpriteRendering(UnkStruct_020961E8 *param0, NAR
 static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0);
 static void Overlay059_InitializeLobbyWindows(UnkStruct_020961E8 *param0, ApplicationManager *appMan);
 static void Overlay059_RemoveLobbyWindows(UnkStruct_020961E8 *param0);
-static void ov59_021D1994(UnkStruct_020961E8 *unused);
+static void Overlay059_NoOpStateHook(UnkStruct_020961E8 *unused);
 static void Overlay059_UpdateStatusPulsePalette(u16 *param0);
 static BOOL Overlay059_UpdateParticipantRosterWindow(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3);
 static BOOL Overlay059_RefreshParticipantRosterSnapshots(UnkStruct_020961E8 *param0);
@@ -79,7 +79,7 @@ static int Overlay059_IsMessagePrinterDone(int param0);
 static void Overlay059_ClearMessageBox(UnkStruct_020961E8 *param0);
 static int Overlay059_CountParticipantsWithTrainerInfo(void);
 static int ov59_021D2528(void);
-static void ov59_021D2524(UnkStruct_020961E8 *unused);
+static void Overlay059_NoOpLobbyUpdateHook(UnkStruct_020961E8 *unused);
 static void Overlay059_PrintCenteredWindowText(Window *param0, String *param1, int param2);
 static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param1);
 static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0);
@@ -706,10 +706,10 @@ static int Overlay059_UpdateParticipantLobby(UnkStruct_020961E8 *param0, int par
 
     if (CommSys_CurNetId() == 0) {
         if (Overlay059_CountParticipantsWithTrainerInfo() != 1) {
-            ov59_021D2524(param0);
+            Overlay059_NoOpLobbyUpdateHook(param0);
         }
     } else {
-        ov59_021D2524(param0);
+        Overlay059_NoOpLobbyUpdateHook(param0);
     }
 
     return param1;
@@ -763,14 +763,14 @@ static void Overlay059_HandleParticipantLobbyInput(UnkStruct_020961E8 *param0)
     }
 }
 
-static void ov59_021D1994(UnkStruct_020961E8 *unused)
+static void Overlay059_NoOpStateHook(UnkStruct_020961E8 *unused)
 {
 }
 
 static int Overlay059_WaitAfterParticipantJoin(UnkStruct_020961E8 *param0, int param1)
 {
     Overlay059_SetMessageWaitState(param0, 2);
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -787,7 +787,7 @@ static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int par
         param0->overlayState = param0->stateAfterMessage;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -801,7 +801,7 @@ static int Overlay059_ResumeParticipantLobby(UnkStruct_020961E8 *param0, int par
     }
 
     param0->overlayState = 3;
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -821,7 +821,7 @@ static int Overlay059_ShowParticipantConnectionPrompt(UnkStruct_020961E8 *param0
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 5;
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -834,7 +834,7 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
                 Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
             }
 
-            ov59_021D1994(param0);
+            Overlay059_NoOpStateHook(param0);
             return param1;
         }
     } else {
@@ -843,13 +843,13 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
                 Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
             }
 
-            ov59_021D1994(param0);
+            Overlay059_NoOpStateHook(param0);
             return param1;
         }
     }
 
     if (ov59_021D2528() != CommSys_ConnectedCount()) {
-        ov59_021D1994(param0);
+        Overlay059_NoOpStateHook(param0);
         return param1;
     }
 
@@ -888,7 +888,7 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
         param0->unk_384 = NULL;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -896,7 +896,7 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
 static int Overlay059_ResetConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_4AC2 = 0;
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -906,7 +906,7 @@ static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *par
     if ((param0->unk_4AC0 != CommSys_ConnectedCount()) || (param0->unk_4AC0 != ov59_021D2528())) {
         param0->unk_4AC2 = 0;
         param0->overlayState = 8;
-        ov59_021D1994(param0);
+        Overlay059_NoOpStateHook(param0);
         return param1;
     }
 
@@ -926,7 +926,7 @@ static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *par
         param0->overlayState = 9;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -935,7 +935,7 @@ static int Overlay059_CompleteConnectionHandshake(UnkStruct_020961E8 *param0, in
     param0->unk_4AB8 = 0;
 
     Overlay059_SetMessageWaitState(param0, 0);
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -945,7 +945,7 @@ static int Overlay059_ShowMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *pa
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 23;
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -957,7 +957,7 @@ static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *
             Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
         }
 
-        ov59_021D1994(param0);
+        Overlay059_NoOpStateHook(param0);
         return param1;
     }
 
@@ -982,7 +982,7 @@ static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *
         param0->unk_384 = NULL;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1081,7 +1081,7 @@ static int Overlay059_ShowPostHandshakeMessage(UnkStruct_020961E8 *param0, const
 {
     Overlay059_ShowMessage(param0, 5, 0);
     Overlay059_SetMessageWaitState(param0, 10);
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1093,7 +1093,7 @@ static int Overlay059_UpdatePostHandshakeExit(UnkStruct_020961E8 *param0, int pa
         param1 = 3;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1102,7 +1102,7 @@ static int Overlay059_ShowParticipantConfirmationPrompt(UnkStruct_020961E8 *para
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 12;
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1114,7 +1114,7 @@ static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *pa
             Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
         }
 
-        ov59_021D1994(param0);
+        Overlay059_NoOpStateHook(param0);
         return param1;
     }
 
@@ -1137,7 +1137,7 @@ static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *pa
         param0->unk_384 = NULL;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1153,7 +1153,7 @@ static int Overlay059_ShowParticipantConfirmationMessage(UnkStruct_020961E8 *par
     Overlay059_SetMessageWaitState(param0, 14);
     param0->stateTimer = 0;
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1166,7 +1166,7 @@ static int Overlay059_UpdateParticipantConfirmationExitDelay(UnkStruct_020961E8 
         param0->overlayState = 15;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1174,7 +1174,7 @@ static int Overlay059_StartExitSynchronization(UnkStruct_020961E8 *param0, int p
 {
     CommTiming_StartSync(201);
     param0->overlayState = 16;
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1188,7 +1188,7 @@ static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int 
         param1 = 3;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1199,7 +1199,7 @@ static int Overlay059_ShowSingleParticipantMessage(UnkStruct_020961E8 *param0, i
     }
 
     param0->overlayState = 18;
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1210,7 +1210,7 @@ static int Overlay059_WaitForSingleParticipantMessage(UnkStruct_020961E8 *param0
         param0->overlayState = 10;
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1230,7 +1230,7 @@ static int Overlay059_PrepareParticipantWait(UnkStruct_020961E8 *param0, int par
     param0->unk_4ABC = CommSys_ConnectedCount();
     param0->unk_4AC4 = (10 * 30);
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
 
     return param1;
 }
@@ -1244,7 +1244,7 @@ static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1)
     param0->overlayState = 21;
     param0->stateTimer = 0;
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1268,7 +1268,7 @@ static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1)
         }
     }
 
-    ov59_021D1994(param0);
+    Overlay059_NoOpStateHook(param0);
     return param1;
 }
 
@@ -1437,7 +1437,7 @@ static BOOL Overlay059_UpdateParticipantRosterWindow(Window *param0, int unused,
     return 1;
 }
 
-static void ov59_021D2524(UnkStruct_020961E8 *unused)
+static void Overlay059_NoOpLobbyUpdateHook(UnkStruct_020961E8 *unused)
 {
 }
 
