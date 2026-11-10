@@ -81,7 +81,7 @@ static int ov59_021D23FC(void);
 static int ov59_021D2528(void);
 static void ov59_021D2524(UnkStruct_020961E8 *unused);
 static void ov59_021D1784(Window *param0, String *param1, int param2);
-static void ov59_021D19B0(UnkStruct_020961E8 *param0, int param1);
+static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param1);
 static void ov59_021D26E8(UnkStruct_020961E8 *param0);
 static void ov59_021D27FC(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D28A4(UnkStruct_020961E8 *param0);
@@ -112,7 +112,7 @@ static int ov59_021D2044(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2064(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D19C0(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1);
@@ -123,7 +123,7 @@ static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1E7C(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1);
 
-static int (*Unk_ov59_021D3480[])(UnkStruct_020961E8 *, int) = {
+static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D17F8,
     ov59_021D1998,
     ov59_021D19E4,
@@ -154,7 +154,7 @@ static int (*Unk_ov59_021D3480[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1DC8,
     ov59_021D1E0C,
     ov59_021D1E7C,
-    ov59_021D19C0,
+    Overlay059_UpdateMessageWaitState,
 };
 
 int ov59_021D0D80(ApplicationManager *appMan, int *param1)
@@ -251,8 +251,8 @@ int ov59_021D0F00(ApplicationManager *appMan, int *param1)
         }
         break;
     case 1:
-        if (Unk_ov59_021D3480[v0->unk_3A8] != NULL) {
-            *param1 = (*Unk_ov59_021D3480[v0->unk_3A8])(v0, *param1);
+        if (Overlay059StateHandlers[v0->overlayState] != NULL) {
+            *param1 = (*Overlay059StateHandlers[v0->overlayState])(v0, *param1);
         }
 
         if (v0->unk_4AA4 == 0) {
@@ -270,8 +270,8 @@ int ov59_021D0F00(ApplicationManager *appMan, int *param1)
         }
         break;
     case 2:
-        if (Unk_ov59_021D3480[v0->unk_3A8] != NULL) {
-            *param1 = (*Unk_ov59_021D3480[v0->unk_3A8])(v0, *param1);
+        if (Overlay059StateHandlers[v0->overlayState] != NULL) {
+            *param1 = (*Overlay059StateHandlers[v0->overlayState])(v0, *param1);
         }
         break;
     case 3:
@@ -501,7 +501,7 @@ static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1)
 
     param0->unk_44 = String_Init(90 * 2, HEAP_ID_51);
     param0->unk_48 = String_Init(20 * 2, HEAP_ID_51);
-    param0->unk_3A8 = 0;
+    param0->overlayState = 0;
 
     MessageLoader_GetString(param0->unk_28, 17, param0->unk_48);
     ov59_021D27FC(param0, param1);
@@ -695,7 +695,7 @@ static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1)
         ov59_021D2628(param0, 8, 0);
     }
 
-    ov59_021D19B0(param0, 3);
+    Overlay059_SetMessageWaitState(param0, 3);
 
     return param1;
 }
@@ -723,7 +723,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
                 u8 v0 = 1;
 
                 ov59_021D2628(param0, 3, 0);
-                ov59_021D19B0(param0, 22);
+                Overlay059_SetMessageWaitState(param0, 22);
 
                 CommSys_SendData(117, &v0, 1);
 
@@ -736,7 +736,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
         if (CommSys_CurNetId()) {
             if (param0->unk_4AA0 == 0) {
                 ov59_021D2628(param0, 4, 0);
-                ov59_021D19B0(param0, 4);
+                Overlay059_SetMessageWaitState(param0, 4);
             } else {
                 Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
             }
@@ -745,7 +745,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
                 u8 v1 = 1;
 
                 ov59_021D2628(param0, 4, 0);
-                ov59_021D19B0(param0, 4);
+                Overlay059_SetMessageWaitState(param0, 4);
                 CommSys_SendData(117, &v1, 1);
                 ov59_021D28D8(param0, 0);
             } else {
@@ -769,22 +769,22 @@ static void ov59_021D1994(UnkStruct_020961E8 *unused)
 
 static int ov59_021D1998(UnkStruct_020961E8 *param0, int param1)
 {
-    ov59_021D19B0(param0, 2);
+    Overlay059_SetMessageWaitState(param0, 2);
     ov59_021D1994(param0);
 
     return param1;
 }
 
-static void ov59_021D19B0(UnkStruct_020961E8 *param0, int param1)
+static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param1)
 {
-    param0->unk_3A8 = 30;
-    param0->unk_3AC = param1;
+    param0->overlayState = 30;
+    param0->stateAfterMessage = param1;
 }
 
-static int ov59_021D19C0(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int param1)
 {
     if (ov59_021D26B8(param0->unk_4C)) {
-        param0->unk_3A8 = param0->unk_3AC;
+        param0->overlayState = param0->stateAfterMessage;
     }
 
     ov59_021D1994(param0);
@@ -800,7 +800,7 @@ static int ov59_021D19E4(UnkStruct_020961E8 *param0, int param1)
         CommSys_SendData(117, &v0, 1);
     }
 
-    param0->unk_3A8 = 3;
+    param0->overlayState = 3;
     ov59_021D1994(param0);
 
     return param1;
@@ -819,7 +819,7 @@ static const WindowTemplate Unk_ov59_021D3288 = {
 static int ov59_021D1A14(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
-    param0->unk_3A8 = 5;
+    param0->overlayState = 5;
 
     ov59_021D1994(param0);
 
@@ -864,10 +864,10 @@ static int ov59_021D1A44(UnkStruct_020961E8 *param0, int param1)
                 ov59_021D28D8(param0, 1);
             }
 
-            ov59_021D19B0(param0, 0);
+            Overlay059_SetMessageWaitState(param0, 0);
         } else {
             if (CommSys_CurNetId() == 0) {
-                ov59_021D19B0(param0, 11);
+                Overlay059_SetMessageWaitState(param0, 11);
                 ov59_021D2628(param0, 14, 0);
             } else {
                 UnkStruct_02096274 v3;
@@ -879,7 +879,7 @@ static int ov59_021D1A44(UnkStruct_020961E8 *param0, int param1)
 
                 param0->unk_4AB8 = 1;
                 param0->unk_4AC2 = 0;
-                param0->unk_3A8 = 6;
+                param0->overlayState = 6;
 
                 CommSys_SendData(112, &v3, sizeof(UnkStruct_02096274));
             }
@@ -905,7 +905,7 @@ static int ov59_021D1B8C(UnkStruct_020961E8 *param0, int param1)
 {
     if ((param0->unk_4AC0 != CommSys_ConnectedCount()) || (param0->unk_4AC0 != ov59_021D2528())) {
         param0->unk_4AC2 = 0;
-        param0->unk_3A8 = 8;
+        param0->overlayState = 8;
         ov59_021D1994(param0);
         return param1;
     }
@@ -923,7 +923,7 @@ static int ov59_021D1B8C(UnkStruct_020961E8 *param0, int param1)
         CommSys_SendData(112, &v0, sizeof(UnkStruct_02096274));
 
         param0->unk_4AC2 = 0;
-        param0->unk_3A8 = 9;
+        param0->overlayState = 9;
     }
 
     ov59_021D1994(param0);
@@ -934,7 +934,7 @@ static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_4AB8 = 0;
 
-    ov59_021D19B0(param0, 0);
+    Overlay059_SetMessageWaitState(param0, 0);
     ov59_021D1994(param0);
 
     return param1;
@@ -943,7 +943,7 @@ static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1)
 static int ov59_021D1C34(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
-    param0->unk_3A8 = 23;
+    param0->overlayState = 23;
 
     ov59_021D1994(param0);
 
@@ -969,10 +969,10 @@ static int ov59_021D1C64(UnkStruct_020961E8 *param0, int param1)
 
             CommSys_SendData(117, &v2, 1);
             ov59_021D28D8(param0, 1);
-            ov59_021D19B0(param0, 0);
+            Overlay059_SetMessageWaitState(param0, 0);
         } else {
             if (CommSys_CurNetId() == 0) {
-                param0->unk_3A8 = 24;
+                param0->overlayState = 24;
                 param0->unk_4ABA = ov59_021D2528();
             } else {
                 GF_ASSERT(FALSE);
@@ -1014,7 +1014,7 @@ static int ov59_021D1D70(UnkStruct_020961E8 *param0, int param1)
     }
 
     if (CommSys_ConnectedCount() == param0->unk_4A98) {
-        param0->unk_3A8 = 26;
+        param0->overlayState = 26;
 
         for (int i = 0; i < 5; i++) {
             (void)0;
@@ -1028,7 +1028,7 @@ static int ov59_021D1DA0(UnkStruct_020961E8 *param0, int param1)
 {
     ov59_021D313C(param0->saveData, param0->unk_FD8);
 
-    param0->unk_3A8 = 27;
+    param0->overlayState = 27;
 
     return param1;
 }
@@ -1043,7 +1043,7 @@ static int ov59_021D1DC8(UnkStruct_020961E8 *param0, int param1)
     GameRecords_IncrementTrainerScore(param0->unk_08->records, TRAINER_SCORE_EVENT_UNK_20);
     sub_02038ED4(&param0->unk_404);
 
-    param0->unk_3A8 = 28;
+    param0->overlayState = 28;
     return param1;
 }
 
@@ -1056,7 +1056,7 @@ static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1)
     if (sub_02038EDC(param0->unk_08->saveData, 2, &param0->unk_404)) {
         Sound_StopEffect(1624, 8);
         ov59_021D2628(param0, 13, 0);
-        ov59_021D19B0(param0, 29);
+        Overlay059_SetMessageWaitState(param0, 29);
         Sprite_SetAnim(param0->unk_28C[0], 0);
 
         param0->unk_0C.unk_00 = 0;
@@ -1071,7 +1071,7 @@ static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1)
 static int ov59_021D1E7C(UnkStruct_020961E8 *param0, const int param1)
 {
     if (param0->unk_3B4++ > 60) {
-        param0->unk_3A8 = 15;
+        param0->overlayState = 15;
     }
 
     return param1;
@@ -1080,7 +1080,7 @@ static int ov59_021D1E7C(UnkStruct_020961E8 *param0, const int param1)
 static int ov59_021D1E98(UnkStruct_020961E8 *param0, const int param1)
 {
     ov59_021D2628(param0, 5, 0);
-    ov59_021D19B0(param0, 10);
+    Overlay059_SetMessageWaitState(param0, 10);
     ov59_021D1994(param0);
 
     return param1;
@@ -1100,7 +1100,7 @@ static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1)
 static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
-    param0->unk_3A8 = 12;
+    param0->overlayState = 12;
 
     ov59_021D1994(param0);
 
@@ -1124,12 +1124,12 @@ static int ov59_021D1F24(UnkStruct_020961E8 *param0, int param1)
         if (v0 == 0xfffffffe) {
             int v1 = 0;
 
-            param0->unk_3A8 = 0;
+            param0->overlayState = 0;
 
             CommSys_SendData(117, &v1, 1);
             ov59_021D28D8(param0, 1);
         } else {
-            param0->unk_3A8 = 13;
+            param0->overlayState = 13;
             CommSys_SendData(113, NULL, 0);
             StringTemplate_SetPlayerName(param0->unk_24, 0, CommInfo_TrainerInfo(0));
         }
@@ -1150,7 +1150,7 @@ static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1)
         ov59_021D2628(param0, 16, 0);
     }
 
-    ov59_021D19B0(param0, 14);
+    Overlay059_SetMessageWaitState(param0, 14);
     param0->unk_3B4 = 0;
 
     ov59_021D1994(param0);
@@ -1163,7 +1163,7 @@ static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1)
     param0->unk_3B4++;
 
     if (param0->unk_3B4 > 45) {
-        param0->unk_3A8 = 15;
+        param0->overlayState = 15;
     }
 
     ov59_021D1994(param0);
@@ -1173,7 +1173,7 @@ static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1)
 static int ov59_021D2044(UnkStruct_020961E8 *param0, int param1)
 {
     CommTiming_StartSync(201);
-    param0->unk_3A8 = 16;
+    param0->overlayState = 16;
     ov59_021D1994(param0);
 
     return param1;
@@ -1198,7 +1198,7 @@ static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1)
         ov59_021D2628(param0, 9, 0);
     }
 
-    param0->unk_3A8 = 18;
+    param0->overlayState = 18;
     ov59_021D1994(param0);
 
     return param1;
@@ -1207,7 +1207,7 @@ static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1)
 static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1)
 {
     if (ov59_021D26B8(param0->unk_4C)) {
-        param0->unk_3A8 = 10;
+        param0->overlayState = 10;
     }
 
     ov59_021D1994(param0);
@@ -1221,7 +1221,7 @@ static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1)
     }
 
     ov59_021D2628(param0, 15, 1);
-    param0->unk_3A8 = 20;
+    param0->overlayState = 20;
 
     if (CommSys_CurNetId() == 0) {
         ov59_021D28D8(param0, 0);
@@ -1241,7 +1241,7 @@ static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1)
         param0->unk_4ABC = 0;
     }
 
-    param0->unk_3A8 = 21;
+    param0->overlayState = 21;
     param0->unk_3B4 = 0;
 
     ov59_021D1994(param0);
@@ -1261,7 +1261,7 @@ static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1)
     }
 
     if ((++param0->unk_3B4 > 60) && (param0->unk_4ABC == 0)) {
-        param0->unk_3A8 = 0;
+        param0->overlayState = 0;
 
         if (CommSys_CurNetId() == 0) {
             ov59_021D28D8(param0, 1);
@@ -1326,18 +1326,18 @@ void ov59_021D2204(UnkStruct_020961E8 *param0, int param1, u8 param2)
         return;
     }
 
-    param0->unk_3A8 = param1;
+    param0->overlayState = param1;
 }
 
 void ov59_021D22EC(UnkStruct_020961E8 *param0, int param1, u8 param2)
 {
-    if (param0->unk_3A8 == 3) {
+    if (param0->overlayState == 3) {
         switch (param1) {
         case 1:
             StringTemplate_SetPlayerName(param0->unk_24, 0, CommInfo_TrainerInfo(param2));
             ov59_021D28D8(param0, 1);
 
-            param0->unk_3A8 = param1;
+            param0->overlayState = param1;
             param0->unk_4AAC = CommSys_ConnectedCount();
             param0->unk_4AB4 = 0;
 
@@ -1357,7 +1357,7 @@ void ov59_021D22EC(UnkStruct_020961E8 *param0, int param1, u8 param2)
                 param0->unk_4AB4 &= 0xffff ^ param2;
             }
 
-            param0->unk_3A8 = param1;
+            param0->overlayState = param1;
             break;
         default:
             GF_ASSERT(FALSE);
@@ -1676,7 +1676,7 @@ static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1)
             return 1;
         }
 
-        param0->unk_3A8 = 17;
+        param0->overlayState = 17;
         ov59_021D28D8(param0, -1);
 
         if (param0->unk_384 != NULL) {

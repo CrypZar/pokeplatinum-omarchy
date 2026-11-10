@@ -53,8 +53,8 @@ struct UnkStruct_020961E8_t {
     NNSG2dCharacterData *unk_390[2];
     void *unk_398[2];
     NNSG2dPaletteData *unk_3A0[2];
-    int unk_3A8;
-    int unk_3AC;
+    int overlayState;
+    int stateAfterMessage;
     int unk_3B0;
     int unk_3B4;
     u8 unk_3B8[8][2];
