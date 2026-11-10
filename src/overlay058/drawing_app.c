@@ -84,11 +84,11 @@ static int Overlay058_StartCloseDelayAfterMessage(UnkStruct_02095EAC *param0, in
 static int Overlay058_FadeOutAfterCloseDelay(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_InitializeDisconnectConfirmation(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_ProcessDisconnectConfirmation(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2298(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ShowHostDisconnectMessage(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_StartDisconnectSyncAfterMessage(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_FadeOutAfterDisconnectSync(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ShowParticipantWaitMessage(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_AdvanceAfterParticipantWaitMessage(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_DrawBrushStrokeSegment(Window *param0, const u8 *param1, int param2, int param3, int *param4, int *param5, int param6, int param7);
 static void Overlay058_SaveDrawingContinuationState(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1);
 static void Overlay058_RenderDrawingUpdates(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3);
@@ -101,9 +101,9 @@ static void Overlay058_ShowMessage(UnkStruct_02095EAC *param0, int param1, int p
 static int Overlay058_IsMessageFinished(int param0);
 static void Overlay058_EraseMessageBox(UnkStruct_02095EAC *param0);
 static int Overlay058_CountTrainerInfoParticipants(void);
-static int ov58_021D2320(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D23C8(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2380(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_BeginWaitingForParticipantChange(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_HandleParticipantWaitTimeout(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_WaitForParticipantCountChange(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_CountParticipantsWithTrainerInfoInternal(void);
 static int ov58_021D1DBC(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1);
@@ -137,15 +137,15 @@ static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { Overlay058_FadeOutAfterCloseDelay, 0x1 },
     { Overlay058_InitializeDisconnectConfirmation, 0x1 },
     { Overlay058_ProcessDisconnectConfirmation, 0x1 },
-    { ov58_021D223C, 0x1 },
-    { ov58_021D2270, 0x1 },
-    { ov58_021D2298, 0x1 },
+    { Overlay058_ShowHostDisconnectMessage, 0x1 },
+    { Overlay058_StartDisconnectSyncAfterMessage, 0x1 },
+    { Overlay058_FadeOutAfterDisconnectSync, 0x1 },
     { ov58_021D22D8, 0x1 },
-    { ov58_021D22DC, 0x1 },
-    { ov58_021D22FC, 0x1 },
-    { ov58_021D2320, 0x1 },
-    { ov58_021D2380, 0x1 },
-    { ov58_021D23C8, 0x1 }
+    { Overlay058_ShowParticipantWaitMessage, 0x1 },
+    { Overlay058_AdvanceAfterParticipantWaitMessage, 0x1 },
+    { Overlay058_BeginWaitingForParticipantChange, 0x1 },
+    { Overlay058_WaitForParticipantCountChange, 0x1 },
+    { Overlay058_HandleParticipantWaitTimeout, 0x1 }
 };
 
 int Overlay058_Init(ApplicationManager *appMan, int *param1)
@@ -1208,7 +1208,7 @@ static int Overlay058_ProcessDisconnectConfirmation(UnkStruct_02095EAC *param0, 
     return param1;
 }
 
-static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ShowHostDisconnectMessage(UnkStruct_02095EAC *param0, int param1)
 {
     StringTemplate_SetPlayerName(param0->unk_0C, 0, CommInfo_TrainerInfo(0));
 
@@ -1219,7 +1219,7 @@ static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_StartDisconnectSyncAfterMessage(UnkStruct_02095EAC *param0, int param1)
 {
     if (Overlay058_IsMessageFinished(param0->unk_30)) {
         Overlay058_SetNextState(param0, 17);
@@ -1230,7 +1230,7 @@ static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D2298(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_FadeOutAfterDisconnectSync(UnkStruct_02095EAC *param0, int param1)
 {
     if (CommTiming_IsSyncState(200) || (CommSys_ConnectedCount() == 1)) {
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_OUT, FADE_TYPE_CIRCLE_OUT, COLOR_BLACK, 16, 1, HEAP_ID_DRAWING);
@@ -1246,7 +1246,7 @@ static int ov58_021D22D8(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ShowParticipantWaitMessage(UnkStruct_02095EAC *param0, int param1)
 {
     Overlay058_ShowMessage(param0, 5, TEXT_SPEED_FAST);
     Overlay058_SetNextState(param0, 20);
@@ -1255,7 +1255,7 @@ static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_AdvanceAfterParticipantWaitMessage(UnkStruct_02095EAC *param0, int param1)
 {
     if (Overlay058_IsMessageFinished(param0->unk_30)) {
         Overlay058_SetNextState(param0, 12);
@@ -1265,7 +1265,7 @@ static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D2320(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_BeginWaitingForParticipantChange(UnkStruct_02095EAC *param0, int param1)
 {
     if ((param0->unk_30 != 0xff) && (Overlay058_IsMessageFinished(param0->unk_30) == 0)) {
         Text_RemovePrinter(param0->unk_30);
@@ -1285,7 +1285,7 @@ static int ov58_021D2320(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D2380(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_WaitForParticipantCountChange(UnkStruct_02095EAC *param0, int param1)
 {
     if ((param0->unk_9414 != 0) && (CommSys_ConnectedCount() != param0->unk_9414)) {
         param0->unk_9414 = 0;
@@ -1300,7 +1300,7 @@ static int ov58_021D2380(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D23C8(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_HandleParticipantWaitTimeout(UnkStruct_02095EAC *param0, int param1)
 {
     if ((param0->unk_9414 != 0) && (CommSys_ConnectedCount() != param0->unk_9414)) {
         param0->unk_9414 = 0;
