@@ -1374,7 +1374,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
     ov58_021D2CB0(param0, param1);
 }
 
-static const u8 Unk_ov58_021D2F34[3][8][24] = {
+static const u8 sOverlay058BrushStampsBySizeAndColor[3][8][24] = {
     {
         { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 },
         { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x22, 0x0, 0x0, 0x0, 0x22, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 },
@@ -1539,7 +1539,7 @@ static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overl
                 v0 = param1[v2].unk_00[v3] - 9;
                 v1 = param1[v2].unk_04[v3] - 17;
 
-                ov58_021D25A8(param0, Unk_ov58_021D2F34[param1[v2].unk_08_6][param1[v2].unk_08_0], v0, v1, &v5, &v6, v3, param2[v2].previousPointCount);
+                ov58_021D25A8(param0, sOverlay058BrushStampsBySizeAndColor[param1[v2].unk_08_6][param1[v2].unk_08_0], v0, v1, &v5, &v6, v3, param2[v2].previousPointCount);
 
                 v4 = 1;
             }
