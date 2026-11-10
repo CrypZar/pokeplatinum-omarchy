@@ -12,7 +12,7 @@
 
 #include "struct_defs/seal_case.h"
 #include "struct_defs/sprite_animation_frame.h"
-#include "struct_defs/struct_0207C894.h"
+#include "struct_defs/evolution_particle_system_config.h"
 
 #include "applications/pokemon_summary_screen/main.h"
 
@@ -347,7 +347,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
         break;
     case EVOLUTION_STATE_START_FADE:
         if (--evolutionData->delay == 0) {
-            UnkStruct_0207C894 v1;
+            EvolutionParticleSystemConfig v1;
 
             v1.heapID = evolutionData->heapID;
             v1.unk_04 = 0;

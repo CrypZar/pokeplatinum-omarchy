@@ -2,8 +2,8 @@
 #include <nnsys.h>
 #include <string.h>
 
-#include "struct_defs/struct_0207C894.h"
-#include "struct_defs/struct_0207C8C4.h"
+#include "struct_defs/evolution_particle_system_config.h"
+#include "struct_defs/evolution_particle_system.h"
 
 #include "camera.h"
 #include "g3d_pipeline.h"
@@ -18,10 +18,10 @@ void EvolutionScene_ConfigureBlendAlpha(void);
 void EvolutionScene_Configure3DRenderState(void);
 void EvolutionParticleSystem_InitializeResources(void);
 void EvolutionParticleSystem_DrawAndUpdate(void);
-UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
-void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
-BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
-void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
+EvolutionParticleSystem *EvolutionParticleSystem_New(EvolutionParticleSystemConfig *param0);
+void EvolutionParticleSystem_CreateEmitter(EvolutionParticleSystem *param0, int param1);
+BOOL EvolutionParticleSystem_HasActiveEmitters(EvolutionParticleSystem *param0);
+void EvolutionParticleSystem_Free(EvolutionParticleSystem *param0);
 static u32 EvolutionParticleSystem_AllocateTextureVRAM(u32 param0, BOOL param1);
 static u32 EvolutionParticleSystem_AllocatePaletteVRAM(u32 param0, BOOL param1);
 static ParticleSystem *EvolutionParticleSystem_CreateParticleSystem(enum HeapID heapID);
@@ -167,13 +167,13 @@ static void EvolutionParticleSystem_SetEmitterPosition(SPLEmitter *param0)
     SPLEmitter_SetPos(param0, &v0);
 }
 
-UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0)
+EvolutionParticleSystem *EvolutionParticleSystem_New(EvolutionParticleSystemConfig *param0)
 {
     int v0;
     int v1;
     int v2;
     int v3;
-    UnkStruct_0207C8C4 *v4 = Heap_Alloc(param0->heapID, sizeof(UnkStruct_0207C8C4));
+    EvolutionParticleSystem *v4 = Heap_Alloc(param0->heapID, sizeof(EvolutionParticleSystem));
 
     GF_ASSERT(v4 != NULL);
 
@@ -185,21 +185,21 @@ UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0)
     return v4;
 }
 
-void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1)
+void EvolutionParticleSystem_CreateEmitter(EvolutionParticleSystem *param0, int param1)
 {
     int v0;
     int v1;
     int v2;
     int v3;
-    UnkStruct_0207C8C4 *v4 = param0;
+    EvolutionParticleSystem *v4 = param0;
 
     ParticleSystem_CreateEmitterWithCallback(v4->unk_0C, param1, EvolutionParticleSystem_SetEmitterPosition, v4);
     ParticleSystem_SetCameraProjection(v4->unk_0C, 1);
 }
 
-BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0)
+BOOL EvolutionParticleSystem_HasActiveEmitters(EvolutionParticleSystem *param0)
 {
-    UnkStruct_0207C8C4 *v0 = param0;
+    EvolutionParticleSystem *v0 = param0;
 
     if (ParticleSystem_GetActiveEmitterCount(v0->unk_0C) == 0) {
         return 0;
@@ -208,7 +208,7 @@ BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0)
     return 1;
 }
 
-void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0)
+void EvolutionParticleSystem_Free(EvolutionParticleSystem *param0)
 {
     EvolutionParticleSystem_FreeResources(param0->unk_0C);
     Heap_Free(param0);
