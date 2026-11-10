@@ -26,7 +26,7 @@ static u32 sub_0207C794(u32 param0, BOOL param1);
 static u32 sub_0207C7B0(u32 param0, BOOL param1);
 static ParticleSystem *sub_0207C7CC(enum HeapID heapID);
 static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2);
-static void sub_0207C83C(ParticleSystem *param0);
+static void EvolutionParticleSystem_FreeResources(ParticleSystem *param0);
 static void EvolutionParticleSystem_SetEmitterPosition(SPLEmitter *param0);
 
 void EvolutionScene_HideAllPlanes(void)
@@ -151,7 +151,7 @@ static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2)
     return v0;
 }
 
-void sub_0207C83C(ParticleSystem *param0)
+void EvolutionParticleSystem_FreeResources(ParticleSystem *param0)
 {
     void *v0 = ParticleSystem_GetHeapStart(param0);
 
@@ -210,6 +210,6 @@ BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0)
 
 void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0)
 {
-    sub_0207C83C(param0->unk_0C);
+    EvolutionParticleSystem_FreeResources(param0->unk_0C);
     Heap_Free(param0);
 }
