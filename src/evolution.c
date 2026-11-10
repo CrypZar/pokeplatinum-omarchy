@@ -115,7 +115,7 @@ EvolutionData *Evolution_Begin(Party *party, Pokemon *mon, int targetSpecies, Op
     evolutionData->bgConfig = BgConfig_New(heapID);
     evolutionData->window = Window_New(heapID, 1);
     evolutionData->options = options;
-    evolutionData->pipelineBuffers = sub_0207C690(heapID);
+    evolutionData->pipelineBuffers = EvolutionScene_Init3DPipeline(heapID);
 
     sub_0207C63C();
     sub_0207C664();

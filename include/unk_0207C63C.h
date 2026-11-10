@@ -8,7 +8,7 @@
 
 void sub_0207C63C(void);
 void sub_0207C664(void);
-G3DPipelineBuffers *sub_0207C690(enum HeapID heapID);
+G3DPipelineBuffers *EvolutionScene_Init3DPipeline(enum HeapID heapID);
 void EvolutionScene_Configure3DRenderState(void);
 void sub_0207C730(void);
 void EvolutionParticleSystem_DrawAndUpdate(void);
