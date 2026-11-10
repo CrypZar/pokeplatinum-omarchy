@@ -156,7 +156,7 @@ static void InitializeNewSave(enum HeapID heapID, SaveData *saveData, BOOL setTr
 
     rngCollection = SaveData_GetRecordMixedRNG(saveData);
     RecordMixedRNG_SetEntrySeed(rngCollection, RECORD_MIXED_RNG_PLAYER_OVERRIDE, MTRNG_Next());
-    sub_0206C008(saveData);
+    WifiBattleTower_SeedRandomStateFromMixedRecords(saveData);
 
     trainerInfo = SaveData_GetTrainerInfo(saveData);
     rnd = MTRNG_Next();

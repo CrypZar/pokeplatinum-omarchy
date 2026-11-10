@@ -109,7 +109,7 @@ static void FieldSystem_HandleDailyEvents(FieldSystem *fieldSystem, s32 daysPass
     SystemVars_InitDailyRandomLevel(fieldSystem->saveData);
     SystemVars_UpdateVillaVisitor(fieldSystem->saveData);
     FieldSystem_ClearDailyHiddenItemFlags(fieldSystem);
-    sub_0206C008(fieldSystem->saveData);
+    WifiBattleTower_SeedRandomStateFromMixedRecords(fieldSystem->saveData);
     WiFiHistory_UpdateGeonetCommunicationMap(SaveData_WiFiHistory(fieldSystem->saveData));
     sub_0206F2F0(fieldSystem->saveData);
 }
