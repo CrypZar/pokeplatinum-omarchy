@@ -184,7 +184,7 @@ void sub_0209621C(int param0, int param1, void *param2, void *param3)
     sub_020963C0(v0, CommSys_CurNetId());
 
     Overlay059_ShowMixedRecordsExchangeStatus(v0);
-    ov59_021D2204(v0, 25, param0);
+    Overlay059_HandleCommunicationStateEvent(v0, 25, param0);
 
     CommManager_SetErrorHandling(1, 1);
     Sound_PlayEffect(SEQ_SE_DP_F209_sseq);
@@ -193,7 +193,7 @@ void sub_0209621C(int param0, int param1, void *param2, void *param3)
 void sub_02096264(int param0, int param1, void *param2, void *param3)
 {
     UnkStruct_020961E8 *v0 = (UnkStruct_020961E8 *)param3;
-    ov59_021D2204(v0, 2, 0);
+    Overlay059_HandleCommunicationStateEvent(v0, 2, 0);
 }
 
 void sub_02096274(int param0, int param1, void *param2, void *param3)
@@ -230,15 +230,15 @@ void sub_02096274(int param0, int param1, void *param2, void *param3)
         case 0:
             if (v2->unk_00 == CommSys_CurNetId()) {
                 if (v2->unk_03 == 0) {
-                    ov59_021D2204(v0, 8, v2->unk_00);
+                    Overlay059_HandleCommunicationStateEvent(v0, 8, v2->unk_00);
                 } else {
                     v0->unk_4AC0 = v2->unk_01;
-                    ov59_021D2204(v0, 7, v2->unk_00);
+                    Overlay059_HandleCommunicationStateEvent(v0, 7, v2->unk_00);
                 }
             }
             break;
         case 1:
-            ov59_021D2204(v0, 19, v2->unk_00);
+            Overlay059_HandleCommunicationStateEvent(v0, 19, v2->unk_00);
             break;
         }
     }
@@ -249,7 +249,7 @@ void sub_02096360(int param0, int param1, void *param2, void *param3)
     UnkStruct_020961E8 *v0 = (UnkStruct_020961E8 *)param3;
     u8 v1 = *(u8 *)param2;
 
-    ov59_021D22EC(v0, 1, v1);
+    Overlay059_HandleParticipantJoinNotification(v0, 1, v1);
 
     if (CommSys_CurNetId() == 0) {
         v0->unk_414 = 0;
@@ -271,7 +271,7 @@ void sub_02096388(int param0, int param1, void *param2, void *param3)
     UnkStruct_020961E8 *v0 = (UnkStruct_020961E8 *)param3;
 
     if (CommSys_CurNetId() != 0) {
-        ov59_021D2204(v0, 13, 0);
+        Overlay059_HandleCommunicationStateEvent(v0, 13, 0);
     }
 }
 
