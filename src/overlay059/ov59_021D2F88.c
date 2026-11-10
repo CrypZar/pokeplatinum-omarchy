@@ -46,7 +46,7 @@ typedef struct {
 static u32 ov59_021D2F88(SaveData *saveData)
 {
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(saveData);
-    return ov59_021D2A2C(v0);
+    return RecordMixedRNG_GetEntrySize(v0);
 }
 
 static void *ov59_021D2F94(SaveData *saveData, enum HeapID heapID, u32 param2)
@@ -54,7 +54,7 @@ static void *ov59_021D2F94(SaveData *saveData, enum HeapID heapID, u32 param2)
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(saveData);
     void *v1 = Heap_AllocAtEnd(heapID, param2);
 
-    MI_CpuCopyFast(ov59_021D2A30(v0), v1, param2);
+    MI_CpuCopyFast(RecordMixedRNG_GetPlayerOverrideEntry(v0), v1, param2);
 
     return v1;
 }
@@ -62,7 +62,7 @@ static void *ov59_021D2F94(SaveData *saveData, enum HeapID heapID, u32 param2)
 static void ov59_021D2FBC(const UnkStruct_ov59_021D2FBC *param0)
 {
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(param0->saveData);
-    ov59_021D2AC4(param0->unk_08, param0->unk_0C, v0, param0->unk_10);
+    RecordMixedRNG_MergeReceivedQueueEntries(param0->unk_08, param0->unk_0C, v0, param0->unk_10);
 }
 
 static u32 ov59_021D2FD4(SaveData *saveData)
