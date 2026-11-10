@@ -108,8 +108,8 @@ static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1F24(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D2044(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D2064(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_StartExitSynchronization(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int param1);
@@ -139,8 +139,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1F24,
     ov59_021D1FD0,
     Overlay059_UpdateParticipantConfirmationExitDelay,
-    ov59_021D2044,
-    ov59_021D2064,
+    Overlay059_StartExitSynchronization,
+    Overlay059_UpdateExitSynchronization,
     ov59_021D20A4,
     ov59_021D20D0,
     ov59_021D20F4,
@@ -1170,7 +1170,7 @@ static int Overlay059_UpdateParticipantConfirmationExitDelay(UnkStruct_020961E8 
     return param1;
 }
 
-static int ov59_021D2044(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_StartExitSynchronization(UnkStruct_020961E8 *param0, int param1)
 {
     CommTiming_StartSync(201);
     param0->overlayState = 16;
@@ -1179,7 +1179,7 @@ static int ov59_021D2044(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D2064(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int param1)
 {
     if (CommTiming_IsSyncState(201)) {
         CommManager_SetErrorHandling(0, 0);
