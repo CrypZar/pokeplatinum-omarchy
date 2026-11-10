@@ -7,7 +7,7 @@
 #include "struct_defs/struct_020961E8_t.h"
 #include "struct_defs/struct_02096274.h"
 
-#include "overlay059/ov59_021D0D80.h"
+#include "overlay059/mixed_records_lobby.h"
 #include "overlay059/struct_ov59_021D30E0.h"
 
 #include "comm_manager.h"
