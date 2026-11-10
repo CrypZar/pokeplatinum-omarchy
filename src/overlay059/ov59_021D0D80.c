@@ -68,8 +68,8 @@ static void Overlay059_LoadBackgroundGraphics(UnkStruct_020961E8 *param0, NARC *
 static void Overlay059_InitializeSpriteTransfers(void);
 static void Overlay059_InitializeSpriteRendering(UnkStruct_020961E8 *param0, NARC *param1);
 static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0);
-static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan);
-static void ov59_021D17C8(UnkStruct_020961E8 *param0);
+static void Overlay059_InitializeLobbyWindows(UnkStruct_020961E8 *param0, ApplicationManager *appMan);
+static void Overlay059_RemoveLobbyWindows(UnkStruct_020961E8 *param0);
 static void ov59_021D1994(UnkStruct_020961E8 *unused);
 static void Overlay059_UpdateStatusPulsePalette(u16 *param0);
 static BOOL Overlay059_UpdateParticipantRosterWindow(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3);
@@ -80,7 +80,7 @@ static void Overlay059_ClearMessageBox(UnkStruct_020961E8 *param0);
 static int Overlay059_CountParticipantsWithTrainerInfo(void);
 static int ov59_021D2528(void);
 static void ov59_021D2524(UnkStruct_020961E8 *unused);
-static void ov59_021D1784(Window *param0, String *param1, int param2);
+static void Overlay059_PrintCenteredWindowText(Window *param0, String *param1, int param2);
 static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param1);
 static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0);
 static void Overlay059_LoadParticipantSpriteAppearanceData(UnkStruct_020961E8 *param0, NARC *param1);
@@ -201,7 +201,7 @@ int Overlay059_Init(ApplicationManager *appMan, int *param1)
         Overlay059_InitializeSpriteTransfers();
         Overlay059_InitializeSpriteRendering(v0, v1);
         Overlay059_CreateLobbySprites(v0);
-        ov59_021D16A0(v0, appMan);
+        Overlay059_InitializeLobbyWindows(v0, appMan);
 
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_SUB_52, SEQ_NONE, 0);
         sub_020961E8(v0);
@@ -303,7 +303,7 @@ int Overlay059_Exit(ApplicationManager *appMan, int *unused)
     CharTransfer_Free();
     PlttTransfer_Free();
 
-    ov59_021D17C8(v0);
+    Overlay059_RemoveLobbyWindows(v0);
     Overlay059_FreeBackgroundLayers(v0->unk_00);
 
     CommManager_SetMaxNumConnections(2);
@@ -648,7 +648,7 @@ static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0)
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
 }
 
-static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan)
+static void Overlay059_InitializeLobbyWindows(UnkStruct_020961E8 *param0, ApplicationManager *appMan)
 {
     Window_Add(param0->unk_00, &param0->unk_35C, 5, 26, 20, 6, 2, 13, 1 + 30 * 15);
     Window_FillTilemap(&param0->unk_35C, 0x0);
@@ -656,7 +656,7 @@ static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan
     Window_FillTilemap(&param0->unk_34C, 0xf0f);
     Window_Add(param0->unk_00, &param0->unk_36C, 0, 3, 1, 26, 2, 15, (1 + (18 + 12) + 9) + 27 * 4);
 
-    ov59_021D1784(&param0->unk_36C, param0->unk_48, TEXT_SPEED_INSTANT);
+    Overlay059_PrintCenteredWindowText(&param0->unk_36C, param0->unk_48, TEXT_SPEED_INSTANT);
 
     {
         Window_Add(param0->unk_00, &param0->unk_2FC[0], 0, 2, 6, 16, 11, 15, ((1 + (18 + 12) + 9) + 27 * 4) + 26 * 2);
@@ -666,7 +666,7 @@ static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan
     }
 }
 
-static void ov59_021D1784(Window *param0, String *param1, int param2)
+static void Overlay059_PrintCenteredWindowText(Window *param0, String *param1, int param2)
 {
     int v0 = Font_CalcStringWidth(FONT_MESSAGE, param1, 0);
     int v1 = (26 * 8 - v0) / 2;
@@ -675,7 +675,7 @@ static void ov59_021D1784(Window *param0, String *param1, int param2)
     Text_AddPrinterWithParamsAndColor(param0, FONT_MESSAGE, param1, v1, 1, param2, TEXT_COLOR(1, 4, 0), NULL);
 }
 
-static void ov59_021D17C8(UnkStruct_020961E8 *param0)
+static void Overlay059_RemoveLobbyWindows(UnkStruct_020961E8 *param0)
 {
     Window_Remove(&param0->unk_2FC[0]);
     Window_Remove(&param0->unk_36C);
@@ -1001,7 +1001,7 @@ static int ov59_021D1D14(UnkStruct_020961E8 *param0, int param1)
 void Overlay059_ShowMixedRecordsExchangeStatus(UnkStruct_020961E8 *param0)
 {
     MessageLoader_GetString(param0->unk_28, 18, param0->unk_48);
-    ov59_021D1784(&param0->unk_36C, param0->unk_48, TEXT_SPEED_INSTANT);
+    Overlay059_PrintCenteredWindowText(&param0->unk_36C, param0->unk_48, TEXT_SPEED_INSTANT);
     Sprite_SetAnim(param0->unk_28C[0], 37);
 
     param0->statusPaletteAnimation.isActive = 1;
