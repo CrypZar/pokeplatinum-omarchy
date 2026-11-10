@@ -209,7 +209,7 @@
 #include "unk_0205749C.h"
 #include "unk_0205C22C.h"
 #include "unk_0205DFC4.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "unk_02069BE0.h"
 #include "unk_020722AC.h"
 #include "unk_0207DA28.h"
