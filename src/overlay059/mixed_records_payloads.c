@@ -21,7 +21,7 @@
 #include "record_mixed_rng.h"
 #include "savedata.h"
 #include "unk_020298BC.h"
-#include "unk_0202E2CC.h"
+#include "tv_broadcast.h"
 #include "unk_02073700.h"
 
 typedef struct {

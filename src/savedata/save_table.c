@@ -37,7 +37,7 @@
 #include "trainer_case_save_data.h"
 #include "underground.h"
 #include "unk_020298BC.h"
-#include "unk_0202E2CC.h"
+#include "tv_broadcast.h"
 #include "unk_0202F1D4.h"
 #include "unk_02030CE8.h"
 #include "vars_flags.h"
