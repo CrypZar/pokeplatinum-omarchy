@@ -1211,7 +1211,7 @@ static BOOL ov104_022309DC(FrontierScriptContext *ctx)
 {
     FrontierScriptManager *v0 = ctx->scriptMan;
     FieldFrontierDTO *fieldData = BattleFrontier_GetFieldData(ctx->scriptMan->frontier);
-    int v2 = sub_0202F41C(fieldData->saveData, v0->unk_B4, v0->unk_B6, 0, &v0->unk_B0, &v0->unk_B2);
+    int v2 = BattleRecording_SaveToSaveData(fieldData->saveData, v0->unk_B4, v0->unk_B6, 0, &v0->unk_B0, &v0->unk_B2);
 
     if ((v2 == 2) || (v2 == 3)) {
         if (v2 == 2) {
