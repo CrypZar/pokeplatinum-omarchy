@@ -206,7 +206,7 @@ u8 sub_0203CBE0(FieldSystem *fieldSystem, MapObject **param1)
     return 0;
 }
 
-u16 sub_0203CC14(FieldSystem *fieldSystem, void *param1, int param2)
+u16 FieldEvent_GetTriggeredCoordEventScript(FieldSystem *fieldSystem, void *param1, int param2)
 {
     int v3;
 
