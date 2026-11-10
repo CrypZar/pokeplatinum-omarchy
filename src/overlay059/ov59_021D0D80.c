@@ -998,7 +998,7 @@ static int ov59_021D1D14(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-void ov59_021D1D40(UnkStruct_020961E8 *param0)
+void Overlay059_ShowMixedRecordsExchangeStatus(UnkStruct_020961E8 *param0)
 {
     MessageLoader_GetString(param0->unk_28, 18, param0->unk_48);
     ov59_021D1784(&param0->unk_36C, param0->unk_48, TEXT_SPEED_INSTANT);
