@@ -358,7 +358,7 @@ static BOOL sub_02056F1C(FieldTask *taskMan)
         v2 = PlayerAvatar_GetMapObject(fieldSystem->playerAvatar);
 
         if (LocalMapObj_CheckAnimationFinished(v2) == 1) {
-            sub_020656AC(v2);
+            LocalMapObj_CheckAnimationFinishedAndClear(v2);
             (v1->unk_04)++;
         }
         break;
@@ -565,7 +565,7 @@ static BOOL sub_02057218(FieldTask *taskMan)
         v2 = PlayerAvatar_GetMapObject(fieldSystem->playerAvatar);
 
         if (LocalMapObj_CheckAnimationFinished(v2) == 1) {
-            sub_020656AC(v2);
+            LocalMapObj_CheckAnimationFinishedAndClear(v2);
             (v1->unk_04)++;
         }
         break;

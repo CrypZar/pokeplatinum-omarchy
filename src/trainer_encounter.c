@@ -671,7 +671,7 @@ static int ApproachingTrainerTask_WaitPlayerFaceTrainer(ApproachingTrainerData *
         return 0;
     }
 
-    sub_020656AC(mapObj);
+    LocalMapObj_CheckAnimationFinishedAndClear(mapObj);
     data->state = STATE_SWITCH_MOVEMENT_TYPE_NONE;
 
     return 1;
@@ -679,7 +679,7 @@ static int ApproachingTrainerTask_WaitPlayerFaceTrainer(ApproachingTrainerData *
 
 static int ApproachingTrainerTask_SwitchMovementTypeNone(ApproachingTrainerData *data)
 {
-    sub_020656AC(data->mapObj);
+    LocalMapObj_CheckAnimationFinishedAndClear(data->mapObj);
 
     if (PersistedMapFeatures_IsCurrentDynamicMap(data->fieldSystem, DYNAMIC_MAP_FEATURES_HEARTHOME_GYM) == FALSE
         || HearthomeGym_SetTrainerPostBattleMovement(data->fieldSystem, data->mapObj) == FALSE) {
