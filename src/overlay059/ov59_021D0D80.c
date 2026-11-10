@@ -96,8 +96,8 @@ static int ov59_021D1838(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1D14(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ApplyReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1C64(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1C34(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ShowMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1A14(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1A44(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1B74(UnkStruct_020961E8 *param0, int param1);
@@ -146,8 +146,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D20F4,
     ov59_021D2154,
     ov59_021D2190,
-    ov59_021D1C34,
-    ov59_021D1C64,
+    Overlay059_ShowMixedRecordsExchangeStartPrompt,
+    Overlay059_UpdateMixedRecordsExchangeStartPrompt,
     ov59_021D1D14,
     Overlay059_WaitForReceivedMixedRecords,
     Overlay059_ApplyReceivedMixedRecords,
@@ -940,7 +940,7 @@ static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1C34(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ShowMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
     param0->overlayState = 23;
@@ -950,7 +950,7 @@ static int ov59_021D1C34(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1C64(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1)
 {
     if ((ov59_021D2528() != param0->unk_4AAC) || (param0->unk_4AB4 != 0)) {
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_KEY_UP | PAD_KEY_DOWN)) {
