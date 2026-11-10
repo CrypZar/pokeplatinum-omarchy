@@ -74,9 +74,9 @@ static void ov59_021D1994(UnkStruct_020961E8 *unused);
 static void Overlay059_UpdateStatusPulsePalette(u16 *param0);
 static BOOL Overlay059_UpdateParticipantRosterWindow(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3);
 static BOOL Overlay059_RefreshParticipantRosterSnapshots(UnkStruct_020961E8 *param0);
-static void ov59_021D2628(UnkStruct_020961E8 *param0, int param1, int param2);
-static int ov59_021D26B8(int param0);
-static void ov59_021D26D8(UnkStruct_020961E8 *param0);
+static void Overlay059_ShowMessage(UnkStruct_020961E8 *param0, int param1, int param2);
+static int Overlay059_IsMessagePrinterDone(int param0);
+static void Overlay059_ClearMessageBox(UnkStruct_020961E8 *param0);
 static int Overlay059_CountParticipantsWithTrainerInfo(void);
 static int ov59_021D2528(void);
 static void ov59_021D2524(UnkStruct_020961E8 *unused);
@@ -689,10 +689,10 @@ static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1)
 
     if (CommSys_CurNetId() == 0) {
         if (CommSys_ConnectedCount() >= 2) {
-            ov59_021D2628(param0, 2, 0);
+            Overlay059_ShowMessage(param0, 2, 0);
         }
     } else {
-        ov59_021D2628(param0, 8, 0);
+        Overlay059_ShowMessage(param0, 8, 0);
     }
 
     Overlay059_SetMessageWaitState(param0, 3);
@@ -722,7 +722,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
             if ((ov59_021D2528() == param0->unk_4AAC) && (param0->unk_4AB4 == 0)) {
                 u8 v0 = 1;
 
-                ov59_021D2628(param0, 3, 0);
+                Overlay059_ShowMessage(param0, 3, 0);
                 Overlay059_SetMessageWaitState(param0, 22);
 
                 CommSys_SendData(117, &v0, 1);
@@ -735,7 +735,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
         if (CommSys_CurNetId()) {
             if (param0->unk_4AA0 == 0) {
-                ov59_021D2628(param0, 4, 0);
+                Overlay059_ShowMessage(param0, 4, 0);
                 Overlay059_SetMessageWaitState(param0, 4);
             } else {
                 Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
@@ -744,7 +744,7 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0)
             if ((CommSys_ConnectedCount() == param0->unk_4AAC) && (param0->unk_4AB4 == 0)) {
                 u8 v1 = 1;
 
-                ov59_021D2628(param0, 4, 0);
+                Overlay059_ShowMessage(param0, 4, 0);
                 Overlay059_SetMessageWaitState(param0, 4);
                 CommSys_SendData(117, &v1, 1);
                 ov59_021D28D8(param0, 0);
@@ -783,7 +783,7 @@ static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param
 
 static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int param1)
 {
-    if (ov59_021D26B8(param0->unk_4C)) {
+    if (Overlay059_IsMessagePrinterDone(param0->unk_4C)) {
         param0->overlayState = param0->stateAfterMessage;
     }
 
@@ -868,7 +868,7 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
         } else {
             if (CommSys_CurNetId() == 0) {
                 Overlay059_SetMessageWaitState(param0, 11);
-                ov59_021D2628(param0, 14, 0);
+                Overlay059_ShowMessage(param0, 14, 0);
             } else {
                 UnkStruct_02096274 v3;
 
@@ -1055,7 +1055,7 @@ static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int
 
     if (sub_02038EDC(param0->unk_08->saveData, 2, &param0->mixedRecordsSaveSyncState)) {
         Sound_StopEffect(1624, 8);
-        ov59_021D2628(param0, 13, 0);
+        Overlay059_ShowMessage(param0, 13, 0);
         Overlay059_SetMessageWaitState(param0, 29);
         Sprite_SetAnim(param0->unk_28C[0], 0);
 
@@ -1079,7 +1079,7 @@ static int Overlay059_UpdateMixedRecordsSaveExitDelay(UnkStruct_020961E8 *param0
 
 static int Overlay059_ShowPostHandshakeMessage(UnkStruct_020961E8 *param0, const int param1)
 {
-    ov59_021D2628(param0, 5, 0);
+    Overlay059_ShowMessage(param0, 5, 0);
     Overlay059_SetMessageWaitState(param0, 10);
     ov59_021D1994(param0);
 
@@ -1144,10 +1144,10 @@ static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *pa
 static int Overlay059_ShowParticipantConfirmationMessage(UnkStruct_020961E8 *param0, int param1)
 {
     if (CommSys_CurNetId() == 0) {
-        ov59_021D2628(param0, 5, 0);
+        Overlay059_ShowMessage(param0, 5, 0);
     } else {
         StringTemplate_SetPlayerName(param0->unk_24, 0, CommInfo_TrainerInfo(0));
-        ov59_021D2628(param0, 16, 0);
+        Overlay059_ShowMessage(param0, 16, 0);
     }
 
     Overlay059_SetMessageWaitState(param0, 14);
@@ -1194,8 +1194,8 @@ static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int 
 
 static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1)
 {
-    if (ov59_021D26B8(param0->unk_4C)) {
-        ov59_021D2628(param0, 9, 0);
+    if (Overlay059_IsMessagePrinterDone(param0->unk_4C)) {
+        Overlay059_ShowMessage(param0, 9, 0);
     }
 
     param0->overlayState = 18;
@@ -1206,7 +1206,7 @@ static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1)
 
 static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1)
 {
-    if (ov59_021D26B8(param0->unk_4C)) {
+    if (Overlay059_IsMessagePrinterDone(param0->unk_4C)) {
         param0->overlayState = 10;
     }
 
@@ -1216,11 +1216,11 @@ static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1)
 
 static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1)
 {
-    if ((param0->unk_4C != 0xff) && (ov59_021D26B8(param0->unk_4C) == 0)) {
+    if ((param0->unk_4C != 0xff) && (Overlay059_IsMessagePrinterDone(param0->unk_4C) == 0)) {
         Text_RemovePrinter(param0->unk_4C);
     }
 
-    ov59_021D2628(param0, 15, 1);
+    Overlay059_ShowMessage(param0, 15, 1);
     param0->overlayState = 20;
 
     if (CommSys_CurNetId() == 0) {
@@ -1276,7 +1276,7 @@ void ov59_021D2204(UnkStruct_020961E8 *param0, int param1, u8 param2)
 {
     switch (param1) {
     case 2:
-        ov59_021D26D8(param0);
+        Overlay059_ClearMessageBox(param0);
         break;
     case 13:
         if (param0->unk_384 != NULL) {
@@ -1285,11 +1285,11 @@ void ov59_021D2204(UnkStruct_020961E8 *param0, int param1, u8 param2)
         }
         break;
     case 25:
-        if (ov59_021D26B8(param0->unk_4C) == 0) {
+        if (Overlay059_IsMessagePrinterDone(param0->unk_4C) == 0) {
             Text_RemovePrinter(param0->unk_4C);
         }
 
-        ov59_021D2628(param0, 12, 0);
+        Overlay059_ShowMessage(param0, 12, 0);
 
         if (param0->unk_384 != NULL) {
             Menu_DestroyForExit(param0->unk_384, 51);
@@ -1501,7 +1501,7 @@ static BOOL Overlay059_RefreshParticipantRosterSnapshots(UnkStruct_020961E8 *par
     return v1;
 }
 
-static void ov59_021D2628(UnkStruct_020961E8 *param0, int param1, int param2)
+static void Overlay059_ShowMessage(UnkStruct_020961E8 *param0, int param1, int param2)
 {
     String *v0 = String_Init(90 * 2, HEAP_ID_51);
 
@@ -1519,7 +1519,7 @@ static void ov59_021D2628(UnkStruct_020961E8 *param0, int param1, int param2)
     }
 }
 
-static int ov59_021D26B8(int param0)
+static int Overlay059_IsMessagePrinterDone(int param0)
 {
     if (param0 == 0xff) {
         return 1;
@@ -1532,7 +1532,7 @@ static int ov59_021D26B8(int param0)
     return 0;
 }
 
-static void ov59_021D26D8(UnkStruct_020961E8 *param0)
+static void Overlay059_ClearMessageBox(UnkStruct_020961E8 *param0)
 {
     Window_EraseMessageBox(&param0->unk_34C, 0);
 }
