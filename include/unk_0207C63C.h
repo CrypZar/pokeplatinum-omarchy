@@ -12,9 +12,9 @@ G3DPipelineBuffers *sub_0207C690(enum HeapID heapID);
 void sub_0207C6AC(void);
 void sub_0207C730(void);
 void sub_0207C770(void);
-UnkStruct_0207C8C4 *sub_0207C894(UnkStruct_0207C894 *param0);
+UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
 void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
 BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
-void sub_0207C8F4(UnkStruct_0207C8C4 *param0);
+void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
 
 #endif // POKEPLATINUM_UNK_0207C63C_H

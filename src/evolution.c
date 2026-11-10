@@ -351,7 +351,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
 
             v1.heapID = evolutionData->heapID;
             v1.unk_04 = 0;
-            evolutionData->unk_30 = sub_0207C894(&v1);
+            evolutionData->unk_30 = EvolutionParticleSystem_New(&v1);
 
             EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 0);
             PokemonSprite_StartFade(evolutionData->monSprites[0], 0, 16, 4, 0x7FFF);
@@ -653,7 +653,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
         break;
     case EVOLUTION_STATE_END:
         if (PaletteData_GetSelectedBuffersMask(evolutionData->paletteData) == 0) {
-            sub_0207C8F4(evolutionData->unk_30);
+            EvolutionParticleSystem_Free(evolutionData->unk_30);
             Evolution_ProcessEvolutionEffects(evolutionData);
             evolutionData->done = TRUE;
         }
@@ -673,7 +673,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
             evolutionData->windowBottom = 160;
             evolutionData->shrinkAndGrowState = 0;
             Sound_StopBGM(SEQ_SHINKA_sseq, 0);
-            sub_0207C8F4(evolutionData->unk_30);
+            EvolutionParticleSystem_Free(evolutionData->unk_30);
             evolutionData->state++;
         }
         break;
