@@ -164,7 +164,7 @@ static void SysTask_Evolution(SysTask *task, void *data)
 
     Evolution_Main(evolutionData);
     PokemonSpriteManager_DrawSprites(evolutionData->monSpriteMan);
-    sub_0207C770();
+    EvolutionParticleSystem_DrawAndUpdate();
     G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_Z);
 
     if (evolutionData->done) {
