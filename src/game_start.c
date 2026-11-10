@@ -21,7 +21,7 @@
 #include "system_data.h"
 #include "system_flags.h"
 #include "trainer_info.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 #include "vars_flags.h"
 
 #include "constdata/const_020EA10C.h"

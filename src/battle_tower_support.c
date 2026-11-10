@@ -1,4 +1,4 @@
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 
 #include <nitro.h>
 #include <string.h>
