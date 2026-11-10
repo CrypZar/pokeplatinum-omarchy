@@ -324,7 +324,7 @@ int ov59_021D0FF4(ApplicationManager *appMan, int *unused)
     return 1;
 }
 
-static const u8 Unk_ov59_021D329A[][2] = {
+static const u8 Overlay059StatusPaletteAnimationSteps[][2] = {
     { 0x8, 0x2 },
     { 0x8, 0x3 },
     { 0x8, 0x4 },
@@ -338,18 +338,18 @@ static void ov59_021D109C(SysTask *sysTask, void *param1)
     UnkStruct_ov59_021D109C *v1 = &v0->unk_0C;
 
     if (v1->unk_00) {
-        if (v1->unk_08 > Unk_ov59_021D329A[v1->unk_04][0]) {
+        if (v1->unk_08 > Overlay059StatusPaletteAnimationSteps[v1->unk_04][0]) {
             u16 *v2;
 
             v1->unk_08 = 0;
             v1->unk_04++;
 
-            if (Unk_ov59_021D329A[v1->unk_04][1] == 0xff) {
+            if (Overlay059StatusPaletteAnimationSteps[v1->unk_04][1] == 0xff) {
                 v1->unk_04 = 0;
             }
 
             v2 = (u16 *)v1->unk_10->pRawData;
-            GX_LoadOBJPltt(&v2[16 * Unk_ov59_021D329A[v1->unk_04][1]], 0, 32);
+            GX_LoadOBJPltt(&v2[16 * Overlay059StatusPaletteAnimationSteps[v1->unk_04][1]], 0, 32);
         } else {
             v0->unk_0C.unk_08++;
         }
