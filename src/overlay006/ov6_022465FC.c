@@ -14,7 +14,7 @@
 #include "narc.h"
 #include "rtc.h"
 #include "tv_segment.h"
-#include "unk_0202E2CC.h"
+#include "tv_broadcast.h"
 #include "unk_020559DC.h"
 
 #include "res/text/bank/tv_programs.h"

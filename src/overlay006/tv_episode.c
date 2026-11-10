@@ -13,7 +13,7 @@
 #include "heap.h"
 #include "save_player.h"
 #include "trainer_info.h"
-#include "unk_0202E2CC.h"
+#include "tv_broadcast.h"
 
 static void TVEpisode_Clear(TVEpisode *episode)
 {
