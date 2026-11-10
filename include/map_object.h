@@ -295,7 +295,7 @@ void ObjectEvent_SetY(ObjectEvent *objectEvent, int y);
 int ObjectEvent_GetY(const ObjectEvent *objectEvent);
 void ObjectEvent_SetZ(ObjectEvent *objectEvent, int z);
 int ObjectEvent_GetZ(const ObjectEvent *objectEvent);
-MapObject *sub_0206326C(const MapObjectManager *mapObjMan, int x, int z, int param3);
+MapObject *MapObjectMan_FindAtCoords(const MapObjectManager *mapObjMan, int x, int z, int param3);
 void MapObject_SetPosDirFromVec(MapObject *mapObj, const VecFx32 *pos, int dir);
 void MapObject_SetPosDirFromCoords(MapObject *mapObj, int x, int y, int z, int dir);
 void MapObject_SwitchMovementType(MapObject *mapObj, u32 movementType);
