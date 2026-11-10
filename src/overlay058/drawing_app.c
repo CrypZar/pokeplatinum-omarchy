@@ -105,15 +105,15 @@ static int Overlay058_BeginWaitingForParticipantChange(UnkStruct_02095EAC *param
 static int Overlay058_HandleParticipantWaitTimeout(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_WaitForParticipantCountChange(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_CountParticipantsWithTrainerInfoInternal(void);
-static int ov58_021D1DBC(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_UpdateWaitingDrawingState(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ShowTurnAnnouncement(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_RestoreDrawingInterface(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_SelectColorSprite(Sprite **param0, int param1);
 static void Overlay058_SetStartButtonSpriteState(Sprite **param0, BOOL param1);
 static void Overlay058_BlitBitmapRectClipped(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9);
 static void Overlay058_AdjustMaxConnections(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_UpdateWirelessParticipantState(UnkStruct_02095EAC *param0);
-static int ov58_021D22D8(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_NoOpStateHandler(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_SetNextState(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_ApplyNextStateIfAllowed(UnkStruct_02095EAC *param0, int param1);
 static BOOL Overlay058_TryInitializeYesNoMenu(UnkStruct_02095EAC *param0, YesNoTouchMenuParams *param1);
@@ -123,9 +123,9 @@ static void Overlay058_BuildDrawingUpdateFromSamples(UnkStruct_ov58_021D2820 *pa
 
 static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { NULL, 0x1 },
-    { ov58_021D1D64, 0x0 },
-    { ov58_021D1DBC, 0x0 },
-    { ov58_021D1DC8, 0x0 },
+    { Overlay058_ShowTurnAnnouncement, 0x0 },
+    { Overlay058_UpdateWaitingDrawingState, 0x0 },
+    { Overlay058_RestoreDrawingInterface, 0x0 },
     { Overlay058_HandleDrawingSessionState, 0x0 },
     { Overlay058_InitializeDrawingStartPrompt, 0x1 },
     { Overlay058_ProcessDrawingStartPrompt, 0x1 },
@@ -140,7 +140,7 @@ static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { Overlay058_ShowHostDisconnectMessage, 0x1 },
     { Overlay058_StartDisconnectSyncAfterMessage, 0x1 },
     { Overlay058_FadeOutAfterDisconnectSync, 0x1 },
-    { ov58_021D22D8, 0x1 },
+    { Overlay058_NoOpStateHandler, 0x1 },
     { Overlay058_ShowParticipantWaitMessage, 0x1 },
     { Overlay058_AdvanceAfterParticipantWaitMessage, 0x1 },
     { Overlay058_BeginWaitingForParticipantChange, 0x1 },
@@ -931,7 +931,7 @@ static void Overlay058_UpdateDrawingDisplay(UnkStruct_02095EAC *param0)
     Overlay058_RenderDrawingUpdates(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 0);
 }
 
-static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ShowTurnAnnouncement(UnkStruct_02095EAC *param0, int param1)
 {
     if (CommSys_CurNetId() == param0->unk_384) {
         Overlay058_ShowMessage(param0, 13, TEXT_SPEED_INSTANT);
@@ -949,13 +949,13 @@ static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D1DBC(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_UpdateWaitingDrawingState(UnkStruct_02095EAC *param0, int param1)
 {
     Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
-static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_RestoreDrawingInterface(UnkStruct_02095EAC *param0, int param1)
 {
     G2_BlendNone();
 
@@ -1241,7 +1241,7 @@ static int Overlay058_FadeOutAfterDisconnectSync(UnkStruct_02095EAC *param0, int
     return param1;
 }
 
-static int ov58_021D22D8(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_NoOpStateHandler(UnkStruct_02095EAC *param0, int param1)
 {
     return param1;
 }
