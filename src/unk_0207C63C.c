@@ -14,7 +14,7 @@
 #include "unk_0202419C.h"
 
 void EvolutionScene_HideAllPlanes(void);
-void sub_0207C664(void);
+void EvolutionScene_ConfigureBlendAlpha(void);
 void EvolutionScene_Configure3DRenderState(void);
 void sub_0207C730(void);
 void EvolutionParticleSystem_DrawAndUpdate(void);
@@ -37,7 +37,7 @@ void EvolutionScene_HideAllPlanes(void)
     GXS_SetVisiblePlane(0);
 }
 
-void sub_0207C664(void)
+void EvolutionScene_ConfigureBlendAlpha(void)
 {
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 11, 7);
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 7, 8);
