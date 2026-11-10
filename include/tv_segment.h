@@ -27,7 +27,7 @@ void TVBroadcast_SetBattleTowerCornerOutcome(TVBroadcast *broadcast, BOOL param1
 void TVBroadcast_ResetSafariGameData(TVBroadcast *broadcast);
 void TVBroadcast_UpdateSafariGameData(TVBroadcast *broadcast, Pokemon *mon);
 void TVBroadcast_SetBattleFrontierFrontlineNewsSinglePokemon(TVBroadcast *broadcast, Pokemon *mon);
-void sub_0206D088(TVBroadcast *broadcast, u8 param1, const TrainerInfo *param2);
+void TVBroadcast_SetBattleFrontierFrontlineNewsMultiData(TVBroadcast *broadcast, u8 param1, const TrainerInfo *param2);
 void TVBroadcast_UpdateBattlePointData(TVBroadcast *broadcast, u16 battlePoints);
 void TVBroadcast_ResetBattlePointData(TVBroadcast *broadcast);
 void TVBroadcast_UpdateGTSData(TVBroadcast *broadcast);
