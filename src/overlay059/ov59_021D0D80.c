@@ -59,8 +59,8 @@
 #include "wireless_manager.h"
 
 static void ov59_021D1100(void *param0);
-static void ov59_021D1128(void);
-static void ov59_021D1148(BgConfig *param0);
+static void Overlay059_ConfigureVramBanks(void);
+static void Overlay059_InitializeBackgroundLayers(BgConfig *param0);
 static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D131C(UnkStruct_020961E8 *param0);
 static void ov59_021D1354(BgConfig *param0);
@@ -187,8 +187,8 @@ int Overlay059_Init(ApplicationManager *appMan, int *param1)
 
         SetAutorepeat(4, 8);
 
-        ov59_021D1128();
-        ov59_021D1148(v0->unk_00);
+        Overlay059_ConfigureVramBanks();
+        Overlay059_InitializeBackgroundLayers(v0->unk_00);
 
         ResetScreenMasterBrightness(DS_SCREEN_MAIN);
         ResetScreenMasterBrightness(DS_SCREEN_SUB);
@@ -367,7 +367,7 @@ static void ov59_021D1100(void *param0)
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
 }
 
-static void ov59_021D1128(void)
+static void Overlay059_ConfigureVramBanks(void)
 {
     GXBanks v0 = {
         GX_VRAM_BG_128_A,
@@ -385,7 +385,7 @@ static void ov59_021D1128(void)
     GXLayers_SetBanks(&v0);
 }
 
-static void ov59_021D1148(BgConfig *param0)
+static void Overlay059_InitializeBackgroundLayers(BgConfig *param0)
 {
     GraphicsModes v0 = {
         GX_DISPMODE_GRAPHICS,
