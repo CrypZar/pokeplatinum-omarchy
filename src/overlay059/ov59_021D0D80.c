@@ -87,7 +87,7 @@ static void Overlay059_LoadParticipantSpriteAppearanceData(UnkStruct_020961E8 *p
 static void Overlay059_FreeParticipantSpriteAppearanceData(UnkStruct_020961E8 *param0);
 static void Overlay059_LoadRemoteParticipantSpriteAppearance(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4);
 static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *param1);
-static int ov59_021D28D4(UnkStruct_020961E8 *param0);
+static int Overlay059_GetMessageTextSpeed(UnkStruct_020961E8 *param0);
 static void Overlay059_SetMaximumConnectionCount(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1);
 static void ov59_021D1864(UnkStruct_020961E8 *param0);
@@ -1512,7 +1512,7 @@ static void Overlay059_ShowMessage(UnkStruct_020961E8 *param0, int param1, int p
     Window_DrawMessageBoxWithScrollCursor(&param0->unk_34C, 0, 1, 10);
 
     if (param2 == 0) {
-        param0->unk_4C = Text_AddPrinterWithParams(&param0->unk_34C, FONT_MESSAGE, param0->unk_44, 0, 0, ov59_021D28D4(param0), NULL);
+        param0->unk_4C = Text_AddPrinterWithParams(&param0->unk_34C, FONT_MESSAGE, param0->unk_44, 0, 0, Overlay059_GetMessageTextSpeed(param0), NULL);
     } else {
         Text_AddPrinterWithParams(&param0->unk_34C, FONT_MESSAGE, param0->unk_44, 0, 0, TEXT_SPEED_INSTANT, NULL);
         param0->unk_4C = 0xff;
@@ -1623,7 +1623,7 @@ static void Overlay059_FreeParticipantSpriteAppearanceData(UnkStruct_020961E8 *p
     Heap_Free(param0->participantSpriteCharacterDataBuffers[1]);
 }
 
-static int ov59_021D28D4(UnkStruct_020961E8 *param0)
+static int Overlay059_GetMessageTextSpeed(UnkStruct_020961E8 *param0)
 {
     return 1;
 }
