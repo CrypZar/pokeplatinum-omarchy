@@ -21,7 +21,7 @@
 #include "struct_defs/overlay059_app_args.h"
 #include "struct_defs/struct_0203E348.h"
 #include "struct_defs/struct_0203E6C0.h"
-#include "struct_defs/struct_0206BC70.h"
+#include "struct_defs/wifi_battle_tower_app_args.h"
 
 #include "applications/bag/application.h"
 #include "applications/berry_tag.h"
@@ -1332,7 +1332,7 @@ void FieldSystem_LaunchGTSApp(FieldSystem *fieldSystem, BOOL connectToWiFi)
     FieldSystem_StartChildProcess(fieldSystem, &gtsTemplate, playerData);
 }
 
-void *sub_0203E1AC(FieldSystem *fieldSystem, int param1, int param2)
+void *FieldSystem_StartWifiBattleTowerApp(FieldSystem *fieldSystem, int param1, int param2)
 {
     FS_EXTERN_OVERLAY(wifi_battle_tower);
 
@@ -1343,7 +1343,7 @@ void *sub_0203E1AC(FieldSystem *fieldSystem, int param1, int param2)
         FS_OVERLAY_ID(wifi_battle_tower)
     };
 
-    UnkStruct_0206BC70 *v0 = Heap_AllocAtEnd(HEAP_ID_FIELD2, sizeof(UnkStruct_0206BC70));
+    WifiBattleTowerAppArgs *v0 = Heap_AllocAtEnd(HEAP_ID_FIELD2, sizeof(WifiBattleTowerAppArgs));
 
     v0->record = SaveData_GetWifiBattleTowerRecord(fieldSystem->saveData);
     v0->downloadData = SaveData_GetWifiBattleTowerDownloadData(fieldSystem->saveData);

@@ -112,7 +112,7 @@ BOOL ScrCmd_CallBattleTowerFunction(ScriptContext *ctx)
         *destVar = BattleTower_CheckHaveWifiDownloadData(ctx->fieldSystem->saveData);
         break;
     case BT_FUNC_UNK_16:
-        sub_0206BCE4(ctx->task, functionArgument, varID, *destVar);
+        WifiBattleTowerTask_Start(ctx->task, functionArgument, varID, *destVar);
         return TRUE;
     case BT_FUNC_SELECT_POKEMON:
         partyMenu = FieldSystem_GetScriptMemberPtr(ctx->fieldSystem, SCRIPT_MANAGER_PARTY_MANAGEMENT_DATA);
