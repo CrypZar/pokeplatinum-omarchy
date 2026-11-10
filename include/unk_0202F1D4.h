@@ -22,8 +22,8 @@ int sub_0202F3AC(SaveData *saveData, BattleRecording *param1, int param2, u16 *p
 int sub_0202F41C(SaveData *saveData, int param1, int param2, int param3, u16 *param4, u16 *param5);
 void sub_0202F4C0(int param0, int *param1, int *param2);
 void sub_0202F858(void *param0, u32 param1, u32 param2);
-void sub_0202F868(int param0, int param1, u8 param2);
-u8 sub_0202F884(int param0, int param1);
+void BattleRecording_WriteBattlerInputByte(int param0, int param1, u8 param2);
+u8 BattleRecording_ReadBattlerInputByte(int param0, int param1);
 void sub_0202F8AC(FieldBattleDTO *param0);
 void sub_0202FAA8(int param0, u32 param1);
 BOOL sub_0202FAC0(void);

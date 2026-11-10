@@ -1324,7 +1324,7 @@ void BattleSystem_SetSeedDTO(BattleSystem *battleSys, u32 value)
 void BattleSystem_Record(BattleSystem *battleSys, int battler, u8 action)
 {
     if (((battleSys->battleStatusMask & BATTLE_STATUS_RECORDING) == FALSE) && (battleSys->recordingAckPos[battler] < 0x400)) {
-        sub_0202F868(battler, battleSys->recordingAckPos[battler], action);
+        BattleRecording_WriteBattlerInputByte(battler, battleSys->recordingAckPos[battler], action);
         battleSys->recordingAckPos[battler]++;
     }
 }
@@ -1336,7 +1336,7 @@ BOOL BattleSystem_ReadNextRecordedInput(BattleSystem *battleSys, int battler, u8
     *outInput = 0xFF;
 
     if ((battleSys->battleStatusMask & BATTLE_STATUS_RECORDING) && (battleSys->recordingAckPos[battler] < 0x400)) {
-        *outInput = sub_0202F884(battler, battleSys->recordingAckPos[battler]);
+        *outInput = BattleRecording_ReadBattlerInputByte(battler, battleSys->recordingAckPos[battler]);
         battleSys->recordingAckPos[battler]++;
         result = FALSE;
     } else if ((battleSys->battleStatusMask & BATTLE_STATUS_RECORDING) && (battleSys->recordingAckPos[battler] >= 0x400)) {
@@ -1357,7 +1357,7 @@ u8 BattleSystem_CollectNewRecordedInputs(BattleSystem *battleSys, u8 *outBuffer)
             outBuffer[byteCount++] = battleSys->recordingAckPos[battler] - battleSys->recordingCollectedPos[battler];
 
             for (inputIdx = 0; inputIdx < battleSys->recordingAckPos[battler] - battleSys->recordingCollectedPos[battler]; inputIdx++) {
-                outBuffer[byteCount++] = sub_0202F884(battler, battleSys->recordingCollectedPos[battler] + inputIdx);
+                outBuffer[byteCount++] = BattleRecording_ReadBattlerInputByte(battler, battleSys->recordingCollectedPos[battler] + inputIdx);
             }
 
             battleSys->recordingCollectedPos[battler] = battleSys->recordingAckPos[battler];
@@ -1388,7 +1388,7 @@ void BattleSystem_ReceiveRecordedInputs(BattleSystem *battleSys, u16 byteCount, 
         inputCount = BattleRecording_ReadByte(inputBuffer, &byteOffset, &byteCount);
 
         for (i = 0; i < inputCount; i++) {
-            sub_0202F868(battler, battleSys->recordingWritePos[battler] + i, BattleRecording_ReadByte(inputBuffer, &byteOffset, &byteCount));
+            BattleRecording_WriteBattlerInputByte(battler, battleSys->recordingWritePos[battler] + i, BattleRecording_ReadByte(inputBuffer, &byteOffset, &byteCount));
         }
 
         battleSys->recordingWritePos[battler] += inputCount;
