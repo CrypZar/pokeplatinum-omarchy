@@ -3,8 +3,8 @@
 
 #include "applications/easy_chat/main.h"
 #include "applications/easy_chat/struct_ov20_021D2128_decl.h"
-#include "applications/easy_chat/struct_ov20_021D4E8C.h"
-#include "applications/easy_chat/struct_ov20_021D4FF0.h"
+#include "applications/easy_chat/bg_scroll_animation.h"
+#include "applications/easy_chat/blend_animation.h"
 
 #include "easy_chat_word_list.h"
 #include "narc.h"
@@ -18,8 +18,8 @@ typedef struct {
     u32 unk_10;
     u32 unk_14;
     int dummy;
-    UnkStruct_ov20_021D4FF0 unk_1C;
-    UnkStruct_ov20_021D4E8C unk_3C;
+    EasyChatBlendAnimation unk_1C;
+    EasyChatBgScrollAnimation unk_3C;
     Sprite *cursorSprite;
 } EasyChatCategoriesContext;
 
