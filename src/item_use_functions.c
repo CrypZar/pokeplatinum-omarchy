@@ -214,7 +214,7 @@ void ItemUseContext_Init(FieldSystem *fieldSystem, ItemUseContext *ctxOut)
 
     ctxOut->facingTileBehavior = TerrainCollisionManager_GetTileBehavior(fieldSystem, x, z);
     MapObject *mapObj;
-    sub_0203C9D4(fieldSystem, &mapObj);
+    FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, &mapObj);
 
     ctxOut->berryPatchFlags = BerryPatches_GetPatchFlags(fieldSystem, mapObj);
     ctxOut->playerAvatar = fieldSystem->playerAvatar;
@@ -275,7 +275,7 @@ static BOOL sub_020685AC(FieldTask *task)
 
     switch (*v2) {
     case 0:
-        sub_0203C9D4(fieldSystem, &v3);
+        FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, &v3);
         ScriptManager_Start(task, v1->unk_00, v3, NULL);
 
         *(u16 *)FieldSystem_GetScriptMemberPtr(fieldSystem, SCRIPT_DATA_PARAMETER_0) = v1->unk_04;

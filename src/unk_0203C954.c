@@ -56,7 +56,7 @@ static u8 sub_0203C9B0(PlayerAvatar *playerAvatar, MapObject *param1)
     return 0;
 }
 
-void sub_0203C9D4(FieldSystem *fieldSystem, MapObject **param1)
+void FieldSystem_GetMapObjectAtFacingPosition(FieldSystem *fieldSystem, MapObject **param1)
 {
     int v0, v1;
     int v2;
@@ -87,7 +87,7 @@ void sub_0203C9D4(FieldSystem *fieldSystem, MapObject **param1)
 
 u8 sub_0203CA40(FieldSystem *fieldSystem, MapObject **param1)
 {
-    sub_0203C9D4(fieldSystem, param1);
+    FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, param1);
 
     if (*param1 != NULL) {
         if ((sub_02062D9C(*param1) == 1) && (sub_0203C9B0(fieldSystem->playerAvatar, *param1) == 1)) {
