@@ -45,7 +45,7 @@ static int BgEvent_GetPlayerFacingPosition(FieldSystem *fieldSystem, int *x, int
     return facingDir;
 }
 
-static u8 sub_0203C9B0(PlayerAvatar *playerAvatar, MapObject *param1)
+static u8 PlayerAvatar_IsAtSameHeightAsMapObject(PlayerAvatar *playerAvatar, MapObject *param1)
 {
     MapObject *v0 = PlayerAvatar_GetMapObject(playerAvatar);
 
@@ -90,7 +90,7 @@ u8 FieldSystem_TryGetFacingInteractableMapObject(FieldSystem *fieldSystem, MapOb
     FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, param1);
 
     if (*param1 != NULL) {
-        if ((sub_02062D9C(*param1) == 1) && (sub_0203C9B0(fieldSystem->playerAvatar, *param1) == 1)) {
+        if ((sub_02062D9C(*param1) == 1) && (PlayerAvatar_IsAtSameHeightAsMapObject(fieldSystem->playerAvatar, *param1) == 1)) {
             return 1;
         }
     }
