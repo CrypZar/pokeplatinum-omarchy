@@ -49,10 +49,10 @@ struct UnkStruct_020961E8_t {
     Window unk_36C;
     Window *unk_37C[2];
     Menu *unk_384;
-    void *unk_388[2];
-    NNSG2dCharacterData *unk_390[2];
-    void *unk_398[2];
-    NNSG2dPaletteData *unk_3A0[2];
+    void *participantSpriteCharacterDataBuffers[2];
+    NNSG2dCharacterData *participantSpriteCharacterData[2];
+    void *participantSpritePaletteDataBuffers[2];
+    NNSG2dPaletteData *participantSpritePaletteData[2];
     int overlayState;
     int stateAfterMessage;
     int unk_3B0;

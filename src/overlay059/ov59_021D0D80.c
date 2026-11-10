@@ -83,8 +83,8 @@ static void ov59_021D2524(UnkStruct_020961E8 *unused);
 static void ov59_021D1784(Window *param0, String *param1, int param2);
 static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param1);
 static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0);
-static void ov59_021D27FC(UnkStruct_020961E8 *param0, NARC *param1);
-static void ov59_021D28A4(UnkStruct_020961E8 *param0);
+static void Overlay059_LoadParticipantSpriteAppearanceData(UnkStruct_020961E8 *param0, NARC *param1);
+static void Overlay059_FreeParticipantSpriteAppearanceData(UnkStruct_020961E8 *param0);
 static void Overlay059_LoadRemoteParticipantSpriteAppearance(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4);
 static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *param1);
 static int ov59_021D28D4(UnkStruct_020961E8 *param0);
@@ -504,7 +504,7 @@ static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1)
     param0->overlayState = 0;
 
     MessageLoader_GetString(param0->unk_28, 17, param0->unk_48);
-    ov59_021D27FC(param0, param1);
+    Overlay059_LoadParticipantSpriteAppearanceData(param0, param1);
 
     param0->unk_40C = sub_0205CA4C(HEAP_ID_51);
     param0->statusPaletteAnimation.isActive = 0;
@@ -518,7 +518,7 @@ static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1)
 
 static void ov59_021D131C(UnkStruct_020961E8 *param0)
 {
-    ov59_021D28A4(param0);
+    Overlay059_FreeParticipantSpriteAppearanceData(param0);
 
     Heap_Free(param0->statusPaletteAnimation.paletteDataBuffer);
     Heap_Free(param0->unk_40C);
@@ -1556,7 +1556,7 @@ static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0
             if (CommSys_CurNetId() == v0) {
                 Sprite_SetAnim(param0->unk_28C[v0 + 1], 38 + v3 * 2);
             } else {
-                Overlay059_LoadRemoteParticipantSpriteAppearance(param0->unk_390, param0->unk_3A0, v0, v2, v3);
+                Overlay059_LoadRemoteParticipantSpriteAppearance(param0->participantSpriteCharacterData, param0->participantSpritePaletteData, v0, v2, v3);
                 Sprite_SetAnim(param0->unk_28C[v0 + 1], 27 + v0 * 2);
             }
         }
@@ -1584,12 +1584,12 @@ static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0
     }
 }
 
-static void ov59_021D27FC(UnkStruct_020961E8 *param0, NARC *param1)
+static void Overlay059_LoadParticipantSpriteAppearanceData(UnkStruct_020961E8 *param0, NARC *param1)
 {
-    param0->unk_398[0] = Graphics_GetPlttData(NARC_INDEX_GRAPHIC__WORLDTRADE, 8, &(param0->unk_3A0[0]), HEAP_ID_51);
-    param0->unk_398[1] = Graphics_GetPlttDataFromOpenNARC(param1, 7, &(param0->unk_3A0[1]), HEAP_ID_51);
-    param0->unk_388[0] = Graphics_GetCharData(NARC_INDEX_GRAPHIC__WORLDTRADE, 32, 1, &(param0->unk_390[0]), HEAP_ID_51);
-    param0->unk_388[1] = Graphics_GetCharDataFromOpenNARC(param1, 9, 1, &(param0->unk_390[1]), HEAP_ID_51);
+    param0->participantSpritePaletteDataBuffers[0] = Graphics_GetPlttData(NARC_INDEX_GRAPHIC__WORLDTRADE, 8, &(param0->participantSpritePaletteData[0]), HEAP_ID_51);
+    param0->participantSpritePaletteDataBuffers[1] = Graphics_GetPlttDataFromOpenNARC(param1, 7, &(param0->participantSpritePaletteData[1]), HEAP_ID_51);
+    param0->participantSpriteCharacterDataBuffers[0] = Graphics_GetCharData(NARC_INDEX_GRAPHIC__WORLDTRADE, 32, 1, &(param0->participantSpriteCharacterData[0]), HEAP_ID_51);
+    param0->participantSpriteCharacterDataBuffers[1] = Graphics_GetCharDataFromOpenNARC(param1, 9, 1, &(param0->participantSpriteCharacterData[1]), HEAP_ID_51);
 }
 
 static const u16 Overlay059ParticipantSpriteVramOffsets[] = {
@@ -1614,13 +1614,13 @@ static void Overlay059_LoadRemoteParticipantSpriteAppearance(NNSG2dCharacterData
     GX_LoadOBJPltt(&v2[v0 * 32], (param2 + 7) * 32, 32);
 }
 
-static void ov59_021D28A4(UnkStruct_020961E8 *param0)
+static void Overlay059_FreeParticipantSpriteAppearanceData(UnkStruct_020961E8 *param0)
 {
-    Heap_Free(param0->unk_398[0]);
-    Heap_Free(param0->unk_398[1]);
+    Heap_Free(param0->participantSpritePaletteDataBuffers[0]);
+    Heap_Free(param0->participantSpritePaletteDataBuffers[1]);
 
-    Heap_Free(param0->unk_388[0]);
-    Heap_Free(param0->unk_388[1]);
+    Heap_Free(param0->participantSpriteCharacterDataBuffers[0]);
+    Heap_Free(param0->participantSpriteCharacterDataBuffers[1]);
 }
 
 static int ov59_021D28D4(UnkStruct_020961E8 *param0)
