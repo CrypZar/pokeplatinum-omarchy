@@ -15,7 +15,7 @@
 #include "struct_defs/dress_up_photo.h"
 #include "struct_defs/image_clips.h"
 #include "struct_defs/special_encounter.h"
-#include "struct_defs/struct_0202E7E4.h"
+#include "struct_defs/tv_amity_square_watch_data.h"
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
@@ -271,7 +271,7 @@ typedef struct TVSegment_ThreeCheersForPoffinCorner {
 } TVSegment_ThreeCheersForPoffinCorner;
 
 typedef struct TVSegment_AmitySquareWatch {
-    UnkStruct_0202E7E4 unk_00;
+    TVAmitySquareWatchData unk_00;
     u16 customWordMessage;
 } TVSegment_AmitySquareWatch;
 
@@ -540,9 +540,9 @@ void TVBroadcast_SetContestHallShowInfo(TVBroadcast *broadcast, Pokemon *mon, en
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206CF48(TVBroadcast *broadcast, Pokemon *mon, enum HeapID heapID)
+void TVBroadcast_SetAmitySquareWatchPokemon(TVBroadcast *broadcast, Pokemon *mon, enum HeapID heapID)
 {
-    UnkStruct_0202E7E4 *v0 = sub_0202E7E4(broadcast);
+    TVAmitySquareWatchData *v0 = TVBroadcast_GetAmitySquareWatchData(broadcast);
 
     v0->unk_00 = 1;
     v0->unk_1F = 0;
@@ -555,9 +555,9 @@ void sub_0206CF48(TVBroadcast *broadcast, Pokemon *mon, enum HeapID heapID)
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206CF9C(TVBroadcast *broadcast, int param1)
+void TVBroadcast_SetAmitySquareWatchAccessory(TVBroadcast *broadcast, int param1)
 {
-    UnkStruct_0202E7E4 *v0 = sub_0202E7E4(broadcast);
+    TVAmitySquareWatchData *v0 = TVBroadcast_GetAmitySquareWatchData(broadcast);
 
     v0->unk_1F = 2;
     v0->unk_20 = param1;
@@ -565,9 +565,9 @@ void sub_0206CF9C(TVBroadcast *broadcast, int param1)
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206CFB4(TVBroadcast *broadcast, int param1)
+void TVBroadcast_SetAmitySquareWatchItem(TVBroadcast *broadcast, int param1)
 {
-    UnkStruct_0202E7E4 *v0 = sub_0202E7E4(broadcast);
+    TVAmitySquareWatchData *v0 = TVBroadcast_GetAmitySquareWatchData(broadcast);
 
     v0->unk_1F = 1;
     v0->unk_22 = param1;
@@ -1846,7 +1846,7 @@ void TVSegment_Save_AmitySquareWatch(FieldSystem *fieldSystem, u16 customWordMes
 {
     TVSegmentData segments;
     TVSegment_AmitySquareWatch *amitySquareWatch = &segments.amitySquareWatch;
-    UnkStruct_0202E7E4 *v2 = sub_0202E7E4(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVAmitySquareWatchData *v2 = TVBroadcast_GetAmitySquareWatchData(SaveData_GetTVBroadcast(fieldSystem->saveData));
 
     amitySquareWatch->unk_00 = *v2;
     amitySquareWatch->customWordMessage = customWordMessage;
