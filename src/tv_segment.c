@@ -21,7 +21,7 @@
 #include "struct_defs/tv_safari_game_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
-#include "struct_defs/struct_0202E828.h"
+#include "struct_defs/tv_battle_points_news_data.h"
 #include "struct_defs/struct_0202E834.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
@@ -224,7 +224,7 @@ typedef struct TVSegment_FlagCapturingMaster {
 } TVSegment_FlagCapturingMaster;
 
 typedef struct TVSegment_BattlePointScoringMaster {
-    TVBroadcast_BattlePointData data;
+    TVBattlePointsNewsData data;
 } TVSegment_BattlePointScoringMaster;
 
 typedef struct TVSegment_GTSMaster {
@@ -648,7 +648,7 @@ void TVBroadcast_SetBattleFrontierFrontlineNewsMultiData(TVBroadcast *broadcast,
 
 void TVBroadcast_UpdateBattlePointData(TVBroadcast *broadcast, u16 battlePoints)
 {
-    TVBroadcast_BattlePointData *data = TVBroadcast_GetBattlePointData(broadcast);
+    TVBattlePointsNewsData *data = TVBroadcast_GetBattlePointData(broadcast);
 
     data->dummy = 1;
     data->battlePoints += battlePoints;
@@ -662,7 +662,7 @@ void TVBroadcast_UpdateBattlePointData(TVBroadcast *broadcast, u16 battlePoints)
 
 void TVBroadcast_ResetBattlePointData(TVBroadcast *broadcast)
 {
-    TVBroadcast_BattlePointData *data = TVBroadcast_GetBattlePointData(broadcast);
+    TVBattlePointsNewsData *data = TVBroadcast_GetBattlePointData(broadcast);
 
     data->battlePoints = 0;
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
@@ -1567,7 +1567,7 @@ void TVSegment_Save_BattlePointScoringMaster(SaveData *saveData)
 {
     TVSegmentData segments;
     TVSegment_BattlePointScoringMaster *segment = &segments.scoringMaster;
-    TVBroadcast_BattlePointData *data = TVBroadcast_GetBattlePointData(SaveData_GetTVBroadcast(saveData));
+    TVBattlePointsNewsData *data = TVBroadcast_GetBattlePointData(SaveData_GetTVBroadcast(saveData));
 
     if (data->battlePoints >= 30) {
         segment->data = *data;
