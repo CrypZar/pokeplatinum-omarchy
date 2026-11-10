@@ -9,7 +9,7 @@
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/tv_battle_points_news_data.h"
-#include "struct_defs/struct_0202E834.h"
+#include "struct_defs/tv_global_trade_news_data.h"
 #include "struct_defs/tv.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
@@ -46,6 +46,6 @@ TVSafariGameData *TVBroadcast_GetSafariGameData(TVBroadcast *broadcast);
 TVBattleFrontierFrontlineNewsSingleData *TVBroadcast_GetBattleFrontierFrontlineNewsSingleData(TVBroadcast *broadcast);
 TVBattleFrontierFrontlineNewsMultiData *TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(TVBroadcast *broadcast);
 TVBattlePointsNewsData *TVBroadcast_GetBattlePointData(TVBroadcast *broadcast);
-TVBroadcast_GTSData *TVBroadcast_GetGTSData(TVBroadcast *broadcast);
+TVGlobalTradeNewsData *TVBroadcast_GetGTSData(TVBroadcast *broadcast);
 
 #endif // POKEPLATINUM_TV_BROADCAST_H

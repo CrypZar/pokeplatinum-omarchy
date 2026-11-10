@@ -12,7 +12,7 @@
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/tv_battle_points_news_data.h"
-#include "struct_defs/struct_0202E834.h"
+#include "struct_defs/tv_global_trade_news_data.h"
 #include "struct_defs/tv.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
@@ -465,7 +465,7 @@ TVBattlePointsNewsData *TVBroadcast_GetBattlePointData(TVBroadcast *broadcast)
     return &broadcast->battlePointData;
 }
 
-TVBroadcast_GTSData *TVBroadcast_GetGTSData(TVBroadcast *broadcast)
+TVGlobalTradeNewsData *TVBroadcast_GetGTSData(TVBroadcast *broadcast)
 {
     return &broadcast->gtsData;
 }
