@@ -235,7 +235,7 @@ TVWifiEpisode *TVWifiEpisode_CreateRecordsBatch(SaveData *saveData, enum HeapID 
     return v0;
 }
 
-static BOOL ov59_021D2DC4(TVWifiEpisode *param0, int param1, const TVWifiEpisode *param2, int param3)
+static BOOL TVWifiEpisode_TryInsertReceivedEpisode(TVWifiEpisode *param0, int param1, const TVWifiEpisode *param2, int param3)
 {
     int v0;
 
@@ -264,7 +264,7 @@ static BOOL ov59_021D2DC4(TVWifiEpisode *param0, int param1, const TVWifiEpisode
     return 0;
 }
 
-static const void **ov59_021D2E40(int param0, const void **param1, const void **param2)
+static const void **TVWifiEpisode_SelectBatchForTrainerGameCode(int param0, const void **param1, const void **param2)
 {
     TrainerInfo *v0 = CommInfo_TrainerInfo(param0);
 
@@ -279,7 +279,7 @@ static const void **ov59_021D2E40(int param0, const void **param1, const void **
     return param1;
 }
 
-static void ov59_021D2E60(TVWifiEpisode *param0, int param1, int param2, int param3, const void **param4, const void **param5, int param6)
+static void TVBroadcast_MergeReceivedWifiEpisodes(TVWifiEpisode *param0, int param1, int param2, int param3, const void **param4, const void **param5, int param6)
 {
     u8 v0[16];
     int v1, v2, v3;
@@ -307,10 +307,10 @@ static void ov59_021D2E60(TVWifiEpisode *param0, int param1, int param2, int par
             v0[v1]++;
 
             if (v1 != param3) {
-                v4 = ov59_021D2E40(v1, param4, param5);
+                v4 = TVWifiEpisode_SelectBatchForTrainerGameCode(v1, param4, param5);
 
                 if (v4 != NULL) {
-                    ov59_021D2DC4(param0, param1, &((TVWifiEpisode *)v4[v1])[v3], param6);
+                    TVWifiEpisode_TryInsertReceivedEpisode(param0, param1, &((TVWifiEpisode *)v4[v1])[v3], param6);
                 }
             }
         }
@@ -319,17 +319,17 @@ static void ov59_021D2E60(TVWifiEpisode *param0, int param1, int param2, int par
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void ov59_021D2F10(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4)
+void TVBroadcast_MergeTrainerSightingsWifiEpisodes(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4)
 {
-    ov59_021D2E60(broadcast->unk_234, 16, param1, param2, param3, param4, 1);
+    TVBroadcast_MergeReceivedWifiEpisodes(broadcast->unk_234, 16, param1, param2, param3, param4, 1);
 }
 
-void ov59_021D2F38(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4)
+void TVBroadcast_MergeRecordsWifiEpisodes(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4)
 {
-    ov59_021D2E60(broadcast->unk_684, 8, param1, param2, param3, param4, 2);
+    TVBroadcast_MergeReceivedWifiEpisodes(broadcast->unk_684, 8, param1, param2, param3, param4, 2);
 }
 
-void ov59_021D2F60(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4)
+void TVBroadcast_MergeInterviewsWifiEpisodes(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4)
 {
-    ov59_021D2E60(broadcast->unk_8AC, 8, param1, param2, param3, param4, 0);
+    TVBroadcast_MergeReceivedWifiEpisodes(broadcast->unk_8AC, 8, param1, param2, param3, param4, 0);
 }
