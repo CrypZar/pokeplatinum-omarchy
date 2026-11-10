@@ -61,8 +61,8 @@
 static void ov59_021D1100(void *param0);
 static void Overlay059_ConfigureVramBanks(void);
 static void Overlay059_InitializeBackgroundLayers(BgConfig *param0);
-static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1);
-static void ov59_021D131C(UnkStruct_020961E8 *param0);
+static void Overlay059_InitializeLobbyState(UnkStruct_020961E8 *param0, NARC *param1);
+static void Overlay059_FreeLobbyStateResources(UnkStruct_020961E8 *param0);
 static void ov59_021D1354(BgConfig *param0);
 static void ov59_021D1388(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D1474(void);
@@ -197,7 +197,7 @@ int Overlay059_Init(ApplicationManager *appMan, int *param1)
         ov59_021D1388(v0, v1);
         SetVBlankCallback(ov59_021D1100, v0);
 
-        ov59_021D1250(v0, v1);
+        Overlay059_InitializeLobbyState(v0, v1);
         ov59_021D1474();
         ov59_021D14A4(v0, v1);
         Overlay059_CreateLobbySprites(v0);
@@ -312,7 +312,7 @@ int Overlay059_Exit(ApplicationManager *appMan, int *unused)
     MessageLoader_Free(v0->unk_28);
     StringTemplate_Free(v0->unk_24);
 
-    ov59_021D131C(v0);
+    Overlay059_FreeLobbyStateResources(v0);
     ApplicationManager_FreeData(appMan);
 
     GX_SetDispSelect(GX_DISP_SELECT_MAIN_SUB);
@@ -488,7 +488,7 @@ static void Overlay059_InitializeBackgroundLayers(BgConfig *param0)
     Bg_ClearTilesRange(4, 32, 0, HEAP_ID_51);
 }
 
-static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1)
+static void Overlay059_InitializeLobbyState(UnkStruct_020961E8 *param0, NARC *param1)
 {
     for (int i = 0; i < 5; i++) {
         param0->unk_2C[i] = String_Init(7 + 1, HEAP_ID_51);
@@ -516,7 +516,7 @@ static void ov59_021D1250(UnkStruct_020961E8 *param0, NARC *param1)
     param0->unk_4AAC = 2;
 }
 
-static void ov59_021D131C(UnkStruct_020961E8 *param0)
+static void Overlay059_FreeLobbyStateResources(UnkStruct_020961E8 *param0)
 {
     Overlay059_FreeParticipantSpriteAppearanceData(param0);
 
