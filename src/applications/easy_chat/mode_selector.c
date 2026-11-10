@@ -1,4 +1,4 @@
-#include "applications/easy_chat/ov20_021D3864.h"
+#include "applications/easy_chat/mode_selector.h"
 
 #include <nitro.h>
 #include <string.h>
@@ -23,14 +23,14 @@ typedef struct UnkStruct_ov20_021D3980_t {
     const EasyChatApp *unk_04;
     const EasyChatWordList *unk_08;
     Sprite *unk_0C;
-} UnkStruct_ov20_021D3980;
+} EasyChatModeSelector;
 
-static void ov20_021D390C(BgConfig *param0, const WindowTemplate *param1, u32 param2);
-static void ov20_021D3980(UnkStruct_ov20_021D3980 *param0);
+static void EasyChatModeSelector_DrawModeLabel(BgConfig *param0, const WindowTemplate *param1, u32 param2);
+static void EasyChatModeSelector_CreateCursorSprite(EasyChatModeSelector *param0);
 
-UnkStruct_ov20_021D3980 *ov20_021D3864(UnkStruct_ov20_021D2128 *param0, const EasyChatApp *param1, const EasyChatWordList *param2)
+EasyChatModeSelector *EasyChatModeSelector_New(UnkStruct_ov20_021D2128 *param0, const EasyChatApp *param1, const EasyChatWordList *param2)
 {
-    UnkStruct_ov20_021D3980 *v0 = Heap_Alloc(HEAP_ID_35, sizeof(UnkStruct_ov20_021D3980));
+    EasyChatModeSelector *v0 = Heap_Alloc(HEAP_ID_35, sizeof(EasyChatModeSelector));
 
     v0->unk_00 = param0;
     v0->unk_04 = param1;
@@ -40,7 +40,7 @@ UnkStruct_ov20_021D3980 *ov20_021D3864(UnkStruct_ov20_021D2128 *param0, const Ea
     return v0;
 }
 
-void ov20_021D3880(UnkStruct_ov20_021D3980 *param0)
+void EasyChatModeSelector_Free(EasyChatModeSelector *param0)
 {
     if (param0->unk_0C) {
         Sprite_Delete(param0->unk_0C);
@@ -49,7 +49,7 @@ void ov20_021D3880(UnkStruct_ov20_021D3980 *param0)
     Heap_Free(param0);
 }
 
-void ov20_021D3898(UnkStruct_ov20_021D3980 *param0, NARC *param1)
+void EasyChatModeSelector_Initialize(EasyChatModeSelector *param0, NARC *param1)
 {
     static const WindowTemplate v0 = {
         3, 3, 6, 10, 2, 13, 64
@@ -62,14 +62,14 @@ void ov20_021D3898(UnkStruct_ov20_021D3980 *param0, NARC *param1)
     Graphics_LoadTilemapToBgLayerFromOpenNARC(param1, 4, v2, 3, 0, 0, 1, HEAP_ID_35);
     Graphics_LoadTilesToBgLayerFromOpenNARC(param1, 5, v2, 3, 0, 0, 1, HEAP_ID_35);
 
-    ov20_021D390C(v2, &v0, 0);
-    ov20_021D390C(v2, &v1, 1);
-    ov20_021D3980(param0);
+    EasyChatModeSelector_DrawModeLabel(v2, &v0, 0);
+    EasyChatModeSelector_DrawModeLabel(v2, &v1, 1);
+    EasyChatModeSelector_CreateCursorSprite(param0);
 
     Bg_CopyTilemapBufferToVRAM(v2, 3);
 }
 
-static void ov20_021D390C(BgConfig *param0, const WindowTemplate *param1, u32 param2)
+static void EasyChatModeSelector_DrawModeLabel(BgConfig *param0, const WindowTemplate *param1, u32 param2)
 {
     Window v0;
     String *v1;
@@ -88,7 +88,7 @@ static void ov20_021D390C(BgConfig *param0, const WindowTemplate *param1, u32 pa
     Window_Remove(&v0);
 }
 
-static void ov20_021D3980(UnkStruct_ov20_021D3980 *param0)
+static void EasyChatModeSelector_CreateCursorSprite(EasyChatModeSelector *param0)
 {
     SpriteResourcesHeader v0;
 
@@ -99,27 +99,27 @@ static void ov20_021D3980(UnkStruct_ov20_021D3980 *param0)
     Sprite_SetDrawFlag(param0->unk_0C, FALSE);
 }
 
-void ov20_021D39BC(UnkStruct_ov20_021D3980 *param0)
+void EasyChatModeSelector_SetCursorSelectedAnimation(EasyChatModeSelector *param0)
 {
     Sprite_SetAnim(param0->unk_0C, 3);
 }
 
-void ov20_021D39C8(UnkStruct_ov20_021D3980 *param0)
+void EasyChatModeSelector_SetCursorDefaultAnimation(EasyChatModeSelector *param0)
 {
     Sprite_SetAnim(param0->unk_0C, 2);
 }
 
-void ov20_021D39D4(UnkStruct_ov20_021D3980 *param0, BOOL param1)
+void EasyChatModeSelector_SetCursorVisible(EasyChatModeSelector *param0, BOOL param1)
 {
     Sprite_SetDrawFlag(param0->unk_0C, param1);
 }
 
-BOOL ov20_021D39E0(UnkStruct_ov20_021D3980 *param0)
+BOOL EasyChatModeSelector_IsCursorVisible(EasyChatModeSelector *param0)
 {
     return Sprite_GetDrawFlag(param0->unk_0C);
 }
 
-void ov20_021D39EC(UnkStruct_ov20_021D3980 *param0, int param1)
+void EasyChatModeSelector_SetSelectedMode(EasyChatModeSelector *param0, int param1)
 {
     VecFx32 v0;
 
@@ -141,12 +141,12 @@ void ov20_021D39EC(UnkStruct_ov20_021D3980 *param0, int param1)
     Sprite_SetAnim(param0->unk_0C, 2);
 }
 
-void ov20_021D3A2C(UnkStruct_ov20_021D3980 *param0)
+void EasyChatModeSelector_ShowCategoryModeLabels(EasyChatModeSelector *param0)
 {
     Bg_SetOffset(ov20_021D2E04(param0->unk_00), 3, 3, 64);
 }
 
-void ov20_021D3A40(UnkStruct_ov20_021D3980 *param0)
+void EasyChatModeSelector_RestoreDefaultBackgroundOffset(EasyChatModeSelector *param0)
 {
     Bg_SetOffset(ov20_021D2E04(param0->unk_00), 3, 3, 0);
 }
