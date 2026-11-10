@@ -1770,7 +1770,7 @@ void sub_02062D80(MapObject *mapObj, int param1)
     }
 }
 
-int sub_02062D9C(MapObject *mapObj)
+int MapObject_IsInteractionEnabled(MapObject *mapObj)
 {
     if (MapObject_CheckStatusFlag(mapObj, MAP_OBJ_STATUS_19) == TRUE) {
         return FALSE;
@@ -1779,7 +1779,7 @@ int sub_02062D9C(MapObject *mapObj)
     return TRUE;
 }
 
-void sub_02062DB4(MapObject *mapObj, int param1)
+void MapObject_SetInteractionDisabled(MapObject *mapObj, int param1)
 {
     if (param1 == TRUE) {
         MapObject_SetStatusFlagOn(mapObj, MAP_OBJ_STATUS_19);
