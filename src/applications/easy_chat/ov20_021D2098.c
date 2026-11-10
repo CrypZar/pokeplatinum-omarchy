@@ -7,11 +7,11 @@
 #include "applications/easy_chat/main.h"
 #include "applications/easy_chat/ov20_021D2EA4.h"
 #include "applications/easy_chat/ov20_021D3864.h"
-#include "applications/easy_chat/ov20_021D40E8.h"
+#include "applications/easy_chat/word_list_view.h"
 #include "applications/easy_chat/ov20_021D4728.h"
 #include "applications/easy_chat/struct_ov20_021D30F8_decl.h"
 #include "applications/easy_chat/struct_ov20_021D3980_decl.h"
-#include "applications/easy_chat/struct_ov20_021D4210_decl.h"
+#include "applications/easy_chat/easy_chat_word_list_view_decl.h"
 #include "applications/easy_chat/struct_ov20_021D4AD4_decl.h"
 
 #include "bg_window.h"
@@ -46,7 +46,7 @@ typedef struct UnkStruct_ov20_021D2128_t {
     UnkStruct_ov20_021D30F8 *unk_244;
     UnkStruct_ov20_021D3980 *unk_248;
     EasyChatCategoriesContext *unk_24C;
-    UnkStruct_ov20_021D4210 *unk_250;
+    EasyChatWordListView *wordListView;
     UnkStruct_ov20_021D4AD4 *unk_254;
 } UnkStruct_ov20_021D2128;
 
@@ -289,8 +289,8 @@ static void ov20_021D2260(SysTask *param0, void *param1)
     v0->unk_00->unk_24C = EasyChatCategoriesContext_New(v0->unk_00, v0->unk_04, v0->unk_08);
     EasyChatCategories_DrawInterface(v0->unk_00->unk_24C, narc);
 
-    v0->unk_00->unk_250 = ov20_021D40E8(v0->unk_00, v0->unk_04, v0->unk_08);
-    ov20_021D41A8(v0->unk_00->unk_250);
+    v0->unk_00->wordListView = EasyChatWordListView_New(v0->unk_00, v0->unk_04, v0->unk_08);
+    EasyChatWordListView_PrepareDisplay(v0->unk_00->wordListView);
 
     v0->unk_00->unk_254 = ov20_021D4728(v0->unk_00, v0->unk_04, v0->unk_08);
     ov20_021D4774(v0->unk_00->unk_254, narc);
@@ -340,7 +340,7 @@ static void ov20_021D2414(SysTask *param0, void *param1)
             ov20_021D2EF0(v0->unk_00->unk_244);
             ov20_021D3880(v0->unk_00->unk_248);
             EasyChatCategoriesContext_Free(v0->unk_00->unk_24C);
-            ov20_021D4164(v0->unk_00->unk_250);
+            EasyChatWordListView_Free(v0->unk_00->wordListView);
             ov20_021D4764(v0->unk_00->unk_254);
 
             for (v2 = 0; v2 < 2; v2++) {
@@ -635,21 +635,21 @@ static void ov20_021D2848(SysTask *param0, void *param1)
 
     switch (v0->unk_14) {
     case 0:
-        ov20_021D4294(v1->unk_250);
+        EasyChatWordListView_DrawPage(v1->wordListView);
         EasyChatCategories_SetCursorVisible(v1->unk_24C, 0);
         EasyChatCategories_BeginAlphaFadeOut(v1->unk_24C);
         v0->unk_14++;
         break;
     case 1:
         if (EasyChatCategories_FinishAlphaFadeOutAndHideLayer(v1->unk_24C)) {
-            ov20_021D42E4(v1->unk_250);
+            EasyChatWordListView_BeginShowTransition(v1->wordListView);
             v0->unk_14++;
         }
         break;
     case 2:
-        if (ov20_021D4390(v1->unk_250)) {
-            ov20_021D4480(v1->unk_250, ov20_021D2034(v1->unk_18));
-            ov20_021D4440(v1->unk_250, 1);
+        if (EasyChatWordListView_IsShowTransitionComplete(v1->wordListView)) {
+            EasyChatWordListView_SetCursorIndex(v1->wordListView, ov20_021D2034(v1->unk_18));
+            EasyChatWordListView_SetSelectionIndicatorsVisible(v1->wordListView, 1);
             ov20_021D4DBC(v1->unk_254, 1);
             ov20_021D2238(v0);
         }
@@ -668,13 +668,13 @@ static void ov20_021D28E8(SysTask *param0, void *param1)
         v0->unk_14++;
         break;
     case 1:
-        ov20_021D4440(v1->unk_250, 0);
+        EasyChatWordListView_SetSelectionIndicatorsVisible(v1->wordListView, 0);
         ov20_021D4DBC(v1->unk_254, 0);
-        ov20_021D43B4(v1->unk_250);
+        EasyChatWordListView_BeginHideTransition(v1->wordListView);
         v0->unk_14++;
         break;
     case 2:
-        if (ov20_021D43D8(v1->unk_250)) {
+        if (EasyChatWordListView_IsHideTransitionComplete(v1->wordListView)) {
             EasyChatCategories_SetModeOffset(v1->unk_24C);
             v0->unk_14++;
         }
@@ -702,13 +702,13 @@ static void ov20_021D29BC(SysTask *param0, void *param1)
     switch (v0->unk_14) {
     case 0:
         ov20_021D3A40(v1->unk_248);
-        ov20_021D4440(v1->unk_250, 0);
+        EasyChatWordListView_SetSelectionIndicatorsVisible(v1->wordListView, 0);
         ov20_021D4DBC(v1->unk_254, 0);
-        ov20_021D43B4(v1->unk_250);
+        EasyChatWordListView_BeginHideTransition(v1->wordListView);
         v0->unk_14++;
         break;
     case 1:
-        if (ov20_021D43D8(v1->unk_250)) {
+        if (EasyChatWordListView_IsHideTransitionComplete(v1->wordListView)) {
             EasyChatCategories_ResetVerticalOffset(v1->unk_24C);
             EasyChatCategories_BeginAlphaFadeIn(v1->unk_24C);
             v0->unk_14++;
@@ -739,13 +739,13 @@ static void ov20_021D2A9C(SysTask *param0, void *param1)
     switch (v0->unk_14) {
     case 0:
         ov20_021D3A40(v1->unk_248);
-        ov20_021D4440(v1->unk_250, 0);
+        EasyChatWordListView_SetSelectionIndicatorsVisible(v1->wordListView, 0);
         ov20_021D4DBC(v1->unk_254, 0);
-        ov20_021D43B4(v1->unk_250);
+        EasyChatWordListView_BeginHideTransition(v1->wordListView);
         v0->unk_14++;
         break;
     case 1:
-        if (ov20_021D43D8(v1->unk_250)) {
+        if (EasyChatWordListView_IsHideTransitionComplete(v1->wordListView)) {
             EasyChatCategories_ResetVerticalOffset(v1->unk_24C);
             EasyChatCategories_BeginAlphaFadeIn(v1->unk_24C);
             v0->unk_14++;
@@ -799,7 +799,7 @@ static void ov20_021D2BD4(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D4480(v1->unk_250, ov20_021D2034(v1->unk_18));
+    EasyChatWordListView_SetCursorIndex(v1->wordListView, ov20_021D2034(v1->unk_18));
     ov20_021D2238(v0);
 }
 
@@ -810,11 +810,11 @@ static void ov20_021D2BF4(SysTask *param0, void *param1)
 
     switch (v0->unk_14) {
     case 0:
-        ov20_021D44BC(v1->unk_250, ov20_021D2040(v1->unk_18));
+        EasyChatWordListView_ScrollByRows(v1->wordListView, ov20_021D2040(v1->unk_18));
         v0->unk_14++;
         break;
     case 1:
-        if (ov20_021D4578(v1->unk_250)) {
+        if (EasyChatWordListView_IsScrollComplete(v1->wordListView)) {
             ov20_021D4DBC(v1->unk_254, 1);
             ov20_021D2238(v0);
         }

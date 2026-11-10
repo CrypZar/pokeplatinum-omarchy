@@ -766,7 +766,7 @@ Overlay easy_chat
 	Object src/applications/easy_chat/ov20_021D2EA4.c
 	Object src/applications/easy_chat/ov20_021D3864.c
 	Object src/applications/easy_chat/categories.c
-	Object src/applications/easy_chat/ov20_021D40E8.c
+	Object src/applications/easy_chat/word_list_view.c
 	Object src/applications/easy_chat/ov20_021D4728.c
 	Object src/applications/easy_chat/transition_animations.c
 	Object src/applications/easy_chat/abc_mode.c
