@@ -10,7 +10,7 @@
 
 #include "struct_decls/tv_broadcast.h"
 #include "struct_defs/image_clips.h"
-#include "struct_defs/struct_0202E7E4.h"
+#include "struct_defs/tv_amity_square_watch_data.h"
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
@@ -194,13 +194,13 @@ BOOL ScrCmd_27C(ScriptContext *param0)
         Party *party = SaveData_GetParty(param0->fieldSystem->saveData);
         Pokemon *v2 = Party_GetPokemonBySlotIndex(party, ScriptContext_GetVar(param0));
 
-        sub_0206CF48(broadcast, v2, HEAP_ID_FIELD1);
+        TVBroadcast_SetAmitySquareWatchPokemon(broadcast, v2, HEAP_ID_FIELD1);
     } break;
     case 1:
-        sub_0206CFB4(broadcast, ScriptContext_GetVar(param0));
+        TVBroadcast_SetAmitySquareWatchItem(broadcast, ScriptContext_GetVar(param0));
         break;
     case 2:
-        sub_0206CF9C(broadcast, ScriptContext_GetVar(param0));
+        TVBroadcast_SetAmitySquareWatchAccessory(broadcast, ScriptContext_GetVar(param0));
         break;
     }
 
@@ -272,7 +272,7 @@ static void sub_020492A0(FieldSystem *fieldSystem, StringTemplate *template)
 {
     charcode_t name[MON_NAME_LEN + 1];
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(fieldSystem->saveData);
-    UnkStruct_0202E7E4 *v2 = sub_0202E7E4(broadcast);
+    TVAmitySquareWatchData *v2 = TVBroadcast_GetAmitySquareWatchData(broadcast);
 
     MessageLoader_GetSpeciesName(v2->species, HEAP_ID_FIELD1, name);
     sub_0204922C(template, 0, name, GENDER_MALE, GAME_LANGUAGE, 1);
@@ -333,7 +333,7 @@ static BOOL sub_02049388(FieldSystem *fieldSystem)
 
 static BOOL sub_02049398(FieldSystem *fieldSystem)
 {
-    UnkStruct_0202E7E4 *v0 = sub_0202E7E4(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVAmitySquareWatchData *v0 = TVBroadcast_GetAmitySquareWatchData(SaveData_GetTVBroadcast(fieldSystem->saveData));
     return v0->unk_00;
 }
 
