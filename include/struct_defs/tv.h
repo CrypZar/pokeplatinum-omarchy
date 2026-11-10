@@ -4,7 +4,7 @@
 #include "constants/tv_broadcast.h"
 
 #include "struct_defs/struct_0202E7E4.h"
-#include "struct_defs/struct_0202E7F0.h"
+#include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
@@ -54,7 +54,7 @@ typedef struct TVBroadcast {
     TVWifiEpisode unk_8AC[8];
     TVSegment_ContestHall_ShowcasedPokemon showcasedPokemon;
     UnkStruct_0202E7E4 unk_ADE;
-    UnkStruct_0202E7F0 unk_B02;
+    TVPoffinCornerData unk_B02;
     TVBattleTowerCornerOutcome unk_B04;
     UnkStruct_0202E808 safariGame;
     UnkStruct_0202E810 unk_B10;
