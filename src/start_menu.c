@@ -84,7 +84,7 @@
 #include "unk_0203D1B8.h"
 #include "unk_020559DC.h"
 #include "unk_0205C22C.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 #include "vars_flags.h"
 
 #include "res/graphics/start_menu/start_menu.naix"

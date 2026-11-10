@@ -28,7 +28,7 @@
 #include "savedata.h"
 #include "script_manager.h"
 #include "unk_020363E8.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 #include "unk_0209BA80.h"
 
 static u16 BattleTower_GetPartnerParam(BattleTower *battleTower, u8 param1);
