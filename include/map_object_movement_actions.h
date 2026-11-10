@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_UNK_020655F4_H
-#define POKEPLATINUM_UNK_020655F4_H
+#ifndef POKEPLATINUM_MAP_OBJECT_MOVEMENT_ACTIONS_H
+#define POKEPLATINUM_MAP_OBJECT_MOVEMENT_ACTIONS_H
 
 #include "generated/movement_actions.h"
 
@@ -178,4 +178,4 @@ extern BOOL (*const gMovementActionFuncs_143[])(MapObject *);
 extern BOOL (*const gMovementActionFuncs_144[])(MapObject *);
 extern BOOL (*const gMovementActionFuncs_153[])(MapObject *);
 
-#endif // POKEPLATINUM_UNK_020655F4_H
+#endif // POKEPLATINUM_MAP_OBJECT_MOVEMENT_ACTIONS_H

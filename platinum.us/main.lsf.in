@@ -253,7 +253,7 @@ Static main
 	Object src/unk_020EDBAC.c
 	Object src/map_object_move.c
 	Object src/unk_0206450C.c
-	Object src/unk_020655F4.c
+	Object src/map_object_movement_actions.c
 	Object src/unk_020673B8.c
 	Object src/berry_patch_graphics.c
 	Object src/trainer_encounter.c
