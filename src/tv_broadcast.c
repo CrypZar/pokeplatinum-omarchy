@@ -7,7 +7,7 @@
 
 #include "struct_defs/struct_0202E7E4.h"
 #include "struct_defs/struct_0202E7F0.h"
-#include "struct_defs/struct_0202E7FC.h"
+#include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
 #include "struct_defs/struct_0202E81C.h"
@@ -440,7 +440,7 @@ UnkStruct_0202E7F0 *sub_0202E7F0(TVBroadcast *broadcast)
     return &broadcast->unk_B02;
 }
 
-UnkStruct_0202E7FC *sub_0202E7FC(TVBroadcast *broadcast)
+TVBattleTowerCornerOutcome *TVBroadcast_GetBattleTowerCornerOutcome(TVBroadcast *broadcast)
 {
     return &broadcast->unk_B04;
 }

@@ -17,7 +17,7 @@
 #include "struct_defs/special_encounter.h"
 #include "struct_defs/struct_0202E7E4.h"
 #include "struct_defs/struct_0202E7F0.h"
-#include "struct_defs/struct_0202E7FC.h"
+#include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
 #include "struct_defs/struct_0202E81C.h"
@@ -232,7 +232,7 @@ typedef struct TVSegment_GTSMaster {
 } TVSegment_GTSMaster;
 
 typedef struct TVSegment_BattleTowerCorner {
-    UnkStruct_0202E7FC outcome;
+    TVBattleTowerCornerOutcome outcome;
     u16 customMessageWord;
 } TVSegment_BattleTowerCorner;
 
@@ -585,9 +585,9 @@ void sub_0206CFCC(TVBroadcast *broadcast, int param1)
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206CFE4(TVBroadcast *broadcast, BOOL didWin, u16 streak)
+void TVBroadcast_SetBattleTowerCornerOutcome(TVBroadcast *broadcast, BOOL didWin, u16 streak)
 {
-    UnkStruct_0202E7FC *v0 = sub_0202E7FC(broadcast);
+    TVBattleTowerCornerOutcome *v0 = TVBroadcast_GetBattleTowerCornerOutcome(broadcast);
 
     v0->unk_00 = 1;
     v0->win = didWin;
@@ -1627,7 +1627,7 @@ void TVSegment_Save_BattleTowerCorner(FieldSystem *fieldSystem, u16 customMessag
 {
     TVSegmentData segments;
     TVSegment_BattleTowerCorner *battleTowerCorner = &segments.battleTowerCorner;
-    UnkStruct_0202E7FC *outcome = sub_0202E7FC(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVBattleTowerCornerOutcome *outcome = TVBroadcast_GetBattleTowerCornerOutcome(SaveData_GetTVBroadcast(fieldSystem->saveData));
 
     battleTowerCorner->outcome = *outcome;
     outcome->unk_00 = 0;
