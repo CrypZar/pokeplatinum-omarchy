@@ -35,7 +35,7 @@
 #include "sys_task_manager.h"
 #include "system.h"
 #include "tv_segment.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 #include "res/text/bank/common_strings.h"
 
