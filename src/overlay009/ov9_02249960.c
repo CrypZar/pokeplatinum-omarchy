@@ -72,7 +72,7 @@
 #include "sys_task_manager.h"
 #include "system_flags.h"
 #include "system_vars.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "vars_flags.h"
 #include "vram_transfer.h"
 

@@ -28,7 +28,7 @@
 #include "player_avatar.h"
 #include "sound_playback.h"
 #include "terrain_collision_manager.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 typedef BOOL (*TileBehaviorFunc)(u8);
 
