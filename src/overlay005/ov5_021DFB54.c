@@ -1762,7 +1762,7 @@ static MapObject *ov5_021E10D4(PlayerAvatar *playerAvatar, int param1)
     int v0 = PlayerAvatar_GetXPos(playerAvatar) + MapObject_GetDxFromDir(param1);
     int v1 = PlayerAvatar_GetZPos(playerAvatar) + MapObject_GetDzFromDir(param1);
     const MapObjectManager *v2 = MapObject_MapObjectManager(PlayerAvatar_GetMapObject(playerAvatar));
-    MapObject *v3 = sub_0206326C(v2, v0, v1, 0);
+    MapObject *v3 = MapObjectMan_FindAtCoords(v2, v0, v1, 0);
 
     return v3;
 }
