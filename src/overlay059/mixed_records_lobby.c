@@ -1,4 +1,4 @@
-#include "overlay059/ov59_021D0D80.h"
+#include "overlay059/mixed_records_lobby.h"
 
 #include <nitro.h>
 #include <string.h>
