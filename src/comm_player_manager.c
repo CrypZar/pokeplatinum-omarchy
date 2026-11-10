@@ -43,7 +43,7 @@
 #include "trainer_info.h"
 #include "tv_segment.h"
 #include "underground.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 static int CommPlayerMan_GetSlideMovementSpeed(int param0, int param1);
 static BOOL CommPlayer_MoveSlide(int netId, int param1);

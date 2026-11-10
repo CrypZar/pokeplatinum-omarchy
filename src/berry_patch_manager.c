@@ -27,7 +27,7 @@
 #include "system.h"
 #include "terrain_collision_manager.h"
 #include "tv_segment.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 #include "res/graphics/field_effects/field_effects.naix"
 
