@@ -180,7 +180,7 @@ ScriptCommand(SCRCMD_OPENPOKEMONSTORAGE,                                   ScrCm
 ScriptCommand(SCRCMD_0AC,                                                  ScrCmd_0AC)
 ScriptCommand(SCRCMD_OPENUNIONROOMTRAINERCASE,                             ScrCmd_OpenUnionRoomTrainerCase)
 ScriptCommand(SCRCMD_0AE,                                                  ScrCmd_0AE)
-ScriptCommand(SCRCMD_0AF,                                                  ScrCmd_OpenMixedRecordsLobby)
+ScriptCommand(SCRCMD_OPENMIXEDRECORDSLOBBY,                                                  ScrCmd_OpenMixedRecordsLobby)
 ScriptCommand(SCRCMD_CLEARGAME,                                            ScrCmd_ClearGame)
 ScriptCommand(SCRCMD_OPENPCHALLOFFAMESCREEN,                               ScrCmd_OpenPCHallOfFameScreen)
 ScriptCommand(SCRCMD_TRYSTARTGTSAPP,                                       ScrCmd_TryStartGTSApp)
