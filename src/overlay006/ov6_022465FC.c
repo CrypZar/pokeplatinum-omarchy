@@ -234,7 +234,7 @@ static int TVBroadcast_RandomPendingSegment(FieldSystem *fieldSystem, const u8 *
 static int ov6_0224678C(TVBroadcast *broadcast, int programType, int param2, BOOL param3, BOOL param4, u8 *param5)
 {
     if ((programType != TV_PROGRAM_TYPE_SINNOH_NOW) && (programType != TV_PROGRAM_TYPE_VARIETY_HOUR)) {
-        return sub_0202E614(broadcast, programType, param2, param3, param4, param5);
+        return TVBroadcast_GetMatchingSegmentSlotIDs(broadcast, programType, param2, param3, param4, param5);
     }
 
     if (param4) {
