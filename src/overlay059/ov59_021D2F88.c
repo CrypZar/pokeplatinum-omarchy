@@ -89,19 +89,19 @@ static void Overlay059_MergeReceivedDressUpPhotos(const Overlay059MixedRecordsAp
     sub_0202A6A8(param0->unk_08, param0->unk_0C, imageClips, param0->unk_10);
 }
 
-static void ov59_021D3028(const Overlay059MixedRecordsApplyContext *param0)
+static void Overlay059_ApplyTrainerSightingsEpisodePayload(const Overlay059MixedRecordsApplyContext *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
     TVBroadcast_MergeTrainerSightingsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
-static void ov59_021D3048(const Overlay059MixedRecordsApplyContext *param0)
+static void Overlay059_ApplyRecordsEpisodePayload(const Overlay059MixedRecordsApplyContext *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
     TVBroadcast_MergeRecordsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
-static void ov59_021D3068(const Overlay059MixedRecordsApplyContext *param0)
+static void Overlay059_ApplyInterviewsEpisodePayload(const Overlay059MixedRecordsApplyContext *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
     TVBroadcast_MergeInterviewsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
@@ -141,9 +141,9 @@ static const Overlay059MixedRecordsDataAdapter Overlay059MixedRecordsDataAdapter
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetInterviewsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredInterviewsBatch, NULL },
     { (Overlay059MixedRecordsPayloadSizeFunc)RankingsEntries_Size, (Overlay059MixedRecordsBuildPayloadFunc)ov59_021D3088, ov59_021D3090 },
     { (Overlay059MixedRecordsPayloadSizeFunc)WifiPlayerProfile_Size, (Overlay059MixedRecordsBuildPayloadFunc)ov59_021D30B4, ov59_021D30DC },
-    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateTrainerSightingsBatch, ov59_021D3028 },
-    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateRecordsBatch, ov59_021D3048 },
-    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetInterviewsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateInterviewsBatch, ov59_021D3068 }
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateTrainerSightingsBatch, Overlay059_ApplyTrainerSightingsEpisodePayload },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateRecordsBatch, Overlay059_ApplyRecordsEpisodePayload },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetInterviewsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateInterviewsBatch, Overlay059_ApplyInterviewsEpisodePayload }
 };
 
 void ov59_021D30E0(SaveData *saveData, UnkStruct_ov59_021D30E0 *param1)
