@@ -15,7 +15,7 @@
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
-#include "struct_defs/struct_0202E81C.h"
+#include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
 #include "applications/poketch/poketch_system.h"
@@ -292,7 +292,7 @@ static void sub_02049308(FieldSystem *fieldSystem, StringTemplate *template)
 {
     String *v0;
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(fieldSystem->saveData);
-    UnkStruct_0202E81C *v2 = sub_0202E81C(broadcast);
+    TVBattleFrontierFrontlineNewsMultiData *v2 = TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(broadcast);
 
     v0 = String_Init(64, HEAP_ID_FIELD1);
 
@@ -345,7 +345,7 @@ static BOOL sub_020493A8(FieldSystem *fieldSystem)
 
 static BOOL sub_020493B8(FieldSystem *fieldSystem)
 {
-    UnkStruct_0202E81C *v0 = sub_0202E81C(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVBattleFrontierFrontlineNewsMultiData *v0 = TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(SaveData_GetTVBroadcast(fieldSystem->saveData));
     return v0->unk_00;
 }
 
@@ -482,14 +482,14 @@ BOOL ScrCmd_GetCurrentSafariGameCaughtNum(ScriptContext *ctx)
 BOOL ScrCmd_GetBattleFrontierReporterPosition(ScriptContext *ctx)
 {
     TVBroadcast *broadcast;
-    UnkStruct_0202E81C *v1;
+    TVBattleFrontierFrontlineNewsMultiData *v1;
     u16 *x = ScriptContext_GetVarPointer(ctx);
     u16 *z = ScriptContext_GetVarPointer(ctx);
     u16 *dir = ScriptContext_GetVarPointer(ctx);
     u16 *movementType = ScriptContext_GetVarPointer(ctx);
 
     broadcast = SaveData_GetTVBroadcast(ctx->fieldSystem->saveData);
-    v1 = sub_0202E81C(broadcast);
+    v1 = TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(broadcast);
 
     switch (v1->unk_01) {
     case 5:

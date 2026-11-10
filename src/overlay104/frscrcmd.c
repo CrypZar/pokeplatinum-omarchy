@@ -2474,7 +2474,7 @@ static BOOL FrontierScrCmd_C8(FrontierScriptContext *ctx)
     v0 = FrontierScriptContext_GetVar(ctx);
     trainerInfo = CommInfo_TrainerInfo(1 - CommSys_CurNetId());
 
-    sub_0206D088(broadcast, v0, trainerInfo);
+    TVBroadcast_SetBattleFrontierFrontlineNewsMultiData(broadcast, v0, trainerInfo);
     return FALSE;
 }
 
