@@ -26,7 +26,7 @@
 #include "sys_task.h"
 #include "sys_task_manager.h"
 #include "trainer_info.h"
-#include "unk_0202F1D4.h"
+#include "battle_recording.h"
 #include "unk_02032798.h"
 #include "unk_020363E8.h"
 
