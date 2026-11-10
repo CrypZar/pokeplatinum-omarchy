@@ -261,7 +261,7 @@ static BOOL sub_0208BC8C(UnkStruct_0208BC3C *param0, enum HeapID heapID)
         if (BattleRecording_Exists() == 0) {
             sub_0202F298(param0->saveData, heapID, &v0, param0->unk_10, param0->unk_14->unk_86C);
         } else {
-            sub_0202FAFC(param0->unk_10, param0->saveData);
+            BattleRecording_RestoreBattleDTO(param0->unk_10, param0->saveData);
             v0 = 1;
         }
 
