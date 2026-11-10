@@ -157,7 +157,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_UpdateMessageWaitState,
 };
 
-int ov59_021D0D80(ApplicationManager *appMan, int *param1)
+int Overlay059_Init(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_020961E8 *v0;
     NARC *v1;
@@ -230,7 +230,7 @@ int ov59_021D0D80(ApplicationManager *appMan, int *param1)
     return 0;
 }
 
-int ov59_021D0F00(ApplicationManager *appMan, int *param1)
+int Overlay059_Main(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_020961E8 *v0 = ApplicationManager_Data(appMan);
 
@@ -286,7 +286,7 @@ int ov59_021D0F00(ApplicationManager *appMan, int *param1)
     return 0;
 }
 
-int ov59_021D0FF4(ApplicationManager *appMan, int *unused)
+int Overlay059_Exit(ApplicationManager *appMan, int *unused)
 {
     UnkStruct_020961E8 *v0 = ApplicationManager_Data(appMan);
 

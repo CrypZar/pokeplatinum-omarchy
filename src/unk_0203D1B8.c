@@ -1072,9 +1072,9 @@ const ApplicationManagerTemplate Unk_020EA258 = {
 };
 
 const ApplicationManagerTemplate Unk_020EA248 = {
-    ov59_021D0D80,
-    ov59_021D0F00,
-    ov59_021D0FF4,
+    Overlay059_Init,
+    Overlay059_Main,
+    Overlay059_Exit,
     FS_OVERLAY_ID(overlay59)
 };
 
