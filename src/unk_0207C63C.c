@@ -18,10 +18,10 @@ void sub_0207C664(void);
 void sub_0207C6AC(void);
 void sub_0207C730(void);
 void sub_0207C770(void);
-UnkStruct_0207C8C4 *sub_0207C894(UnkStruct_0207C894 *param0);
+UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
 void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
 BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
-void sub_0207C8F4(UnkStruct_0207C8C4 *param0);
+void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
 static u32 sub_0207C794(u32 param0, BOOL param1);
 static u32 sub_0207C7B0(u32 param0, BOOL param1);
 static ParticleSystem *sub_0207C7CC(enum HeapID heapID);
@@ -167,7 +167,7 @@ static void sub_0207C854(SPLEmitter *param0)
     SPLEmitter_SetPos(param0, &v0);
 }
 
-UnkStruct_0207C8C4 *sub_0207C894(UnkStruct_0207C894 *param0)
+UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0)
 {
     int v0;
     int v1;
@@ -208,7 +208,7 @@ BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0)
     return 1;
 }
 
-void sub_0207C8F4(UnkStruct_0207C8C4 *param0)
+void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0)
 {
     sub_0207C83C(param0->unk_0C);
     Heap_Free(param0);
