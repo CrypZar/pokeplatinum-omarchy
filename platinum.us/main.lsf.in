@@ -177,7 +177,7 @@ Static main
 	Object src/spawn_locations.c
 	Object src/field_overworld_weather.c
 	Object src/start_menu.c
-	Object src/unk_0203C954.c
+	Object src/field_event_lookup.c
 	Object src/field_system.c
 	Object src/location.c
 	Object src/unk_0203D1B8.c
