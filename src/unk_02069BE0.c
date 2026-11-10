@@ -19,7 +19,7 @@
 #include "player_avatar.h"
 #include "terrain_collision_manager.h"
 #include "trainer_encounter.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 typedef struct {
     u8 unk_00;

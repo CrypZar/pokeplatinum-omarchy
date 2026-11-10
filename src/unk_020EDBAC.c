@@ -9,7 +9,7 @@
 #include "berry_patch_graphics.h"
 #include "map_object.h"
 #include "unk_0206450C.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "unk_02069BE0.h"
 
 static const UnkStruct_020EDF0C Unk_020EDF0C = {
