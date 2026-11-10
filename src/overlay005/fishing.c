@@ -217,7 +217,7 @@ static BOOL FishingTask_Start(FishingTask *fishingTask, PlayerAvatar *playerAvat
 static BOOL FishingTask_PreparePlayerAvatar(FishingTask *fishingTask, PlayerAvatar *playerAvatar, MapObject *playerMapObject)
 {
     if (LocalMapObj_IsAnimationSet(playerMapObject) == TRUE) {
-        sub_020656AC(playerMapObject);
+        LocalMapObj_CheckAnimationFinishedAndClear(playerMapObject);
         PlayerAvatar_SetTransitionState(playerAvatar, PLAYER_TRANSITION_FISHING);
         PlayerAvatar_RequestChangeState(playerAvatar);
         sub_02062A0C(playerMapObject, MAP_OBJ_UNK_A0_01);
