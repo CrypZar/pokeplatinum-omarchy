@@ -19,7 +19,7 @@
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
-#include "struct_defs/struct_0202E810.h"
+#include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/struct_0202E81C.h"
 #include "struct_defs/struct_0202E828.h"
 #include "struct_defs/struct_0202E834.h"
@@ -276,7 +276,7 @@ typedef struct TVSegment_AmitySquareWatch {
 } TVSegment_AmitySquareWatch;
 
 typedef struct TVSegment_BattleFrontierFrontlineNews_Single {
-    UnkStruct_0202E810 unk_00;
+    TVBattleFrontierFrontlineNewsSingleData unk_00;
     u16 customWordMessage;
 } TVSegment_BattleFrontierFrontlineNews_Single;
 
@@ -618,9 +618,9 @@ void TVBroadcast_UpdateSafariGameData(TVBroadcast *broadcast, Pokemon *mon)
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206D048(TVBroadcast *broadcast, Pokemon *mon)
+void TVBroadcast_SetBattleFrontierFrontlineNewsSinglePokemon(TVBroadcast *broadcast, Pokemon *mon)
 {
-    UnkStruct_0202E810 *v0 = sub_0202E810(broadcast);
+    TVBattleFrontierFrontlineNewsSingleData *v0 = TVBroadcast_GetBattleFrontierFrontlineNewsSingleData(broadcast);
 
     v0->unk_00 = 1;
     TVSegment_CopyPokemonValues(mon, &v0->species, &v0->gender, &v0->language, &v0->metGame);
@@ -1883,7 +1883,7 @@ void TVSegment_Save_BattleFrontierFrontlineNews_Single(FieldSystem *fieldSystem,
 {
     TVSegmentData segments;
     TVSegment_BattleFrontierFrontlineNews_Single *battleFrontierFrontlineNewsSingle = &segments.battleFrontierFrontlineNewsSingle;
-    UnkStruct_0202E810 *v2 = sub_0202E810(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVBattleFrontierFrontlineNewsSingleData *v2 = TVBroadcast_GetBattleFrontierFrontlineNewsSingleData(SaveData_GetTVBroadcast(fieldSystem->saveData));
 
     battleFrontierFrontlineNewsSingle->unk_00 = *v2;
     battleFrontierFrontlineNewsSingle->customWordMessage = customWordMessage;
