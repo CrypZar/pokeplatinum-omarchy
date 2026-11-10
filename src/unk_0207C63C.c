@@ -15,7 +15,7 @@
 
 void sub_0207C63C(void);
 void sub_0207C664(void);
-void sub_0207C6AC(void);
+void EvolutionScene_Configure3DRenderState(void);
 void sub_0207C730(void);
 void EvolutionParticleSystem_DrawAndUpdate(void);
 UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
@@ -45,10 +45,10 @@ void sub_0207C664(void)
 
 G3DPipelineBuffers *sub_0207C690(enum HeapID heapID)
 {
-    return G3DPipeline_Init(heapID, TEXTURE_VRAM_SIZE_256K, PALETTE_VRAM_SIZE_32K, sub_0207C6AC);
+    return G3DPipeline_Init(heapID, TEXTURE_VRAM_SIZE_256K, PALETTE_VRAM_SIZE_32K, EvolutionScene_Configure3DRenderState);
 }
 
-void sub_0207C6AC(void)
+void EvolutionScene_Configure3DRenderState(void)
 {
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
     G2_SetBG0Priority(1);
