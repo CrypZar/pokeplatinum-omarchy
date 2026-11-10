@@ -25,7 +25,7 @@ void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
 static u32 EvolutionParticleSystem_AllocateTextureVRAM(u32 param0, BOOL param1);
 static u32 EvolutionParticleSystem_AllocatePaletteVRAM(u32 param0, BOOL param1);
 static ParticleSystem *EvolutionParticleSystem_CreateParticleSystem(enum HeapID heapID);
-static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2);
+static ParticleSystem *EvolutionParticleSystem_NewWithNARCResource(enum HeapID heapID, int param1, int param2);
 static void EvolutionParticleSystem_FreeResources(ParticleSystem *param0);
 static void EvolutionParticleSystem_SetEmitterPosition(SPLEmitter *param0);
 
@@ -141,7 +141,7 @@ static ParticleSystem *EvolutionParticleSystem_CreateParticleSystem(enum HeapID 
     return v0;
 }
 
-static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2)
+static ParticleSystem *EvolutionParticleSystem_NewWithNARCResource(enum HeapID heapID, int param1, int param2)
 {
     ParticleSystem *v0 = EvolutionParticleSystem_CreateParticleSystem(heapID);
     void *v1 = ParticleSystem_LoadResourceFromNARC(param1, param2, heapID);
@@ -178,7 +178,7 @@ UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0)
     GF_ASSERT(v4 != NULL);
 
     v4->unk_00 = *param0;
-    v4->unk_0C = sub_0207C814(v4->unk_00.heapID, 124, v4->unk_00.unk_04);
+    v4->unk_0C = EvolutionParticleSystem_NewWithNARCResource(v4->unk_00.heapID, 124, v4->unk_00.unk_04);
 
     ParticleSystem_SetCameraProjection(v4->unk_0C, 1);
 
