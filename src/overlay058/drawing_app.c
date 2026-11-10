@@ -74,11 +74,11 @@ static void Overlay058_PositionPlayerCursor(Sprite *param0, int param1, int para
 static void Overlay058_HandleDrawingTouchInput(UnkStruct_02095EAC *param0);
 static int Overlay058_HandleDrawingSessionState(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_UpdateDrawingDisplay(UnkStruct_02095EAC *param0);
-static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D1FB0(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D206C(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_InitializeDrawingStartPrompt(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ProcessDrawingStartPrompt(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ResetHandshakeCountdown(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_SendReadyHandshakeWhenRosterStable(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ResumeDrawingAfterHandshake(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D20C8(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D20F4(UnkStruct_02095EAC *param0, int param1);
@@ -127,11 +127,11 @@ static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { ov58_021D1DBC, 0x0 },
     { ov58_021D1DC8, 0x0 },
     { Overlay058_HandleDrawingSessionState, 0x0 },
-    { ov58_021D1DFC, 0x1 },
-    { ov58_021D1E4C, 0x1 },
-    { ov58_021D1FB0, 0x1 },
-    { ov58_021D1FD4, 0x1 },
-    { ov58_021D206C, 0x1 },
+    { Overlay058_InitializeDrawingStartPrompt, 0x1 },
+    { Overlay058_ProcessDrawingStartPrompt, 0x1 },
+    { Overlay058_ResetHandshakeCountdown, 0x1 },
+    { Overlay058_SendReadyHandshakeWhenRosterStable, 0x1 },
+    { Overlay058_ResumeDrawingAfterHandshake, 0x1 },
     { ov58_021D20A8, 0x1 },
     { ov58_021D20C8, 0x1 },
     { ov58_021D20F4, 0x1 },
@@ -968,7 +968,7 @@ static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_InitializeDrawingStartPrompt(UnkStruct_02095EAC *param0, int param1)
 {
     if (Overlay058_IsMessageFinished(param0->unk_30)) {
         YesNoTouchMenuParams v0;
@@ -991,7 +991,7 @@ static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ProcessDrawingStartPrompt(UnkStruct_02095EAC *param0, int param1)
 {
     int v0;
 
@@ -1062,7 +1062,7 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D1FB0(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ResetHandshakeCountdown(UnkStruct_02095EAC *param0, int param1)
 {
     param0->unk_43DC.unk_08_3 = 0;
     param0->unk_941E = 0;
@@ -1072,7 +1072,7 @@ static int ov58_021D1FB0(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_SendReadyHandshakeWhenRosterStable(UnkStruct_02095EAC *param0, int param1)
 {
     param0->unk_43DC.unk_08_3 = 0;
 
@@ -1105,7 +1105,7 @@ static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D206C(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ResumeDrawingAfterHandshake(UnkStruct_02095EAC *param0, int param1)
 {
     param0->unk_43DC.unk_08_3 = 0;
     param0->unk_9420 = 0;
