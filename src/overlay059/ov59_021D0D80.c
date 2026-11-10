@@ -82,10 +82,10 @@ static int ov59_021D2528(void);
 static void ov59_021D2524(UnkStruct_020961E8 *unused);
 static void ov59_021D1784(Window *param0, String *param1, int param2);
 static void Overlay059_SetMessageWaitState(UnkStruct_020961E8 *param0, int param1);
-static void ov59_021D26E8(UnkStruct_020961E8 *param0);
+static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0);
 static void ov59_021D27FC(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D28A4(UnkStruct_020961E8 *param0);
-static void ov59_021D2860(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4);
+static void Overlay059_LoadRemoteParticipantSpriteAppearance(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4);
 static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *param1);
 static int ov59_021D28D4(UnkStruct_020961E8 *param0);
 static void ov59_021D28D8(UnkStruct_020961E8 *param0, int param1);
@@ -259,7 +259,7 @@ int ov59_021D0F00(ApplicationManager *appMan, int *param1)
             Overlay059_UpdateParticipantRosterWindow(v0->unk_2FC, 0, TEXT_COLOR(1, 3, 0), v0);
         }
 
-        ov59_021D26E8(v0);
+        Overlay059_UpdateParticipantRosterSprites(v0);
 
         if (CommSys_CurNetId() == 0) {
             int v1 = ov59_021D292C(v0, 1);
@@ -1537,7 +1537,7 @@ static void Overlay059_ClearMessageBox(UnkStruct_020961E8 *param0)
     Window_EraseMessageBox(&param0->unk_34C, 0);
 }
 
-static void ov59_021D26E8(UnkStruct_020961E8 *param0)
+static void Overlay059_UpdateParticipantRosterSprites(UnkStruct_020961E8 *param0)
 {
     int v0, v1 = 0;
 
@@ -1556,7 +1556,7 @@ static void ov59_021D26E8(UnkStruct_020961E8 *param0)
             if (CommSys_CurNetId() == v0) {
                 Sprite_SetAnim(param0->unk_28C[v0 + 1], 38 + v3 * 2);
             } else {
-                ov59_021D2860(param0->unk_390, param0->unk_3A0, v0, v2, v3);
+                Overlay059_LoadRemoteParticipantSpriteAppearance(param0->unk_390, param0->unk_3A0, v0, v2, v3);
                 Sprite_SetAnim(param0->unk_28C[v0 + 1], 27 + v0 * 2);
             }
         }
@@ -1592,7 +1592,7 @@ static void ov59_021D27FC(UnkStruct_020961E8 *param0, NARC *param1)
     param0->unk_388[1] = Graphics_GetCharDataFromOpenNARC(param1, 9, 1, &(param0->unk_390[1]), HEAP_ID_51);
 }
 
-static const u16 Unk_ov59_021D3290[] = {
+static const u16 Overlay059ParticipantSpriteVramOffsets[] = {
     0x1A0,
     0x7A0,
     0xDA0,
@@ -1600,7 +1600,7 @@ static const u16 Unk_ov59_021D3290[] = {
     0x19A0
 };
 
-static void ov59_021D2860(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4)
+static void Overlay059_LoadRemoteParticipantSpriteAppearance(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *param1[2], int param2, int param3, int param4)
 {
     int v0;
     u8 *v1, *v2;
@@ -1610,7 +1610,7 @@ static void ov59_021D2860(NNSG2dCharacterData *param0[2], NNSG2dPaletteData *par
     v1 = (u8 *)param0[1]->pRawData;
     v2 = (u8 *)param1[1]->pRawData;
 
-    GX_LoadOBJ(&v1[(3 * 4 * 4) * v0 * 0x20], Unk_ov59_021D3290[param2], (3 * 4 * 4) * 0x20);
+    GX_LoadOBJ(&v1[(3 * 4 * 4) * v0 * 0x20], Overlay059ParticipantSpriteVramOffsets[param2], (3 * 4 * 4) * 0x20);
     GX_LoadOBJPltt(&v2[v0 * 32], (param2 + 7) * 32, 32);
 }
 
