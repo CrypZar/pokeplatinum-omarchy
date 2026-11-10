@@ -11,7 +11,7 @@
 #include "struct_decls/tv_broadcast.h"
 #include "struct_defs/image_clips.h"
 #include "struct_defs/struct_0202E7E4.h"
-#include "struct_defs/struct_0202E7F0.h"
+#include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
@@ -327,7 +327,7 @@ static BOOL sub_02049378(FieldSystem *fieldSystem)
 
 static BOOL sub_02049388(FieldSystem *fieldSystem)
 {
-    UnkStruct_0202E7F0 *v0 = sub_0202E7F0(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVPoffinCornerData *v0 = TVBroadcast_GetPoffinCornerData(SaveData_GetTVBroadcast(fieldSystem->saveData));
     return v0->unk_00;
 }
 

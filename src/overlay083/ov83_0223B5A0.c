@@ -1097,7 +1097,7 @@ static BOOL ov83_0223C8B0(PoffinBerrySelectionData *param0, Poffin *param1, int 
 
     if (param0->unk_26 == 0) {
         v2 = Poffin_GetAttribute(param1, 0);
-        sub_0206CFCC(broadcast, v2);
+        TVBroadcast_SetPoffinCornerData(broadcast, v2);
     }
 
     return v3;
