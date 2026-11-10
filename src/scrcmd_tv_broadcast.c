@@ -13,7 +13,7 @@
 #include "struct_defs/tv_amity_square_watch_data.h"
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
-#include "struct_defs/struct_0202E808.h"
+#include "struct_defs/tv_safari_game_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
@@ -469,7 +469,7 @@ static const TVInterview sInterviews[TV_PROGRAM_TYPE_INTERVIEWS_NUM_SEGMENTS] = 
 BOOL ScrCmd_GetCurrentSafariGameCaughtNum(ScriptContext *ctx)
 {
     TVBroadcast *broadcast;
-    UnkStruct_0202E808 *safariGame;
+    TVSafariGameData *safariGame;
     u16 *destVar = ScriptContext_GetVarPointer(ctx);
 
     broadcast = SaveData_GetTVBroadcast(ctx->fieldSystem->saveData);
