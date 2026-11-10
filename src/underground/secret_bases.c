@@ -61,7 +61,7 @@
 #include "trainer_info.h"
 #include "underground.h"
 #include "unk_02033200.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "vars_flags.h"
 #include "wireless_manager.h"
 
