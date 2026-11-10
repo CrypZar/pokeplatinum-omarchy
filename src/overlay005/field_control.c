@@ -65,7 +65,7 @@
 #include "trainer_encounter.h"
 #include "trainer_info.h"
 #include "union_room.h"
-#include "unk_0203C954.h"
+#include "field_event_lookup.h"
 #include "unk_02054884.h"
 #include "unk_02056B30.h"
 #include "unk_0205A0D8.h"
