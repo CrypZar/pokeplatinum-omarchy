@@ -89,12 +89,12 @@ static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D2298(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1);
-static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int param3, int *param4, int *param5, int param6, int param7);
-static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1);
-static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3);
-static void ov58_021D2820(UnkStruct_02095EAC *param0);
-static void ov58_021D2888(u16 *param0);
-static void ov58_021D28E4(Window *param0, int param1, u32 param2, UnkStruct_02095EAC *param3);
+static void Overlay058_DrawBrushStrokeSegment(Window *param0, const u8 *param1, int param2, int param3, int *param4, int *param5, int param6, int param7);
+static void Overlay058_SaveDrawingContinuationState(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1);
+static void Overlay058_RenderDrawingUpdates(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3);
+static void Overlay058_UpdateRemoteCursorSprites(UnkStruct_02095EAC *param0);
+static void Overlay058_AnimateParticipantIndicatorPalette(u16 *param0);
+static void Overlay058_UpdateParticipantNameWindows(Window *param0, int param1, u32 param2, UnkStruct_02095EAC *param3);
 static void ov58_021D29C8(UnkStruct_02095EAC *param0);
 static int ov58_021D2A54(UnkStruct_02095EAC *param0);
 static void ov58_021D2A98(UnkStruct_02095EAC *param0, int param1, int param2);
@@ -110,7 +110,7 @@ static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_SelectColorSprite(Sprite **param0, int param1);
 static void Overlay058_SetStartButtonSpriteState(Sprite **param0, BOOL param1);
-static void ov58_021D2528(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9);
+static void Overlay058_BlitBitmapRectClipped(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9);
 static void ov58_021D2B3C(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D2B5C(UnkStruct_02095EAC *param0);
 static int ov58_021D22D8(UnkStruct_02095EAC *param0, int param1);
@@ -262,7 +262,7 @@ int Overlay058_Main(ApplicationManager *appMan, int *param1)
             *param1 = sOverlay058StateHandlers[v0->unk_368].handler(v0, *param1);
         }
 
-        ov58_021D28E4(v0->unk_2DC, 0, TEXT_COLOR(14, 13, 15), v0);
+        Overlay058_UpdateParticipantNameWindows(v0->unk_2DC, 0, TEXT_COLOR(14, 13, 15), v0);
 
         if (CommSys_CurNetId() == 0) {
             int v1 = ov58_021D2B5C(v0);
@@ -272,7 +272,7 @@ int Overlay058_Main(ApplicationManager *appMan, int *param1)
             }
         }
 
-        ov58_021D2888(&v0->unk_43D8);
+        Overlay058_AnimateParticipantIndicatorPalette(&v0->unk_43D8);
         break;
     case 2:
         if ((sOverlay058StateHandlers[v0->unk_368].handler != NULL) && sOverlay058StateHandlers[v0->unk_368].unk_04) {
@@ -737,7 +737,7 @@ static void Overlay058_CreateWindows(UnkStruct_02095EAC *param0, ApplicationMana
             Window_FillTilemap(&param0->unk_2DC[v1], 0);
         }
 
-        ov58_021D28E4(param0->unk_2DC, 0, TEXT_COLOR(14, 13, 15), param0);
+        Overlay058_UpdateParticipantNameWindows(param0->unk_2DC, 0, TEXT_COLOR(14, 13, 15), param0);
     }
 }
 
@@ -919,16 +919,16 @@ static int Overlay058_HandleDrawingSessionState(UnkStruct_02095EAC *param0, int 
         ov58_021D29C8(param0);
     }
 
-    ov58_021D2820(param0);
-    ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 1);
+    Overlay058_UpdateRemoteCursorSprites(param0);
+    Overlay058_RenderDrawingUpdates(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 1);
 
     return param1;
 }
 
 static void Overlay058_UpdateDrawingDisplay(UnkStruct_02095EAC *param0)
 {
-    ov58_021D2820(param0);
-    ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 0);
+    Overlay058_UpdateRemoteCursorSprites(param0);
+    Overlay058_RenderDrawingUpdates(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 0);
 }
 
 static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1)
@@ -1407,7 +1407,7 @@ static const u8 sOverlay058BrushStampsBySizeAndColor[3][8][24] = {
     },
 };
 
-static void ov58_021D2528(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9)
+static void Overlay058_BlitBitmapRectClipped(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9)
 {
     if (param6 < 0) {
         int v0;
@@ -1442,7 +1442,7 @@ static void ov58_021D2528(Window *param0, void *param1, int param2, int param3, 
     Window_BlitBitmapRect(param0, param1, param2, param3, param4, param5, param6, param7, param8, param9);
 }
 
-static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int param3, int *param4, int *param5, int param6, int param7)
+static void Overlay058_DrawBrushStrokeSegment(Window *param0, const u8 *param1, int param2, int param3, int *param4, int *param5, int param6, int param7)
 {
     int v0, v1, v2, v3;
     int v4 = *param4;
@@ -1470,7 +1470,7 @@ static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int para
             v3 = (v5 < v7) ? 1 : -1;
         }
 
-        ov58_021D2528(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
+        Overlay058_BlitBitmapRectClipped(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
         v2 = v0 >> 1;
 
         while (++v4 <= v6) {
@@ -1479,7 +1479,7 @@ static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int para
                 v5 += v3;
             }
 
-            ov58_021D2528(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
+            Overlay058_BlitBitmapRectClipped(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
         }
     } else {
         if (v5 > v7) {
@@ -1492,7 +1492,7 @@ static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int para
             v3 = (v4 < v6) ? 1 : -1;
         }
 
-        ov58_021D2528(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
+        Overlay058_BlitBitmapRectClipped(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
         v2 = v1 >> 1;
 
         while (++v5 <= v7) {
@@ -1501,7 +1501,7 @@ static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int para
                 v4 += v3;
             }
 
-            ov58_021D2528(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
+            Overlay058_BlitBitmapRectClipped(param0, (void *)param1, 0, 0, 6, 6, v4, v5, 6, 6);
         }
     }
 
@@ -1509,7 +1509,7 @@ static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int para
     *param5 = param3;
 }
 
-static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1)
+static void Overlay058_SaveDrawingContinuationState(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1)
 {
     int v0;
 
@@ -1523,7 +1523,7 @@ static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingCont
     }
 }
 
-static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3)
+static void Overlay058_RenderDrawingUpdates(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3)
 {
     int v0, v1, v2, v3, v4 = 0, v5, v6;
     u32 v7;
@@ -1539,7 +1539,7 @@ static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overl
                 v0 = param1[v2].unk_00[v3] - 9;
                 v1 = param1[v2].unk_04[v3] - 17;
 
-                ov58_021D25A8(param0, sOverlay058BrushStampsBySizeAndColor[param1[v2].unk_08_6][param1[v2].unk_08_0], v0, v1, &v5, &v6, v3, param2[v2].previousPointCount);
+                Overlay058_DrawBrushStrokeSegment(param0, sOverlay058BrushStampsBySizeAndColor[param1[v2].unk_08_6][param1[v2].unk_08_0], v0, v1, &v5, &v6, v3, param2[v2].previousPointCount);
 
                 v4 = 1;
             }
@@ -1550,14 +1550,14 @@ static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overl
         Window_CopyToVRAM(param0);
     }
 
-    ov58_021D2720(param1, param2);
+    Overlay058_SaveDrawingContinuationState(param1, param2);
 
     for (v2 = 0; v2 < 5; v2++) {
         param1[v2].unk_08_3 = 0;
     }
 }
 
-static void ov58_021D2820(UnkStruct_02095EAC *param0)
+static void Overlay058_UpdateRemoteCursorSprites(UnkStruct_02095EAC *param0)
 {
     int v0;
     UnkStruct_ov58_021D2820 *v1 = param0->unk_43E6;
@@ -1574,7 +1574,7 @@ static void ov58_021D2820(UnkStruct_02095EAC *param0)
     }
 }
 
-static void ov58_021D2888(u16 *param0)
+static void Overlay058_AnimateParticipantIndicatorPalette(u16 *param0)
 {
     fx32 v0;
     GXRgb v1;
@@ -1611,7 +1611,7 @@ static int ov58_021D28C8(void)
     return v1;
 }
 
-static void ov58_021D28E4(Window *param0, int param1, u32 param2, UnkStruct_02095EAC *param3)
+static void Overlay058_UpdateParticipantNameWindows(Window *param0, int param1, u32 param2, UnkStruct_02095EAC *param3)
 {
     int v0, v1 = CommSys_CurNetId();
     int v2;
