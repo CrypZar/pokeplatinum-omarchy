@@ -43,7 +43,7 @@ void sub_0207C664(void)
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 7, 8);
 }
 
-G3DPipelineBuffers *sub_0207C690(enum HeapID heapID)
+G3DPipelineBuffers *EvolutionScene_Init3DPipeline(enum HeapID heapID)
 {
     return G3DPipeline_Init(heapID, TEXTURE_VRAM_SIZE_256K, PALETTE_VRAM_SIZE_32K, EvolutionScene_Configure3DRenderState);
 }
