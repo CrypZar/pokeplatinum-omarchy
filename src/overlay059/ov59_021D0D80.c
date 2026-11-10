@@ -120,8 +120,8 @@ static int ov59_021D1998(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D19E4(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_BeginMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1E7C(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateMixedRecordsSaveExitDelay(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateParticipantConfirmationExitDelay(UnkStruct_020961E8 *param0, int param1);
 
 static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D17F8,
@@ -138,7 +138,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1EF4,
     ov59_021D1F24,
     ov59_021D1FD0,
-    ov59_021D2020,
+    Overlay059_UpdateParticipantConfirmationExitDelay,
     ov59_021D2044,
     ov59_021D2064,
     ov59_021D20A4,
@@ -153,7 +153,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_ApplyReceivedMixedRecords,
     Overlay059_BeginMixedRecordsSaveSync,
     Overlay059_UpdateMixedRecordsSaveSync,
-    ov59_021D1E7C,
+    Overlay059_UpdateMixedRecordsSaveExitDelay,
     Overlay059_UpdateMessageWaitState,
 };
 
@@ -1068,7 +1068,7 @@ static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int
     return param1;
 }
 
-static int ov59_021D1E7C(UnkStruct_020961E8 *param0, const int param1)
+static int Overlay059_UpdateMixedRecordsSaveExitDelay(UnkStruct_020961E8 *param0, const int param1)
 {
     if (param0->stateTimer++ > 60) {
         param0->overlayState = 15;
@@ -1158,7 +1158,7 @@ static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateParticipantConfirmationExitDelay(UnkStruct_020961E8 *param0, int param1)
 {
     param0->stateTimer++;
 
