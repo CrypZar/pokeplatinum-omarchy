@@ -26,7 +26,7 @@
 #include "map_object.h"
 #include "map_tile_behavior.h"
 #include "terrain_collision_manager.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "unk_020673B8.h"
 
 #define sinkInDeepSnowDistance    -12

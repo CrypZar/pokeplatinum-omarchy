@@ -26,7 +26,7 @@
 #include "script_manager.h"
 #include "sys_task.h"
 #include "sys_task_manager.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 #include "unk_020EDBAC.h"
 
 typedef struct MapObjectManager {
