@@ -82,7 +82,7 @@ void FieldSystem_GetMapObjectAtFacingPosition(FieldSystem *fieldSystem, MapObjec
         }
     }
 
-    *param1 = sub_0206326C(fieldSystem->mapObjMan, v0, v1, 0);
+    *param1 = MapObjectMan_FindAtCoords(fieldSystem->mapObjMan, v0, v1, 0);
 }
 
 u8 FieldSystem_TryGetFacingInteractableMapObject(FieldSystem *fieldSystem, MapObject **param1)

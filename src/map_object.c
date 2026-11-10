@@ -2398,7 +2398,7 @@ static const UnkStruct_ov5_021FB0F0 *sub_02063244(u32 param0)
     return NULL;
 }
 
-MapObject *sub_0206326C(const MapObjectManager *mapObjMan, int x, int z, int param3)
+MapObject *MapObjectMan_FindAtCoords(const MapObjectManager *mapObjMan, int x, int z, int param3)
 {
     int maxObjects = MapObjectMan_GetMaxObjects(mapObjMan);
     MapObject *mapObj = MapObjectMan_GetMapObject(mapObjMan);
