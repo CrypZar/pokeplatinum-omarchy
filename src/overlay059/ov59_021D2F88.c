@@ -92,19 +92,19 @@ static void ov59_021D300C(const UnkStruct_ov59_021D2FBC *param0)
 static void ov59_021D3028(const UnkStruct_ov59_021D2FBC *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
-    ov59_021D2F10(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
+    TVBroadcast_MergeTrainerSightingsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
 static void ov59_021D3048(const UnkStruct_ov59_021D2FBC *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
-    ov59_021D2F38(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
+    TVBroadcast_MergeRecordsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
 static void ov59_021D3068(const UnkStruct_ov59_021D2FBC *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
-    ov59_021D2F60(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
+    TVBroadcast_MergeInterviewsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
 static void *ov59_021D3088(SaveData *saveData, enum HeapID heapID, u32 param2)
