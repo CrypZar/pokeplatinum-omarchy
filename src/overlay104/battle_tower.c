@@ -10,7 +10,7 @@
 #include "overlay104/frontier_opponents.h"
 
 #include "savedata.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 
 u16 BattleTower_GetObjectIDFromOpponentIDInFrontierScript(BattleTower *battleTower, u16 opponentID);
 void BattleTower_SetBeatPalmer(BattleTower *battleTower, u16 value);

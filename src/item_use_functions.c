@@ -61,7 +61,7 @@
 #include "terrain_collision_manager.h"
 #include "field_event_lookup.h"
 #include "unk_0203D1B8.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 #include "vars_flags.h"
 
 #include "res/text/bank/location_names.h"
