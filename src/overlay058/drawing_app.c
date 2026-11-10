@@ -95,31 +95,31 @@ static void Overlay058_RenderDrawingUpdates(Window *param0, UnkStruct_ov58_021D2
 static void Overlay058_UpdateRemoteCursorSprites(UnkStruct_02095EAC *param0);
 static void Overlay058_AnimateParticipantIndicatorPalette(u16 *param0);
 static void Overlay058_UpdateParticipantNameWindows(Window *param0, int param1, u32 param2, UnkStruct_02095EAC *param3);
-static void ov58_021D29C8(UnkStruct_02095EAC *param0);
-static int ov58_021D2A54(UnkStruct_02095EAC *param0);
-static void ov58_021D2A98(UnkStruct_02095EAC *param0, int param1, int param2);
-static int ov58_021D2B0C(int param0);
-static void ov58_021D2B2C(UnkStruct_02095EAC *param0);
-static int ov58_021D28C8(void);
+static void Overlay058_SendDrawingUpdate(UnkStruct_02095EAC *param0);
+static int Overlay058_UpdateParticipantInfoCache(UnkStruct_02095EAC *param0);
+static void Overlay058_ShowMessage(UnkStruct_02095EAC *param0, int param1, int param2);
+static int Overlay058_IsMessageFinished(int param0);
+static void Overlay058_EraseMessageBox(UnkStruct_02095EAC *param0);
+static int Overlay058_CountTrainerInfoParticipants(void);
 static int ov58_021D2320(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D23C8(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D2380(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2A30(void);
+static int Overlay058_CountParticipantsWithTrainerInfoInternal(void);
 static int ov58_021D1DBC(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1);
 static void Overlay058_SelectColorSprite(Sprite **param0, int param1);
 static void Overlay058_SetStartButtonSpriteState(Sprite **param0, BOOL param1);
 static void Overlay058_BlitBitmapRectClipped(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9);
-static void ov58_021D2B3C(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2B5C(UnkStruct_02095EAC *param0);
+static void Overlay058_AdjustMaxConnections(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_UpdateWirelessParticipantState(UnkStruct_02095EAC *param0);
 static int ov58_021D22D8(UnkStruct_02095EAC *param0, int param1);
-static void ov58_021D2CB0(UnkStruct_02095EAC *param0, int param1);
-static void ov58_021D2CB8(UnkStruct_02095EAC *param0, int param1);
-static BOOL ov58_021D2CEC(UnkStruct_02095EAC *param0, YesNoTouchMenuParams *param1);
-static void ov58_021D2D10(UnkStruct_02095EAC *param0);
-static int ov58_021D2D30(UnkStruct_02095EAC *param0);
-static void ov58_021D2D4C(UnkStruct_ov58_021D2820 *param0, TouchPadDataBuffer *param1, int param2, int param3);
+static void Overlay058_SetNextState(UnkStruct_02095EAC *param0, int param1);
+static void Overlay058_ApplyNextStateIfAllowed(UnkStruct_02095EAC *param0, int param1);
+static BOOL Overlay058_TryInitializeYesNoMenu(UnkStruct_02095EAC *param0, YesNoTouchMenuParams *param1);
+static void Overlay058_ResetYesNoMenu(UnkStruct_02095EAC *param0);
+static int Overlay058_IsPromptTouched(UnkStruct_02095EAC *param0);
+static void Overlay058_BuildDrawingUpdateFromSamples(UnkStruct_ov58_021D2820 *param0, TouchPadDataBuffer *param1, int param2, int param3);
 
 static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { NULL, 0x1 },
@@ -241,13 +241,13 @@ int Overlay058_Main(ApplicationManager *appMan, int *param1)
 
     v0->unk_364 = *param1;
 
-    ov58_021D2CB8(v0, *param1);
+    Overlay058_ApplyNextStateIfAllowed(v0, *param1);
 
     switch (*param1) {
     case 0:
         if (IsScreenFadeDone()) {
             if (CommSys_CurNetId() != 0) {
-                if (ov58_021D2A30() >= 2) {
+                if (Overlay058_CountParticipantsWithTrainerInfoInternal() >= 2) {
                     CommSys_SendData(128, NULL, 0);
                     *param1 = 1;
                 }
@@ -265,7 +265,7 @@ int Overlay058_Main(ApplicationManager *appMan, int *param1)
         Overlay058_UpdateParticipantNameWindows(v0->unk_2DC, 0, TEXT_COLOR(14, 13, 15), v0);
 
         if (CommSys_CurNetId() == 0) {
-            int v1 = ov58_021D2B5C(v0);
+            int v1 = Overlay058_UpdateWirelessParticipantState(v0);
 
             if (*param1 == 1) {
                 *param1 = v1;
@@ -534,9 +534,9 @@ static void Overlay058_InitializeDrawingState(UnkStruct_02095EAC *param0)
     param0->unk_946C = 0;
 
     if (CommSys_CurNetId() == 0) {
-        ov58_021D2CB0(param0, 4);
+        Overlay058_SetNextState(param0, 4);
     } else {
-        ov58_021D2CB0(param0, 4);
+        Overlay058_SetNextState(param0, 4);
     }
 
     MessageLoader_GetString(param0->unk_10, 7, param0->unk_28);
@@ -824,8 +824,8 @@ static void Overlay058_HandleDrawingTouchInput(UnkStruct_02095EAC *param0)
 
                     CommManager_SetMaxNumConnections(CommSys_ConnectedCount());
                     param0->unk_9458 = 2;
-                    ov58_021D2A98(param0, 1, TEXT_SPEED_FAST);
-                    ov58_021D2CB0(param0, 5);
+                    Overlay058_ShowMessage(param0, 1, TEXT_SPEED_FAST);
+                    Overlay058_SetNextState(param0, 5);
                     Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 1);
                     v2 = 1;
                     Sound_PlayEffect(SE_CONFIRM_sseq_3);
@@ -833,8 +833,8 @@ static void Overlay058_HandleDrawingTouchInput(UnkStruct_02095EAC *param0)
                     if (param0->unk_43E6[0].unk_09 == 2) {
                         Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
                     } else {
-                        ov58_021D2A98(param0, 1, TEXT_SPEED_FAST);
-                        ov58_021D2CB0(param0, 5);
+                        Overlay058_ShowMessage(param0, 1, TEXT_SPEED_FAST);
+                        Overlay058_SetNextState(param0, 5);
                         Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 1);
                         v2 = 1;
                         Sound_PlayEffect(SE_CONFIRM_sseq_3);
@@ -876,7 +876,7 @@ static void Overlay058_HandleDrawingTouchInput(UnkStruct_02095EAC *param0)
         int v5;
 
         if (WriteAutoSamplingDataToBuffer(&v4, TOUCH_PAD_EXTERNAL_BUFFER_WRITE_METHOD_ALL_DATA_WITHOUT_WRAPPING, 64) == 1) {
-            ov58_021D2D4C(&param0->unk_43DC, &v4, param0->unk_43DA, param0->unk_43DB);
+            Overlay058_BuildDrawingUpdateFromSamples(&param0->unk_43DC, &v4, param0->unk_43DA, param0->unk_43DB);
 
             if (v2 == 1) {
                 param0->unk_43DC.unk_08_3 = 0;
@@ -912,11 +912,11 @@ static int Overlay058_HandleDrawingSessionState(UnkStruct_02095EAC *param0, int 
     Overlay058_HandleDrawingTouchInput(param0);
 
     if (CommSys_CurNetId() == 0) {
-        if (ov58_021D28C8() != 1) {
-            ov58_021D29C8(param0);
+        if (Overlay058_CountTrainerInfoParticipants() != 1) {
+            Overlay058_SendDrawingUpdate(param0);
         }
     } else {
-        ov58_021D29C8(param0);
+        Overlay058_SendDrawingUpdate(param0);
     }
 
     Overlay058_UpdateRemoteCursorSprites(param0);
@@ -934,12 +934,12 @@ static void Overlay058_UpdateDrawingDisplay(UnkStruct_02095EAC *param0)
 static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1)
 {
     if (CommSys_CurNetId() == param0->unk_384) {
-        ov58_021D2A98(param0, 13, TEXT_SPEED_INSTANT);
+        Overlay058_ShowMessage(param0, 13, TEXT_SPEED_INSTANT);
     } else {
-        ov58_021D2A98(param0, 0, TEXT_SPEED_INSTANT);
+        Overlay058_ShowMessage(param0, 0, TEXT_SPEED_INSTANT);
     }
 
-    ov58_021D2CB0(param0, 2);
+    Overlay058_SetNextState(param0, 2);
     Sound_PlayEffect(SEQ_SE_DP_BUTTON9_sseq);
 
     G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, -6);
@@ -959,8 +959,8 @@ static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1)
 {
     G2_BlendNone();
 
-    ov58_021D2B3C(param0, 1);
-    ov58_021D2CB0(param0, 4);
+    Overlay058_AdjustMaxConnections(param0, 1);
+    Overlay058_SetNextState(param0, 4);
     Overlay058_UpdateDrawingDisplay(param0);
 
     param0->unk_9468 = 0;
@@ -970,7 +970,7 @@ static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1)
 {
-    if (ov58_021D2B0C(param0->unk_30)) {
+    if (Overlay058_IsMessageFinished(param0->unk_30)) {
         YesNoTouchMenuParams v0;
         BOOL v1;
 
@@ -981,10 +981,10 @@ static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1)
         v0.tilemapLeft = 25;
         v0.tilemapTop = 6;
 
-        v1 = ov58_021D2CEC(param0, &v0);
+        v1 = Overlay058_TryInitializeYesNoMenu(param0, &v0);
         GF_ASSERT(v1);
 
-        ov58_021D2CB0(param0, 6);
+        Overlay058_SetNextState(param0, 6);
     }
 
     Overlay058_UpdateDrawingDisplay(param0);
@@ -1000,7 +1000,7 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
     if ((param0->unk_43E6[0].unk_09 == 2) && (CommSys_CurNetId() != 0)) {
         Overlay058_UpdateDrawingDisplay(param0);
 
-        if (ov58_021D2D30(param0)) {
+        if (Overlay058_IsPromptTouched(param0)) {
             Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
         }
 
@@ -1012,7 +1012,7 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
         return param1;
     }
 
-    if (ov58_021D2A30() != CommSys_ConnectedCount()) {
+    if (Overlay058_CountParticipantsWithTrainerInfoInternal() != CommSys_ConnectedCount()) {
         Overlay058_UpdateDrawingDisplay(param0);
         return param1;
     }
@@ -1022,8 +1022,8 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
     switch (v0) {
     case YES_NO_TOUCH_MENU_YES:
         if (CommSys_CurNetId() == 0) {
-            ov58_021D2CB0(param0, 13);
-            ov58_021D2A98(param0, 4, TEXT_SPEED_FAST);
+            Overlay058_SetNextState(param0, 13);
+            Overlay058_ShowMessage(param0, 4, TEXT_SPEED_FAST);
         } else {
             UnkStruct_02095FE4 v1;
 
@@ -1034,20 +1034,20 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
             param0->unk_9420 = 1;
             param0->unk_941E = 0;
 
-            ov58_021D2CB0(param0, 7);
+            Overlay058_SetNextState(param0, 7);
 
             CommSys_SendData(126, &v1, sizeof(UnkStruct_02095FE4));
             Window_EraseMessageBox(&param0->unk_33C, 1);
         }
 
-        ov58_021D2D10(param0);
+        Overlay058_ResetYesNoMenu(param0);
         Window_CopyToVRAM(&param0->unk_32C);
         break;
     case YES_NO_TOUCH_MENU_NO:
-        ov58_021D2CB0(param0, 4);
+        Overlay058_SetNextState(param0, 4);
         Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
         Window_EraseMessageBox(&param0->unk_33C, 1);
-        ov58_021D2D10(param0);
+        Overlay058_ResetYesNoMenu(param0);
         Window_CopyToVRAM(&param0->unk_32C);
 
         if (CommSys_CurNetId() == 0) {
@@ -1076,10 +1076,10 @@ static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1)
 {
     param0->unk_43DC.unk_08_3 = 0;
 
-    if ((param0->unk_941C != CommSys_ConnectedCount()) || (param0->unk_941C != ov58_021D2A30())) {
+    if ((param0->unk_941C != CommSys_ConnectedCount()) || (param0->unk_941C != Overlay058_CountParticipantsWithTrainerInfoInternal())) {
         param0->unk_941E = 0;
 
-        ov58_021D2CB0(param0, 9);
+        Overlay058_SetNextState(param0, 9);
         Overlay058_UpdateDrawingDisplay(param0);
 
         return param1;
@@ -1097,7 +1097,7 @@ static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1)
 
         CommSys_SendData(126, &v0, sizeof(UnkStruct_02095FE4));
         param0->unk_941E = 0;
-        ov58_021D2CB0(param0, 10);
+        Overlay058_SetNextState(param0, 10);
     }
 
     Overlay058_UpdateDrawingDisplay(param0);
@@ -1110,7 +1110,7 @@ static int ov58_021D206C(UnkStruct_02095EAC *param0, int param1)
     param0->unk_43DC.unk_08_3 = 0;
     param0->unk_9420 = 0;
 
-    ov58_021D2CB0(param0, 4);
+    Overlay058_SetNextState(param0, 4);
     Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
     Overlay058_UpdateDrawingDisplay(param0);
 
@@ -1121,8 +1121,8 @@ static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1)
 {
     u8 v0;
 
-    ov58_021D2A98(param0, 6, TEXT_SPEED_FAST);
-    ov58_021D2CB0(param0, 11);
+    Overlay058_ShowMessage(param0, 6, TEXT_SPEED_FAST);
+    Overlay058_SetNextState(param0, 11);
     Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
@@ -1130,9 +1130,9 @@ static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D20C8(UnkStruct_02095EAC *param0, int param1)
 {
-    if (ov58_021D2B0C(param0->unk_30)) {
+    if (Overlay058_IsMessageFinished(param0->unk_30)) {
         param0->unk_374 = 0;
-        ov58_021D2CB0(param0, 12);
+        Overlay058_SetNextState(param0, 12);
     }
 
     Overlay058_UpdateDrawingDisplay(param0);
@@ -1153,7 +1153,7 @@ static int ov58_021D20F4(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D2130(UnkStruct_02095EAC *param0, int param1)
 {
-    if (ov58_021D2B0C(param0->unk_30)) {
+    if (Overlay058_IsMessageFinished(param0->unk_30)) {
         YesNoTouchMenuParams v0;
         BOOL v1;
 
@@ -1164,9 +1164,9 @@ static int ov58_021D2130(UnkStruct_02095EAC *param0, int param1)
         v0.tilemapLeft = 25;
         v0.tilemapTop = 6;
 
-        v1 = ov58_021D2CEC(param0, &v0);
+        v1 = Overlay058_TryInitializeYesNoMenu(param0, &v0);
         GF_ASSERT(v1);
-        ov58_021D2CB0(param0, 14);
+        Overlay058_SetNextState(param0, 14);
     }
 
     Overlay058_UpdateDrawingDisplay(param0);
@@ -1178,24 +1178,24 @@ static int ov58_021D2180(UnkStruct_02095EAC *param0, int param1)
 {
     int v0 = YesNoTouchMenu_ProcessInput(param0->unk_9454);
 
-    if ((param0->unk_37C != ov58_021D2A30()) || (param0->unk_9418 != 0)) {
+    if ((param0->unk_37C != Overlay058_CountParticipantsWithTrainerInfoInternal()) || (param0->unk_9418 != 0)) {
         Overlay058_UpdateDrawingDisplay(param0);
         return param1;
     }
 
     switch (v0) {
     case YES_NO_TOUCH_MENU_YES:
-        ov58_021D2CB0(param0, 15);
+        Overlay058_SetNextState(param0, 15);
         CommSys_SendDataServer(127, NULL, 0);
         StringTemplate_SetPlayerName(param0->unk_0C, 0, CommInfo_TrainerInfo(0));
         param1 = 2;
-        ov58_021D2D10(param0);
+        Overlay058_ResetYesNoMenu(param0);
         break;
     case YES_NO_TOUCH_MENU_NO:
-        ov58_021D2CB0(param0, 4);
+        Overlay058_SetNextState(param0, 4);
         Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
         Window_EraseMessageBox(&param0->unk_33C, 1);
-        ov58_021D2D10(param0);
+        Overlay058_ResetYesNoMenu(param0);
 
         if (CommSys_CurNetId() == 0) {
             CommManager_SetMaxNumConnections(CommSys_ConnectedCount() + 1);
@@ -1212,8 +1212,8 @@ static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1)
 {
     StringTemplate_SetPlayerName(param0->unk_0C, 0, CommInfo_TrainerInfo(0));
 
-    ov58_021D2A98(param0, 3, TEXT_SPEED_FAST);
-    ov58_021D2CB0(param0, 16);
+    Overlay058_ShowMessage(param0, 3, TEXT_SPEED_FAST);
+    Overlay058_SetNextState(param0, 16);
     Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
@@ -1221,8 +1221,8 @@ static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1)
 {
-    if (ov58_021D2B0C(param0->unk_30)) {
-        ov58_021D2CB0(param0, 17);
+    if (Overlay058_IsMessageFinished(param0->unk_30)) {
+        Overlay058_SetNextState(param0, 17);
         CommTiming_StartSync(200);
     }
 
@@ -1248,8 +1248,8 @@ static int ov58_021D22D8(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1)
 {
-    ov58_021D2A98(param0, 5, TEXT_SPEED_FAST);
-    ov58_021D2CB0(param0, 20);
+    Overlay058_ShowMessage(param0, 5, TEXT_SPEED_FAST);
+    Overlay058_SetNextState(param0, 20);
     Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
@@ -1257,8 +1257,8 @@ static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1)
 {
-    if (ov58_021D2B0C(param0->unk_30)) {
-        ov58_021D2CB0(param0, 12);
+    if (Overlay058_IsMessageFinished(param0->unk_30)) {
+        Overlay058_SetNextState(param0, 12);
     }
 
     Overlay058_UpdateDrawingDisplay(param0);
@@ -1267,16 +1267,16 @@ static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1)
 
 static int ov58_021D2320(UnkStruct_02095EAC *param0, int param1)
 {
-    if ((param0->unk_30 != 0xff) && (ov58_021D2B0C(param0->unk_30) == 0)) {
+    if ((param0->unk_30 != 0xff) && (Overlay058_IsMessageFinished(param0->unk_30) == 0)) {
         Text_RemovePrinter(param0->unk_30);
     }
 
-    ov58_021D2A98(param0, 2, TEXT_SPEED_FAST);
-    ov58_021D2CB0(param0, 22);
+    Overlay058_ShowMessage(param0, 2, TEXT_SPEED_FAST);
+    Overlay058_SetNextState(param0, 22);
     Sound_PlayEffect(SEQ_SE_DP_BUTTON9_sseq);
 
     if (CommSys_CurNetId() == 0) {
-        ov58_021D2B3C(param0, 0);
+        Overlay058_AdjustMaxConnections(param0, 0);
     }
 
     param0->unk_9414 = CommSys_ConnectedCount();
@@ -1291,8 +1291,8 @@ static int ov58_021D2380(UnkStruct_02095EAC *param0, int param1)
         param0->unk_9414 = 0;
     }
 
-    if (ov58_021D2B0C(param0->unk_30)) {
-        ov58_021D2CB0(param0, 23);
+    if (Overlay058_IsMessageFinished(param0->unk_30)) {
+        Overlay058_SetNextState(param0, 23);
         param0->unk_374 = 0;
     }
 
@@ -1307,12 +1307,12 @@ static int ov58_021D23C8(UnkStruct_02095EAC *param0, int param1)
     }
 
     if ((++param0->unk_374 > 60) && (param0->unk_9414 == 0)) {
-        ov58_021D2B2C(param0);
-        ov58_021D2CB0(param0, 4);
+        Overlay058_EraseMessageBox(param0);
+        Overlay058_SetNextState(param0, 4);
 
         if (CommSys_CurNetId() == 0) {
             param0->unk_9458 = 1;
-            ov58_021D2B3C(param0, 1);
+            Overlay058_AdjustMaxConnections(param0, 1);
         }
     }
 
@@ -1325,7 +1325,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
     switch (param1) {
     case 1:
         if ((param0->unk_368 == 6) || (param0->unk_368 == 14)) {
-            ov58_021D2D10(param0);
+            Overlay058_ResetYesNoMenu(param0);
         }
 
         Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
@@ -1335,7 +1335,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
         param0->unk_9418 = 0;
         break;
     case 3:
-        ov58_021D2B2C(param0);
+        Overlay058_EraseMessageBox(param0);
         break;
     case 21:
         if (param0->unk_9420 == 1) {
@@ -1353,7 +1353,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
         }
 
         if ((param0->unk_368 == 6) || (param0->unk_368 == 14)) {
-            ov58_021D2D10(param0);
+            Overlay058_ResetYesNoMenu(param0);
 
             Window_CopyToVRAM(&param0->unk_32C);
         }
@@ -1371,7 +1371,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
         return;
     }
 
-    ov58_021D2CB0(param0, param1);
+    Overlay058_SetNextState(param0, param1);
 }
 
 static const u8 sOverlay058BrushStampsBySizeAndColor[3][8][24] = {
@@ -1593,7 +1593,7 @@ static void Overlay058_AnimateParticipantIndicatorPalette(u16 *param0)
     GX_LoadOBJPltt((u16 *)&v1, 12 * 2, 2);
 }
 
-static int ov58_021D28C8(void)
+static int Overlay058_CountTrainerInfoParticipants(void)
 {
     int v0, v1;
     TrainerInfo *v2;
@@ -1616,7 +1616,7 @@ static void Overlay058_UpdateParticipantNameWindows(Window *param0, int param1, 
     int v0, v1 = CommSys_CurNetId();
     int v2;
 
-    if (!ov58_021D2A54(param3)) {
+    if (!Overlay058_UpdateParticipantInfoCache(param3)) {
         return;
     }
 
@@ -1647,7 +1647,7 @@ static void Overlay058_UpdateParticipantNameWindows(Window *param0, int param1, 
     }
 }
 
-static void ov58_021D29C8(UnkStruct_02095EAC *param0)
+static void Overlay058_SendDrawingUpdate(UnkStruct_02095EAC *param0)
 {
     if (CommSys_CurNetId() == 0) {
         if (sub_02036284()) {
@@ -1662,7 +1662,7 @@ static void ov58_021D29C8(UnkStruct_02095EAC *param0)
     }
 }
 
-static int ov58_021D2A30(void)
+static int Overlay058_CountParticipantsWithTrainerInfoInternal(void)
 {
     int i, v0;
 
@@ -1677,10 +1677,10 @@ static int ov58_021D2A30(void)
 
 int Overlay058_CountParticipantsWithTrainerInfo(void)
 {
-    return ov58_021D2A30();
+    return Overlay058_CountParticipantsWithTrainerInfoInternal();
 }
 
-static int ov58_021D2A54(UnkStruct_02095EAC *param0)
+static int Overlay058_UpdateParticipantInfoCache(UnkStruct_02095EAC *param0)
 {
     int v0, v1 = 0;
 
@@ -1698,7 +1698,7 @@ static int ov58_021D2A54(UnkStruct_02095EAC *param0)
     return v1;
 }
 
-static void ov58_021D2A98(UnkStruct_02095EAC *param0, int param1, int param2)
+static void Overlay058_ShowMessage(UnkStruct_02095EAC *param0, int param1, int param2)
 {
     String *v0 = String_Init(40 * 2, HEAP_ID_DRAWING);
 
@@ -1720,7 +1720,7 @@ static void ov58_021D2A98(UnkStruct_02095EAC *param0, int param1, int param2)
     }
 }
 
-static int ov58_021D2B0C(int param0)
+static int Overlay058_IsMessageFinished(int param0)
 {
     if (param0 == 0xff) {
         return 1;
@@ -1733,12 +1733,12 @@ static int ov58_021D2B0C(int param0)
     return 0;
 }
 
-static void ov58_021D2B2C(UnkStruct_02095EAC *param0)
+static void Overlay058_EraseMessageBox(UnkStruct_02095EAC *param0)
 {
     Window_EraseMessageBox(&param0->unk_33C, 0);
 }
 
-static void ov58_021D2B3C(UnkStruct_02095EAC *param0, int param1)
+static void Overlay058_AdjustMaxConnections(UnkStruct_02095EAC *param0, int param1)
 {
     if (CommSys_CurNetId() == 0) {
         int v0 = CommSys_ConnectedCount() + param1;
@@ -1751,9 +1751,9 @@ static void ov58_021D2B3C(UnkStruct_02095EAC *param0, int param1)
     }
 }
 
-static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
+static int Overlay058_UpdateWirelessParticipantState(UnkStruct_02095EAC *param0)
 {
-    int v0 = ov58_021D2A30();
+    int v0 = Overlay058_CountParticipantsWithTrainerInfoInternal();
 
     switch (v0) {
     case 1:
@@ -1766,7 +1766,7 @@ static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
             CommManager_SetMaxNumConnections(1);
 
             if (param0->unk_945C) {
-                ov58_021D2D10(param0);
+                Overlay058_ResetYesNoMenu(param0);
                 Sprite_SetAnim(param0->unk_2AC[8], sOverlay058DrawingUiSpriteLayout[8][2]);
             }
 
@@ -1780,9 +1780,9 @@ static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
 
         if (v0 < param0->unk_378) {
             if (param0->unk_9458 == 2) {
-                ov58_021D2B3C(param0, 0);
+                Overlay058_AdjustMaxConnections(param0, 0);
             } else {
-                ov58_021D2B3C(param0, 1);
+                Overlay058_AdjustMaxConnections(param0, 1);
             }
         }
         break;
@@ -1797,7 +1797,7 @@ static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
 
         if (param0->unk_9468) {
             if (!(param0->unk_380 & param0->unk_946C)) {
-                ov58_021D2B3C(param0, 1);
+                Overlay058_AdjustMaxConnections(param0, 1);
 
                 param0->unk_9458 = 1;
                 param0->unk_9468 = 0;
@@ -1806,7 +1806,7 @@ static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
         }
     }
 
-    param0->unk_378 = ov58_021D2A30();
+    param0->unk_378 = Overlay058_CountParticipantsWithTrainerInfoInternal();
 
     if (param0->unk_37C < CommSys_ConnectedCount()) {
         param0->unk_9458 = 2;
@@ -1818,12 +1818,12 @@ static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
     return 1;
 }
 
-static void ov58_021D2CB0(UnkStruct_02095EAC *param0, int param1)
+static void Overlay058_SetNextState(UnkStruct_02095EAC *param0, int param1)
 {
     param0->unk_36C = param1;
 }
 
-static void ov58_021D2CB8(UnkStruct_02095EAC *param0, int param1)
+static void Overlay058_ApplyNextStateIfAllowed(UnkStruct_02095EAC *param0, int param1)
 {
     if (param0->unk_368 != param0->unk_36C) {
         if (param1 != 2) {
@@ -1836,7 +1836,7 @@ static void ov58_021D2CB8(UnkStruct_02095EAC *param0, int param1)
     }
 }
 
-static BOOL ov58_021D2CEC(UnkStruct_02095EAC *param0, YesNoTouchMenuParams *param1)
+static BOOL Overlay058_TryInitializeYesNoMenu(UnkStruct_02095EAC *param0, YesNoTouchMenuParams *param1)
 {
     if (!param0->unk_945C) {
         YesNoTouchMenu_InitWithParams(param0->unk_9454, param1);
@@ -1847,7 +1847,7 @@ static BOOL ov58_021D2CEC(UnkStruct_02095EAC *param0, YesNoTouchMenuParams *para
     }
 }
 
-static void ov58_021D2D10(UnkStruct_02095EAC *param0)
+static void Overlay058_ResetYesNoMenu(UnkStruct_02095EAC *param0)
 {
     if (param0->unk_945C) {
         YesNoTouchMenu_Reset(param0->unk_9454);
@@ -1855,7 +1855,7 @@ static void ov58_021D2D10(UnkStruct_02095EAC *param0)
     }
 }
 
-static int ov58_021D2D30(UnkStruct_02095EAC *param0)
+static int Overlay058_IsPromptTouched(UnkStruct_02095EAC *param0)
 {
     int v0 = TouchScreen_CheckRectanglePressed(sOverlay058PromptTouchRegion);
 
@@ -1866,7 +1866,7 @@ static int ov58_021D2D30(UnkStruct_02095EAC *param0)
     return 0;
 }
 
-static void ov58_021D2D4C(UnkStruct_ov58_021D2820 *param0, TouchPadDataBuffer *param1, int param2, int param3)
+static void Overlay058_BuildDrawingUpdateFromSamples(UnkStruct_ov58_021D2820 *param0, TouchPadDataBuffer *param1, int param2, int param3)
 {
     int v0, v1;
 
