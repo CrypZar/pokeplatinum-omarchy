@@ -210,7 +210,7 @@ UnionRoom_TryMixRecords:
     CloseMessage
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_0AF
+    OpenMixedRecordsLobby
     ReturnToField
     Call UnionRoom_InitCommFieldCmd
     GoTo UnionRoom_PlayerInteractionEnd
@@ -316,7 +316,7 @@ UnionRoom_PlayerAskJoinMixRecords:
     CloseMessage
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_0AF
+    OpenMixedRecordsLobby
     ReturnToField
     FadeScreenIn
     GoTo UnionRoom_PlayerInteractionEnd
@@ -622,7 +622,7 @@ UnionRoom_PlayerAskMixRecords:
     ScrCmd_139 2
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_0AF
+    OpenMixedRecordsLobby
     ReturnToField
     Call UnionRoom_InitCommFieldCmd
     ReleaseAll

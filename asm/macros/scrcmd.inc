@@ -1125,8 +1125,8 @@
     .short SCRCMD_0AE
     .endm
 
-    .macro ScrCmd_0AF
-    .short SCRCMD_0AF
+    .macro OpenMixedRecordsLobby
+    .short SCRCMD_OPENMIXEDRECORDSLOBBY
     .endm
 
     .macro ClearGame
