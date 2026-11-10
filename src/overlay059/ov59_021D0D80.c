@@ -118,8 +118,8 @@ static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1998(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D19E4(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1DC8(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_BeginMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1E7C(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1);
 
@@ -151,8 +151,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1D14,
     Overlay059_WaitForReceivedMixedRecords,
     Overlay059_ApplyReceivedMixedRecords,
-    ov59_021D1DC8,
-    ov59_021D1E0C,
+    Overlay059_BeginMixedRecordsSaveSync,
+    Overlay059_UpdateMixedRecordsSaveSync,
     ov59_021D1E7C,
     Overlay059_UpdateMessageWaitState,
 };
@@ -1033,7 +1033,7 @@ static int Overlay059_ApplyReceivedMixedRecords(UnkStruct_020961E8 *param0, int 
     return param1;
 }
 
-static int ov59_021D1DC8(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_BeginMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1)
 {
     gSystem.inhibitReset = 1;
 
@@ -1041,19 +1041,19 @@ static int ov59_021D1DC8(UnkStruct_020961E8 *param0, int param1)
 
     JournalEntry_SaveData(param0->unk_08->journalEntry, journalEntryOnlineEvent, JOURNAL_ONLINE_EVENT);
     GameRecords_IncrementTrainerScore(param0->unk_08->records, TRAINER_SCORE_EVENT_UNK_20);
-    sub_02038ED4(&param0->unk_404);
+    sub_02038ED4(&param0->mixedRecordsSaveSyncState);
 
     param0->overlayState = 28;
     return param1;
 }
 
-static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1)
 {
     if ((CommSys_CurNetId() == 0) && (CommSys_ConnectedCount() != param0->unk_4ABA)) {
         (void)0;
     }
 
-    if (sub_02038EDC(param0->unk_08->saveData, 2, &param0->unk_404)) {
+    if (sub_02038EDC(param0->unk_08->saveData, 2, &param0->mixedRecordsSaveSyncState)) {
         Sound_StopEffect(1624, 8);
         ov59_021D2628(param0, 13, 0);
         Overlay059_SetMessageWaitState(param0, 29);

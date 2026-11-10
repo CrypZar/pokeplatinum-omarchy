@@ -60,7 +60,7 @@ struct UnkStruct_020961E8_t {
     u8 unk_3B8[8][2];
     TrainerInfo *unk_3C8[5][2];
     int unk_3F0[5];
-    int unk_404;
+    int mixedRecordsSaveSyncState;
     u16 unk_408;
     u16 *unk_40C;
     u8 unk_410;
