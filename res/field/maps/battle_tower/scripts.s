@@ -39,7 +39,7 @@ BattleTower_OnTransition:
     CheckTVInterviewEligible TV_PROGRAM_SEGMENT_BATTLE_FRONTIER_FRONTLINE_NEWS_MULTI, VAR_MAP_LOCAL_0x00
     CallIfEq VAR_MAP_LOCAL_0x00, FALSE, BattleTower_HideBattleFrontierReporter
     CallIfNe VAR_MAP_LOCAL_0x00, FALSE, BattleTower_ShowBattleFrontierReporter
-    ScrCmd_1E0 VAR_MAP_LOCAL_0x00
+    GetBattleTowerTrophyRewardStatus VAR_MAP_LOCAL_0x00
     GoToIfNe VAR_MAP_LOCAL_0x00, 0, BattleTower_ShowTealaTryShowReporter
     SetFlag FLAG_HIDE_BATTLE_TOWER_TEALA
     GoTo BattleTower_TryShowBattleTowerReporter
@@ -66,7 +66,7 @@ BattleTower_ShowPoketch:
 
 BattleTower_OnResume:
     GoToIfNe VAR_BATTLE_TOWER_LOBBY_LOAD_ACTION, 1, BattleTower_OnResumeEnd
-    ScrCmd_1E0 VAR_MAP_LOCAL_0x00
+    GetBattleTowerTrophyRewardStatus VAR_MAP_LOCAL_0x00
     GoToIfNe VAR_MAP_LOCAL_0x00, 0, BattleTower_SetTealaDirectionWest
     GoToIfEq VAR_MAP_LOCAL_0x00, 1, BattleTower_SetTealaDirectionWest
     GoToIfEq VAR_MAP_LOCAL_0x00, 2, BattleTower_SetTealaDirectionWest
@@ -117,7 +117,7 @@ BattleTower_Teala:
     LockAll
     FacePlayer
     SetVar VAR_MAP_LOCAL_0x01, 0
-    ScrCmd_1DF VAR_MAP_LOCAL_0x02
+    GetBattleTowerTrophyReward VAR_MAP_LOCAL_0x02
     GoTo BattleTower_TryGiveTrophy
     End
 
@@ -802,7 +802,7 @@ _0D5C:
 _0D72:
     BattleTower_SendCommMessage 0, 0, VAR_RESULT
     GoToIfEq VAR_RESULT, 0, _0D72
-    ScrCmd_1E2 0, VAR_MAP_LOCAL_0x00
+    ReceiveBattleTowerData 0, VAR_MAP_LOCAL_0x00
     SetVar VAR_0x8008, VAR_MAP_LOCAL_0x00
     GoToIfEq VAR_0x8008, 1, BattleTower_BothTrainerChosePokemon1
     GoToIfEq VAR_0x8008, 2, BattleTower_BothTrainerChosePokemon2
@@ -812,7 +812,7 @@ _0D72:
     CallBattleTowerFunction BT_FUNC_SET_RNG_SEEDS, 0, VAR_0x8004
     GetCurNetID VAR_RESULT
     GoToIfEq VAR_RESULT, 0, _0E8A
-    ScrCmd_1E2 1, VAR_MAP_LOCAL_0x00
+    ReceiveBattleTowerData 1, VAR_MAP_LOCAL_0x00
     GoTo _0E58
     End
 
@@ -990,7 +990,7 @@ _10AE:
 _10BC:
     Message BattleTower_Text_SavingDontTurnOffPower
     Call BattleTower_TrySaveGame
-    ScrCmd_1DF VAR_RESULT
+    GetBattleTowerTrophyReward VAR_RESULT
     GoToIfEq VAR_RESULT, 0, BattleTower_ClearCommunicationAndEnd
     Message BattleTower_Text_LookForwardToNextVisit
     CloseMessage
@@ -1047,7 +1047,7 @@ BattleTower_SaveGameClearCommunication:
     End
 
 _118A:
-    ScrCmd_1DF VAR_RESULT
+    GetBattleTowerTrophyReward VAR_RESULT
     GoToIfEq VAR_RESULT, 0, BattleTower_ClearCommunicationAndEnd
     Message BattleTower_Text_LookForwardToNextVisit
     CloseMessage
