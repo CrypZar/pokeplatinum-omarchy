@@ -10,7 +10,7 @@
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
-#include "struct_defs/struct_0202E81C.h"
+#include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/struct_0202E828.h"
 #include "struct_defs/struct_0202E834.h"
 #include "struct_defs/tv.h"
@@ -455,7 +455,7 @@ TVBattleFrontierFrontlineNewsSingleData *TVBroadcast_GetBattleFrontierFrontlineN
     return &broadcast->unk_B10;
 }
 
-UnkStruct_0202E81C *sub_0202E81C(TVBroadcast *broadcast)
+TVBattleFrontierFrontlineNewsMultiData *TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(TVBroadcast *broadcast)
 {
     return &broadcast->unk_B2E;
 }

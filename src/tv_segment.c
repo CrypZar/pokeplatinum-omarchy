@@ -20,7 +20,7 @@
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
-#include "struct_defs/struct_0202E81C.h"
+#include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/struct_0202E828.h"
 #include "struct_defs/struct_0202E834.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
@@ -285,7 +285,7 @@ typedef struct TVSegment_InYourFaceInterview_Question {
 } TVSegment_InYourFaceInterview_Question;
 
 typedef struct TVSegment_BattleFrontierFrontlineNews_Multi {
-    UnkStruct_0202E81C unk_00;
+    TVBattleFrontierFrontlineNewsMultiData unk_00;
     u16 customWordMessage;
 } TVSegment_BattleFrontierFrontlineNews_Multi;
 
@@ -630,9 +630,9 @@ void TVBroadcast_SetBattleFrontierFrontlineNewsSinglePokemon(TVBroadcast *broadc
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206D088(TVBroadcast *broadcast, u8 param1, const TrainerInfo *param2)
+void TVBroadcast_SetBattleFrontierFrontlineNewsMultiData(TVBroadcast *broadcast, u8 param1, const TrainerInfo *param2)
 {
-    UnkStruct_0202E81C *v0 = sub_0202E81C(broadcast);
+    TVBattleFrontierFrontlineNewsMultiData *v0 = TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(broadcast);
 
     v0->unk_00 = 1;
     v0->unk_01 = param1;
@@ -1995,7 +1995,7 @@ void TVSegment_Save_BattleFrontierFrontlineNews_Multi(FieldSystem *fieldSystem, 
 {
     TVSegmentData segments;
     TVSegment_BattleFrontierFrontlineNews_Multi *battleFrontierFrontlineNewsMulti = &segments.battleFrontierFrontlineNewsMulti;
-    UnkStruct_0202E81C *v2 = sub_0202E81C(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVBattleFrontierFrontlineNewsMultiData *v2 = TVBroadcast_GetBattleFrontierFrontlineNewsMultiData(SaveData_GetTVBroadcast(fieldSystem->saveData));
 
     battleFrontierFrontlineNewsMulti->unk_00 = *v2;
     battleFrontierFrontlineNewsMulti->customWordMessage = customWordMessage;
