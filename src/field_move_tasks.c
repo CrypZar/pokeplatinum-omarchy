@@ -247,7 +247,7 @@ void FieldMoves_SetUsableMoves(FieldSystem *fieldSystem, FieldMoveContext *field
         return;
     }
 
-    sub_0203C9D4(fieldSystem, &mapObj);
+    FieldSystem_GetMapObjectAtFacingPosition(fieldSystem, &mapObj);
     fieldMoveContext->mapObj = mapObj;
 
     if (mapObj != NULL) {
