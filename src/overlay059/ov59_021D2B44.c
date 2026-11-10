@@ -14,7 +14,7 @@
 #include "savedata.h"
 #include "trainer_info.h"
 
-__attribute__((aligned(4))) static const u8 Unk_ov59_021D33B0[] = {
+__attribute__((aligned(4))) static const u8 TVWifiEpisodeAllowedSegmentIdsCategory0[] = {
     0x2,
     0x4,
     0x6,
@@ -32,7 +32,7 @@ __attribute__((aligned(4))) static const u8 Unk_ov59_021D33B0[] = {
     0xff
 };
 
-__attribute__((aligned(4))) static const u8 Unk_ov59_021D33D0[] = {
+__attribute__((aligned(4))) static const u8 TVWifiEpisodeAllowedSegmentIdsCategory1[] = {
     0x1,
     0x2,
     0x3,
@@ -55,7 +55,7 @@ __attribute__((aligned(4))) static const u8 Unk_ov59_021D33D0[] = {
     0xff
 };
 
-__attribute__((aligned(4))) static const u8 Unk_ov59_021D3398[] = {
+__attribute__((aligned(4))) static const u8 TVWifiEpisodeAllowedSegmentIdsCategory2[] = {
     0x1,
     0x3,
     0x4,
@@ -67,7 +67,7 @@ __attribute__((aligned(4))) static const u8 Unk_ov59_021D3398[] = {
     0xff
 };
 
-__attribute__((aligned(4))) static const u8 Unk_ov59_021D33A4[] = {
+__attribute__((aligned(4))) static const u8 TVWifiEpisodeAllowedSegmentIdsCategory3[] = {
     0x2,
     0x4,
     0x6,
@@ -79,7 +79,7 @@ __attribute__((aligned(4))) static const u8 Unk_ov59_021D33A4[] = {
     0xff
 };
 
-__attribute__((aligned(4))) static const u8 Unk_ov59_021D33C0[] = {
+__attribute__((aligned(4))) static const u8 TVWifiEpisodeAllowedSegmentIdsCategory4[] = {
     0x1,
     0x2,
     0x3,
@@ -98,7 +98,7 @@ __attribute__((aligned(4))) static const u8 Unk_ov59_021D33C0[] = {
     0xff
 };
 
-__attribute__((aligned(4))) static const u8 Unk_ov59_021D3390[] = {
+__attribute__((aligned(4))) static const u8 TVWifiEpisodeAllowedSegmentIdsCategory5[] = {
     0x1,
     0x3,
     0x4,
@@ -108,13 +108,13 @@ __attribute__((aligned(4))) static const u8 Unk_ov59_021D3390[] = {
     0xff
 };
 
-static const u8 *const Unk_ov59_021D33E4[] = {
-    Unk_ov59_021D33B0,
-    Unk_ov59_021D33D0,
-    Unk_ov59_021D3398,
-    Unk_ov59_021D33A4,
-    Unk_ov59_021D33C0,
-    Unk_ov59_021D3390
+static const u8 *const TVWifiEpisodeAllowedSegmentIdsByCategory[] = {
+    TVWifiEpisodeAllowedSegmentIdsCategory0,
+    TVWifiEpisodeAllowedSegmentIdsCategory1,
+    TVWifiEpisodeAllowedSegmentIdsCategory2,
+    TVWifiEpisodeAllowedSegmentIdsCategory3,
+    TVWifiEpisodeAllowedSegmentIdsCategory4,
+    TVWifiEpisodeAllowedSegmentIdsCategory5
 };
 
 u32 ov59_021D2B44(const SaveData *saveData)
@@ -132,12 +132,12 @@ u32 ov59_021D2B54(const SaveData *saveData)
     return sizeof(TVWifiEpisode) * 4;
 }
 
-static BOOL ov59_021D2B5C(int param0, int param1)
+static BOOL TVWifiEpisode_IsSegmentIdAllowed(int param0, int param1)
 {
     int v0;
 
-    for (v0 = 0; Unk_ov59_021D33E4[param0][v0] != 0xff; v0++) {
-        if (Unk_ov59_021D33E4[param0][v0] == param1) {
+    for (v0 = 0; TVWifiEpisodeAllowedSegmentIdsByCategory[param0][v0] != 0xff; v0++) {
+        if (TVWifiEpisodeAllowedSegmentIdsByCategory[param0][v0] == param1) {
             return 1;
         }
     }
@@ -163,7 +163,7 @@ static void ov59_021D2B90(SaveData *saveData, TVWifiEpisode *param1, TVSegmentIn
         param1->details = param2[v0];
         param1->details.timesPlayed = 0;
 
-        if ((param4 == 1) && (ov59_021D2B5C(param5, param1->details.segmentID) == 0)) {
+        if ((param4 == 1) && (TVWifiEpisode_IsSegmentIdAllowed(param5, param1->details.segmentID) == 0)) {
             param1->details.segmentID = 0;
         }
     }
@@ -243,7 +243,7 @@ static BOOL ov59_021D2DC4(TVWifiEpisode *param0, int param1, const TVWifiEpisode
         return 0;
     }
 
-    if (ov59_021D2B5C(param3, param2->details.segmentID) == 0) {
+    if (TVWifiEpisode_IsSegmentIdAllowed(param3, param2->details.segmentID) == 0) {
         return -1;
     }
 
