@@ -1810,7 +1810,7 @@ void ov62_022338A8(UnkStruct_0208C06C *param0)
     int v1;
 
     for (v0 = 0; v0 < 4; v0++) {
-        sub_0202F298(param0->saveData, 102, &v1, NULL, v0);
+        BattleRecording_LoadSavedRecording(param0->saveData, 102, &v1, NULL, v0);
 
         switch (v1) {
         case 0:

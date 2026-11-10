@@ -640,7 +640,7 @@ static u8 ov10_0221FD00(UnkStruct_ov10_0221FB28 *param0)
             BOOL v0;
             int v1;
 
-            v0 = sub_0202F330(param0->trainerIntroData->dto->saveData, param0->trainerIntroData->heapID, &v1, 0);
+            v0 = BattleRecording_IsSavedRecordingValid(param0->trainerIntroData->dto->saveData, param0->trainerIntroData->heapID, &v1, 0);
             param0->unk_BC0 = v1;
         }
         {
