@@ -71,7 +71,7 @@ static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0);
 static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan);
 static void ov59_021D17C8(UnkStruct_020961E8 *param0);
 static void ov59_021D1994(UnkStruct_020961E8 *unused);
-static void ov59_021D23B0(u16 *param0);
+static void Overlay059_UpdateStatusPulsePalette(u16 *param0);
 static BOOL ov59_021D2418(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3);
 static BOOL ov59_021D254C(UnkStruct_020961E8 *param0);
 static void ov59_021D2628(UnkStruct_020961E8 *param0, int param1, int param2);
@@ -354,7 +354,7 @@ static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *para
             v0->statusPaletteAnimation.framesInCurrentStep++;
         }
 
-        ov59_021D23B0(&v0->unk_408);
+        Overlay059_UpdateStatusPulsePalette(&v0->statusPulseAngleDegrees);
     }
 }
 
@@ -1368,7 +1368,7 @@ void ov59_021D22EC(UnkStruct_020961E8 *param0, int param1, u8 param2)
     }
 }
 
-static void ov59_021D23B0(u16 *param0)
+static void Overlay059_UpdateStatusPulsePalette(u16 *param0)
 {
     *param0 += 10;
 

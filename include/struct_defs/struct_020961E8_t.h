@@ -61,7 +61,7 @@ struct UnkStruct_020961E8_t {
     TrainerInfo *unk_3C8[5][2];
     int unk_3F0[5];
     int mixedRecordsSaveSyncState;
-    u16 unk_408;
+    u16 statusPulseAngleDegrees;
     u16 *unk_40C;
     u8 unk_410;
     u8 unk_411;
