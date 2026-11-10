@@ -94,8 +94,8 @@ static void ov59_021D1864(UnkStruct_020961E8 *param0);
 static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1838(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1D14(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1D70(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1DA0(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ApplyReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1C64(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1C34(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1A14(UnkStruct_020961E8 *param0, int param1);
@@ -149,8 +149,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1C34,
     ov59_021D1C64,
     ov59_021D1D14,
-    ov59_021D1D70,
-    ov59_021D1DA0,
+    Overlay059_WaitForReceivedMixedRecords,
+    Overlay059_ApplyReceivedMixedRecords,
     ov59_021D1DC8,
     ov59_021D1E0C,
     ov59_021D1E7C,
@@ -1007,7 +1007,7 @@ void ov59_021D1D40(UnkStruct_020961E8 *param0)
     param0->unk_0C.unk_00 = 1;
 }
 
-static int ov59_021D1D70(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1)
 {
     if ((CommSys_CurNetId() == 0) && (CommSys_ConnectedCount() != param0->unk_4ABA)) {
         (void)0;
@@ -1024,7 +1024,7 @@ static int ov59_021D1D70(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1DA0(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ApplyReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1)
 {
     ov59_021D313C(param0->saveData, param0->unk_FD8);
 
