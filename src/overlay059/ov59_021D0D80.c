@@ -58,7 +58,7 @@
 #include "vram_transfer.h"
 #include "wireless_manager.h"
 
-static void ov59_021D1100(void *param0);
+static void Overlay059_VBlankCallback(void *param0);
 static void Overlay059_ConfigureVramBanks(void);
 static void Overlay059_InitializeBackgroundLayers(BgConfig *param0);
 static void Overlay059_InitializeLobbyState(UnkStruct_020961E8 *param0, NARC *param1);
@@ -195,7 +195,7 @@ int Overlay059_Init(ApplicationManager *appMan, int *param1)
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_IN, FADE_TYPE_CIRCLE_IN, COLOR_BLACK, 16, 1, HEAP_ID_51);
 
         Overlay059_LoadBackgroundGraphics(v0, v1);
-        SetVBlankCallback(ov59_021D1100, v0);
+        SetVBlankCallback(Overlay059_VBlankCallback, v0);
 
         Overlay059_InitializeLobbyState(v0, v1);
         Overlay059_InitializeSpriteTransfers();
@@ -358,7 +358,7 @@ static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *para
     }
 }
 
-static void ov59_021D1100(void *param0)
+static void Overlay059_VBlankCallback(void *param0)
 {
     VramTransfer_Process();
     RenderOam_Transfer();
