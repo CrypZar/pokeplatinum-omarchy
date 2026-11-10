@@ -189,7 +189,7 @@ UnionRoom_TryDraw:
     CloseMessage
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_0AC
+    OpenDrawingApp
     ReturnToField
     Call UnionRoom_InitCommFieldCmd
     GoTo UnionRoom_PlayerInteractionEnd
@@ -285,7 +285,7 @@ UnionRoom_PlayerAskJoinDraw:
     CloseMessage
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_0AC
+    OpenDrawingApp
     ReturnToField
     FadeScreenIn
     GoTo UnionRoom_PlayerInteractionEnd
@@ -666,7 +666,7 @@ UnionRoom_PlayerAskDraw:
     ScrCmd_139 1
     FadeScreenOut
     WaitFadeScreen
-    ScrCmd_0AC
+    OpenDrawingApp
     ReturnToField
     Call UnionRoom_InitCommFieldCmd
     ReleaseAll

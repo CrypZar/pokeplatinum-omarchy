@@ -1113,8 +1113,8 @@
     .byte \boxMode
     .endm
 
-    .macro ScrCmd_0AC
-    .short SCRCMD_0AC
+    .macro OpenDrawingApp
+    .short SCRCMD_OPENDRAWINGAPP
     .endm
 
     .macro OpenUnionRoomTrainerCase
