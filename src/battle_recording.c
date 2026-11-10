@@ -1,4 +1,4 @@
-#include "unk_0202F1D4.h"
+#include "battle_recording.h"
 
 #include <nitro.h>
 #include <string.h>

@@ -68,7 +68,7 @@
 #include "trainer_data.h"
 #include "trainer_info.h"
 #include "tv_segment.h"
-#include "unk_0202F1D4.h"
+#include "battle_recording.h"
 
 static void BattleMessage_CheckSide(BattleSystem *battleSys, BattleMessage *battleMsg);
 static void BattleMessage_FillFormatBuffers(BattleSystem *battleSys, BattleMessage *battleMsg);
