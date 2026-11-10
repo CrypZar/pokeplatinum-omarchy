@@ -247,7 +247,7 @@ BattleTowerMultiBattleRoom_HandleLinkMultiDecision:
     ClearReceivedTempDataAllPlayers
     ScrCmd_135 5
     BattleTower_SendCommMessage 2, VAR_MAP_LOCAL_0x00, VAR_RESULT
-    ScrCmd_1E2 2, VAR_MAP_LOCAL_0x00
+    ReceiveBattleTowerData 2, VAR_MAP_LOCAL_0x00
     CloseMessage
     SetVar VAR_0x8008, VAR_MAP_LOCAL_0x00
     GoToIfEq VAR_0x8008, 1, BattleTowerMultiBattleRoom_LinkMultiRetire

@@ -215,7 +215,7 @@ BOOL ScrCmd_GetBattleTowerPartnerSpeciesAndMove(ScriptContext *ctx)
     return FALSE;
 }
 
-BOOL ScrCmd_1DF(ScriptContext *ctx)
+BOOL ScrCmd_GetBattleTowerTrophyReward(ScriptContext *ctx)
 {
     u16 v0 = ScriptContext_ReadHalfWord(ctx);
     u16 *v3 = FieldSystem_GetVarPointer(ctx->fieldSystem, v0);
@@ -224,7 +224,7 @@ BOOL ScrCmd_1DF(ScriptContext *ctx)
     return FALSE;
 }
 
-BOOL ScrCmd_1E0(ScriptContext *ctx)
+BOOL ScrCmd_GetBattleTowerTrophyRewardStatus(ScriptContext *ctx)
 {
     u16 v0 = ScriptContext_ReadHalfWord(ctx);
     u16 *v3 = FieldSystem_GetVarPointer(ctx->fieldSystem, v0);
@@ -275,7 +275,7 @@ BOOL ScrCmd_BattleTower_SendCommMessage(ScriptContext *ctx)
     return FALSE;
 }
 
-BOOL ScrCmd_1E2(ScriptContext *ctx)
+BOOL ScrCmd_ReceiveBattleTowerData(ScriptContext *ctx)
 {
     BattleTower *battleTower = ctx->fieldSystem->battleTower;
 
