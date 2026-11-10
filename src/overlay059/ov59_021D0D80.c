@@ -1272,7 +1272,7 @@ static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-void ov59_021D2204(UnkStruct_020961E8 *param0, int param1, u8 param2)
+void Overlay059_HandleCommunicationStateEvent(UnkStruct_020961E8 *param0, int param1, u8 param2)
 {
     switch (param1) {
     case 2:
@@ -1329,7 +1329,7 @@ void ov59_021D2204(UnkStruct_020961E8 *param0, int param1, u8 param2)
     param0->overlayState = param1;
 }
 
-void ov59_021D22EC(UnkStruct_020961E8 *param0, int param1, u8 param2)
+void Overlay059_HandleParticipantJoinNotification(UnkStruct_020961E8 *param0, int param1, u8 param2)
 {
     if (param0->overlayState == 3) {
         switch (param1) {
