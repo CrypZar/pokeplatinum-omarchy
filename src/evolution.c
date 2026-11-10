@@ -384,7 +384,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
         }
         break;
     case EVOLUTION_STATE_ANIMATION_ALTERNATE_POKEMON:
-        if (sub_0207C8E0(evolutionData->unk_30) == FALSE) {
+        if (EvolutionParticleSystem_HasActiveEmitters(evolutionData->unk_30) == FALSE) {
             sub_0207C8C4(evolutionData->unk_30, 3);
             sub_0207C8C4(evolutionData->unk_30, 4);
             sub_0207C8C4(evolutionData->unk_30, 5);
@@ -418,7 +418,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
         }
         break;
     case EVOLUTION_STATE_PLAY_EVOLVED_POKEMON_ANIMATION_AND_CRY:
-        if (PaletteData_GetSelectedBuffersMask(evolutionData->paletteData) == 0 && sub_0207C8E0(evolutionData->unk_30) == FALSE) {
+        if (PaletteData_GetSelectedBuffersMask(evolutionData->paletteData) == 0 && EvolutionParticleSystem_HasActiveEmitters(evolutionData->unk_30) == FALSE) {
             SpriteAnimFrame animFrames[MAX_ANIMATION_FRAMES];
 
             PokemonSprite_LoadAnim(evolutionData->narc, evolutionData->monAnimMan, evolutionData->monSprites[1], evolutionData->targetSpecies, FACE_FRONT, 0, 0);
