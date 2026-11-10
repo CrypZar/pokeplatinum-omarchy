@@ -343,7 +343,7 @@ static BOOL Field_CheckSign(FieldSystem *fieldSystem)
 {
     MapObject *object;
 
-    if (sub_0203CBE0(fieldSystem, &object) == TRUE) {
+    if (FieldSystem_TryGetFacingSignInteractionObject(fieldSystem, &object) == TRUE) {
         ScriptManager_Set(fieldSystem, MapObject_GetScript(object), object);
         return TRUE;
     }
