@@ -137,7 +137,7 @@ Static main
 	Object src/global_trade.c
 	Object src/mystery_gift.c
 	Object src/hall_of_fame_entries.c
-	Object src/unk_0202E2CC.c
+	Object src/tv_broadcast.c
 	Object src/rankings.c
 	Object src/pal_park_transfers.c
 	Object src/link_contest_records.c

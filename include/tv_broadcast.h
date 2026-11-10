@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_UNK_0202E2CC_H
-#define POKEPLATINUM_UNK_0202E2CC_H
+#ifndef POKEPLATINUM_TV_BROADCAST_H
+#define POKEPLATINUM_TV_BROADCAST_H
 
 #include "struct_decls/tv_broadcast.h"
 #include "struct_defs/struct_0202E7E4.h"
@@ -48,4 +48,4 @@ UnkStruct_0202E81C *sub_0202E81C(TVBroadcast *broadcast);
 TVBroadcast_BattlePointData *TVBroadcast_GetBattlePointData(TVBroadcast *broadcast);
 TVBroadcast_GTSData *TVBroadcast_GetGTSData(TVBroadcast *broadcast);
 
-#endif // POKEPLATINUM_UNK_0202E2CC_H
+#endif // POKEPLATINUM_TV_BROADCAST_H
