@@ -15,7 +15,7 @@ void BattleRecording_New(SaveData *saveData, enum HeapID heapID, int *resultCode
 void BattleRecording_Free(void);
 BOOL BattleRecording_Exists(void);
 BattleRecording *BattleRecording_Get(void);
-void *sub_0202F27C(void);
+void *BattleRecording_GetData(void);
 BOOL BattleRecording_LoadSavedRecording(SaveData *saveData, int param1, int *param2, FieldBattleDTO *param3, int param4);
 BOOL BattleRecording_IsSavedRecordingValid(SaveData *saveData, int param1, int *param2, int param3);
 int BattleRecording_SaveStep(SaveData *saveData, BattleRecording *param1, int param2, u16 *param3);

@@ -84,7 +84,7 @@ BattleRecording *BattleRecording_Get(void)
     return gBattleRecording;
 }
 
-void *sub_0202F27C(void)
+void *BattleRecording_GetData(void)
 {
     u8 *v0;
 
