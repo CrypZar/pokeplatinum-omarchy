@@ -232,7 +232,7 @@ static BOOL TVInterview_IsEligible(FieldSystem *fieldSystem, int segmentID)
     TVInterview_IsEligibleFunction isEligibleFn;
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(fieldSystem->saveData);
 
-    if (sub_0202E6B0(broadcast, 1, segmentID) == 0) {
+    if (TVBroadcast_CanSaveSegment(broadcast, 1, segmentID) == 0) {
         return FALSE;
     }
 
