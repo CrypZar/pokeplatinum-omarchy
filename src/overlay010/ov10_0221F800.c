@@ -379,7 +379,7 @@ void ov10_0221F800(TrainerIntroData *trainerIntroData)
 
     v0->trainerIntroData = trainerIntroData;
     v0->unk_B73 = 0;
-    v0->unk_BBC = sub_0202FAC0();
+    v0->unk_BBC = BattleRecording_AreSystemVersionsSupported();
 
     if (v0->unk_BBC == 1) {
         if ((v0->trainerIntroData->dto != NULL) && (v0->trainerIntroData->dto->saveData != NULL)) {

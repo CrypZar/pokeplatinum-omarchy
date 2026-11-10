@@ -2451,7 +2451,7 @@ static BOOL FrontierScrCmd_71(FrontierScriptContext *ctx)
 {
     u16 *destVar = FrontierScriptContext_TryGetVarPointer(ctx);
 
-    *destVar = sub_0202FAC0();
+    *destVar = BattleRecording_AreSystemVersionsSupported();
     return FALSE;
 }
 
