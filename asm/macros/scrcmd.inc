@@ -2778,13 +2778,13 @@
     .short \destVar2
     .endm
 
-    .macro ScrCmd_1DF arg0
-    .short SCRCMD_1DF
+    .macro GetBattleTowerTrophyReward arg0
+    .short SCRCMD_GETBATTLETOWERTROPHYREWARD
     .short \arg0
     .endm
 
-    .macro ScrCmd_1E0 arg0
-    .short SCRCMD_1E0
+    .macro GetBattleTowerTrophyRewardStatus arg0
+    .short SCRCMD_GETBATTLETOWERTROPHYREWARDSTATUS
     .short \arg0
     .endm
 
@@ -2795,8 +2795,8 @@
     .short \success
     .endm
 
-    .macro ScrCmd_1E2 arg0, arg1
-    .short SCRCMD_1E2
+    .macro ReceiveBattleTowerData arg0, arg1
+    .short SCRCMD_RECEIVEBATTLETOWERDATA
     .short \arg0
     .short \arg1
     .endm
