@@ -806,7 +806,7 @@ static int ov59_021D19E4(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static const WindowTemplate Unk_ov59_021D3288 = {
+static const WindowTemplate Overlay059YesNoChoiceWindowTemplate = {
     0x0,
     0x17,
     0xD,
@@ -818,7 +818,7 @@ static const WindowTemplate Unk_ov59_021D3288 = {
 
 static int Overlay059_ShowParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1)
 {
-    param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
+    param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 5;
 
     ov59_021D1994(param0);
@@ -942,7 +942,7 @@ static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1)
 
 static int Overlay059_ShowMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1)
 {
-    param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
+    param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 23;
 
     ov59_021D1994(param0);
@@ -1099,7 +1099,7 @@ static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1)
 
 static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1)
 {
-    param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
+    param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 12;
 
     ov59_021D1994(param0);
