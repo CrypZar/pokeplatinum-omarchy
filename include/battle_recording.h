@@ -21,7 +21,7 @@ BOOL BattleRecording_IsSavedRecordingValid(SaveData *saveData, int param1, int *
 int BattleRecording_SaveStep(SaveData *saveData, BattleRecording *param1, int param2, u16 *param3);
 int BattleRecording_SaveToSaveData(SaveData *saveData, int param1, int param2, int param3, u16 *param4, u16 *param5);
 void sub_0202F4C0(int param0, int *param1, int *param2);
-void sub_0202F858(void *param0, u32 param1, u32 param2);
+void BattleRecording_EncodeData(void *param0, u32 param1, u32 param2);
 void BattleRecording_WriteBattlerInputByte(int param0, int param1, u8 param2);
 u8 BattleRecording_ReadBattlerInputByte(int param0, int param1);
 void BattleRecording_CaptureBattleDTO(FieldBattleDTO *param0);

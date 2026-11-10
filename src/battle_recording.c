@@ -38,7 +38,7 @@ static void sub_0202FCE8(const Party *param0, UnkStruct_0202FD30 *param1);
 static void sub_0202FD30(UnkStruct_0202FD30 *param0, Party *param1);
 static BOOL sub_0202F75C(SaveData *saveData, BattleRecording *battleRecording);
 static BOOL sub_0202F794(SaveData *saveData, const BattleRecording *battleRecording);
-static void sub_0202F860(void *param0, u32 param1, u32 param2);
+static void BattleRecording_DecodeData(void *param0, u32 param1, u32 param2);
 static void sub_0202F510(SaveData *saveData, UnkStruct_0202F41C *param1, const UnkStruct_0202F298 *param2, int param3, int param4);
 
 int BattleRecording_SaveSize(void)
@@ -114,7 +114,7 @@ BOOL BattleRecording_LoadSavedRecording(SaveData *saveData, int param1, int *par
     v0 = &gBattleRecording->unk_E8;
     v1 = &gBattleRecording->unk_84;
 
-    sub_0202F860(v0, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), v0->unk_1BEC.unk_00 + ((v0->unk_1BEC.unk_00 ^ 0xffff) << 16));
+    BattleRecording_DecodeData(v0, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), v0->unk_1BEC.unk_00 + ((v0->unk_1BEC.unk_00 ^ 0xffff) << 16));
 
     if (sub_0202F75C(saveData, gBattleRecording) == 1) {
         *param2 = 0;
@@ -149,7 +149,7 @@ BOOL BattleRecording_IsSavedRecordingValid(SaveData *saveData, int param1, int *
     v0 = &v2->unk_E8;
     v1 = &v2->unk_84;
 
-    sub_0202F860(v0, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), v0->unk_1BEC.unk_00 + ((v0->unk_1BEC.unk_00 ^ 0xffff) << 16));
+    BattleRecording_DecodeData(v0, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), v0->unk_1BEC.unk_00 + ((v0->unk_1BEC.unk_00 ^ 0xffff) << 16));
 
     if (sub_0202F75C(saveData, v2) == 1) {
         *param2 = 0;
@@ -225,7 +225,7 @@ int BattleRecording_SaveToSaveData(SaveData *saveData, int param1, int param2, i
         v1->unk_1BEA = 0xe281;
         v1->unk_1BEC.unk_00 = SaveData_CalculateChecksum(saveData, v1, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)));
 
-        sub_0202F858(v1, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), v1->unk_1BEC.unk_00 + ((v1->unk_1BEC.unk_00 ^ 0xffff) << 16));
+        BattleRecording_EncodeData(v1, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), v1->unk_1BEC.unk_00 + ((v1->unk_1BEC.unk_00 ^ 0xffff) << 16));
 
         *param5 = 0;
         (*param4)++;
@@ -414,12 +414,12 @@ static BOOL sub_0202F794(SaveData *saveData, const BattleRecording *battleRecord
     return 1;
 }
 
-void sub_0202F858(void *param0, u32 param1, u32 param2)
+void BattleRecording_EncodeData(void *param0, u32 param1, u32 param2)
 {
     EncodeData(param0, param1, param2);
 }
 
-static void sub_0202F860(void *param0, u32 param1, u32 param2)
+static void BattleRecording_DecodeData(void *param0, u32 param1, u32 param2)
 {
     DecodeData(param0, param1, param2);
 }
@@ -659,7 +659,7 @@ void sub_0202FE20(UnkStruct_02030A80 *param0, UnkStruct_0202F41C *param1, UnkStr
     MI_CpuCopy8(param2, &gBattleRecording->unk_E8, sizeof(UnkStruct_0202F298));
     MI_CpuCopy8(param0, &gBattleRecording->unk_04, sizeof(UnkStruct_02030A80));
 
-    sub_0202F860(&gBattleRecording->unk_E8, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), gBattleRecording->unk_E8.unk_1BEC.unk_00 + ((gBattleRecording->unk_E8.unk_1BEC.unk_00 ^ 0xffff) << 16));
+    BattleRecording_DecodeData(&gBattleRecording->unk_E8, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), gBattleRecording->unk_E8.unk_1BEC.unk_00 + ((gBattleRecording->unk_E8.unk_1BEC.unk_00 ^ 0xffff) << 16));
 
     if (param3 != NULL) {
         BattleRecording_RestoreBattleDTO(param3, saveData);
