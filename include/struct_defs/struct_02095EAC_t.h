@@ -4,7 +4,7 @@
 #include "struct_defs/struct_0203DDFC.h"
 #include "struct_defs/struct_02095EAC_sub1.h"
 
-#include "overlay058/struct_ov58_021D2754.h"
+#include "overlay058/drawing_continuation_state.h"
 #include "overlay058/struct_ov58_021D2820.h"
 
 #include "bg_window.h"
@@ -58,7 +58,7 @@ struct UnkStruct_02095EAC_t {
     u8 unk_43DB;
     UnkStruct_ov58_021D2820 unk_43DC;
     UnkStruct_ov58_021D2820 unk_43E6[5];
-    UnkStruct_ov58_021D2754 unk_4418[5];
+    Overlay058DrawingContinuationState drawingContinuationsByPlayer[5];
     u8 *unk_442C;
     int unk_4430;
     u8 unk_4434[14400];

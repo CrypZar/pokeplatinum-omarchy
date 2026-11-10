@@ -8,7 +8,7 @@
 #include "struct_defs/struct_02095EAC_t.h"
 #include "struct_defs/struct_02095FE4.h"
 
-#include "overlay058/struct_ov58_021D2754.h"
+#include "overlay058/drawing_continuation_state.h"
 #include "overlay058/struct_ov58_021D2820.h"
 
 #include "bg_window.h"
@@ -90,8 +90,8 @@ static int ov58_021D2298(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1);
 static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int param3, int *param4, int *param5, int param6, int param7);
-static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, UnkStruct_ov58_021D2754 *param1);
-static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, UnkStruct_ov58_021D2754 *param2, int param3);
+static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1);
+static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3);
 static void ov58_021D2820(UnkStruct_02095EAC *param0);
 static void ov58_021D2888(u16 *param0);
 static void ov58_021D28E4(Window *param0, int param1, u32 param2, UnkStruct_02095EAC *param3);
@@ -514,7 +514,7 @@ static void ov58_021D12C4(UnkStruct_02095EAC *param0)
     for (v0 = 0; v0 < 5; v0++) {
         param0->unk_14[v0] = String_Init(7 + 1, HEAP_ID_DRAWING);
         param0->unk_43E6[v0].unk_08_3 = 0;
-        param0->unk_4418[v0].unk_02 = 0;
+        param0->drawingContinuationsByPlayer[v0].previousPointCount = 0;
         param0->unk_398[v0][0] = NULL;
         param0->unk_398[v0][1] = NULL;
     }
@@ -920,7 +920,7 @@ static int ov58_021D1CF4(UnkStruct_02095EAC *param0, int param1)
     }
 
     ov58_021D2820(param0);
-    ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->unk_4418, 1);
+    ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 1);
 
     return param1;
 }
@@ -928,7 +928,7 @@ static int ov58_021D1CF4(UnkStruct_02095EAC *param0, int param1)
 static void ov58_021D1D40(UnkStruct_02095EAC *param0)
 {
     ov58_021D2820(param0);
-    ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->unk_4418, 0);
+    ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 0);
 }
 
 static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1)
@@ -1509,37 +1509,37 @@ static void ov58_021D25A8(Window *param0, const u8 *param1, int param2, int para
     *param5 = param3;
 }
 
-static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, UnkStruct_ov58_021D2754 *param1)
+static void ov58_021D2720(UnkStruct_ov58_021D2820 *param0, Overlay058DrawingContinuationState *param1)
 {
     int v0;
 
     for (v0 = 0; v0 < 5; v0++) {
-        param1[v0].unk_02 = param0[v0].unk_08_3;
+        param1[v0].previousPointCount = param0[v0].unk_08_3;
 
         if (param0[v0].unk_08_3 != 0) {
-            param1[v0].unk_00 = param0[v0].unk_00[param0[v0].unk_08_3 - 1];
-            param1[v0].unk_01 = param0[v0].unk_04[param0[v0].unk_08_3 - 1];
+            param1[v0].lastPointX = param0[v0].unk_00[param0[v0].unk_08_3 - 1];
+            param1[v0].lastPointY = param0[v0].unk_04[param0[v0].unk_08_3 - 1];
         }
     }
 }
 
-static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, UnkStruct_ov58_021D2754 *param2, int param3)
+static void ov58_021D2754(Window *param0, UnkStruct_ov58_021D2820 *param1, Overlay058DrawingContinuationState *param2, int param3)
 {
     int v0, v1, v2, v3, v4 = 0, v5, v6;
     u32 v7;
 
     for (v2 = 0; v2 < 5; v2++) {
         if (param1[v2].unk_08_3 != 0) {
-            if (param2[v2].unk_02) {
-                v5 = param2[v2].unk_00 - 9;
-                v6 = param2[v2].unk_01 - 17;
+            if (param2[v2].previousPointCount) {
+                v5 = param2[v2].lastPointX - 9;
+                v6 = param2[v2].lastPointY - 17;
             }
 
             for (v3 = 0; v3 < param1[v2].unk_08_3; v3++) {
                 v0 = param1[v2].unk_00[v3] - 9;
                 v1 = param1[v2].unk_04[v3] - 17;
 
-                ov58_021D25A8(param0, Unk_ov58_021D2F34[param1[v2].unk_08_6][param1[v2].unk_08_0], v0, v1, &v5, &v6, v3, param2[v2].unk_02);
+                ov58_021D25A8(param0, Unk_ov58_021D2F34[param1[v2].unk_08_6][param1[v2].unk_08_0], v0, v1, &v5, &v6, v3, param2[v2].previousPointCount);
 
                 v4 = 1;
             }
