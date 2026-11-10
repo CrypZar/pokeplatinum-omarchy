@@ -79,11 +79,11 @@ static int Overlay058_ProcessDrawingStartPrompt(UnkStruct_02095EAC *param0, int 
 static int Overlay058_ResetHandshakeCountdown(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_SendReadyHandshakeWhenRosterStable(UnkStruct_02095EAC *param0, int param1);
 static int Overlay058_ResumeDrawingAfterHandshake(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D20C8(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D20F4(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2130(UnkStruct_02095EAC *param0, int param1);
-static int ov58_021D2180(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ShowConnectionEndedMessage(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_StartCloseDelayAfterMessage(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_FadeOutAfterCloseDelay(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_InitializeDisconnectConfirmation(UnkStruct_02095EAC *param0, int param1);
+static int Overlay058_ProcessDisconnectConfirmation(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D2298(UnkStruct_02095EAC *param0, int param1);
@@ -132,11 +132,11 @@ static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { Overlay058_ResetHandshakeCountdown, 0x1 },
     { Overlay058_SendReadyHandshakeWhenRosterStable, 0x1 },
     { Overlay058_ResumeDrawingAfterHandshake, 0x1 },
-    { ov58_021D20A8, 0x1 },
-    { ov58_021D20C8, 0x1 },
-    { ov58_021D20F4, 0x1 },
-    { ov58_021D2130, 0x1 },
-    { ov58_021D2180, 0x1 },
+    { Overlay058_ShowConnectionEndedMessage, 0x1 },
+    { Overlay058_StartCloseDelayAfterMessage, 0x1 },
+    { Overlay058_FadeOutAfterCloseDelay, 0x1 },
+    { Overlay058_InitializeDisconnectConfirmation, 0x1 },
+    { Overlay058_ProcessDisconnectConfirmation, 0x1 },
     { ov58_021D223C, 0x1 },
     { ov58_021D2270, 0x1 },
     { ov58_021D2298, 0x1 },
@@ -1117,7 +1117,7 @@ static int Overlay058_ResumeDrawingAfterHandshake(UnkStruct_02095EAC *param0, in
     return param1;
 }
 
-static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ShowConnectionEndedMessage(UnkStruct_02095EAC *param0, int param1)
 {
     u8 v0;
 
@@ -1128,7 +1128,7 @@ static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D20C8(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_StartCloseDelayAfterMessage(UnkStruct_02095EAC *param0, int param1)
 {
     if (Overlay058_IsMessageFinished(param0->unk_30)) {
         param0->unk_374 = 0;
@@ -1140,7 +1140,7 @@ static int ov58_021D20C8(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D20F4(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_FadeOutAfterCloseDelay(UnkStruct_02095EAC *param0, int param1)
 {
     if (++param0->unk_374 > 60) {
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_OUT, FADE_TYPE_CIRCLE_OUT, COLOR_BLACK, 16, 1, HEAP_ID_DRAWING);
@@ -1151,7 +1151,7 @@ static int ov58_021D20F4(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D2130(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_InitializeDisconnectConfirmation(UnkStruct_02095EAC *param0, int param1)
 {
     if (Overlay058_IsMessageFinished(param0->unk_30)) {
         YesNoTouchMenuParams v0;
@@ -1174,7 +1174,7 @@ static int ov58_021D2130(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static int ov58_021D2180(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_ProcessDisconnectConfirmation(UnkStruct_02095EAC *param0, int param1)
 {
     int v0 = YesNoTouchMenu_ProcessInput(param0->unk_9454);
 
