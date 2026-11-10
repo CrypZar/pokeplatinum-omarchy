@@ -19,7 +19,7 @@
 #include "savedata.h"
 #include "string_gf.h"
 #include "system.h"
-#include "unk_0202F1D4.h"
+#include "battle_recording.h"
 
 static void ov62_0224856C(String *param0, enum HeapID heapID);
 
