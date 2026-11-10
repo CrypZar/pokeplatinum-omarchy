@@ -9,7 +9,7 @@
 #include "struct_defs/wifi_player_profile.h"
 
 #include "overlay059/ov59_021D2A2C.h"
-#include "overlay059/ov59_021D2B44.h"
+#include "overlay059/wifi_tv_episodes.h"
 #include "overlay059/struct_ov59_021D30E0.h"
 #include "savedata/save_table.h"
 

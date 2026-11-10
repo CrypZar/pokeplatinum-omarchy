@@ -1105,7 +1105,7 @@ Overlay overlay59
 	After main
 	Object src/overlay059/mixed_records_lobby.c
 	Object src/overlay059/ov59_021D2A2C.c
-	Object src/overlay059/ov59_021D2B44.c
+	Object src/overlay059/wifi_tv_episodes.c
 	Object src/overlay059/mixed_records_payloads.c
 }
 
