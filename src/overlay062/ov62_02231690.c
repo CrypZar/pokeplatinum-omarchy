@@ -55,7 +55,7 @@
 #include "text.h"
 #include "touch_screen.h"
 #include "unk_02012744.h"
-#include "unk_0202F1D4.h"
+#include "battle_recording.h"
 #include "unk_02030A80.h"
 #include "unk_0208B284.h"
 
