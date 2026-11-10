@@ -5,11 +5,11 @@
 
 #include "applications/easy_chat/categories.h"
 #include "applications/easy_chat/main.h"
-#include "applications/easy_chat/ov20_021D2EA4.h"
+#include "applications/easy_chat/sentence_view.h"
 #include "applications/easy_chat/ov20_021D3864.h"
 #include "applications/easy_chat/word_list_view.h"
 #include "applications/easy_chat/ov20_021D4728.h"
-#include "applications/easy_chat/struct_ov20_021D30F8_decl.h"
+#include "applications/easy_chat/easy_chat_sentence_view_decl.h"
 #include "applications/easy_chat/struct_ov20_021D3980_decl.h"
 #include "applications/easy_chat/easy_chat_word_list_view_decl.h"
 #include "applications/easy_chat/struct_ov20_021D4AD4_decl.h"
@@ -43,7 +43,7 @@ typedef struct UnkStruct_ov20_021D2128_t {
     NNSG2dCellAnimBankData *unk_22C[2];
     void *unk_234[2];
     void *unk_23C[2];
-    UnkStruct_ov20_021D30F8 *unk_244;
+    EasyChatSentenceView *sentenceView;
     UnkStruct_ov20_021D3980 *unk_248;
     EasyChatCategoriesContext *unk_24C;
     EasyChatWordListView *wordListView;
@@ -280,8 +280,8 @@ static void ov20_021D2260(SysTask *param0, void *param1)
     ov20_021D24EC(v0);
     ov20_021D2370(v0, narc);
 
-    v0->unk_00->unk_244 = ov20_021D2EA4(v0->unk_00, v0->unk_04, v0->unk_08);
-    ov20_021D2F50(v0->unk_00->unk_244, narc);
+    v0->unk_00->sentenceView = EasyChatSentenceView_New(v0->unk_00, v0->unk_04, v0->unk_08);
+    EasyChatSentenceView_Initialize(v0->unk_00->sentenceView, narc);
 
     v0->unk_00->unk_248 = ov20_021D3864(v0->unk_00, v0->unk_04, v0->unk_08);
     ov20_021D3898(v0->unk_00->unk_248, narc);
@@ -337,7 +337,7 @@ static void ov20_021D2414(SysTask *param0, void *param1)
         if (IsScreenFadeDone()) {
             int v2;
 
-            ov20_021D2EF0(v0->unk_00->unk_244);
+            EasyChatSentenceView_Free(v0->unk_00->sentenceView);
             ov20_021D3880(v0->unk_00->unk_248);
             EasyChatCategoriesContext_Free(v0->unk_00->unk_24C);
             EasyChatWordListView_Free(v0->unk_00->wordListView);
@@ -497,8 +497,8 @@ static void ov20_021D25C0(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3228(v1->unk_244);
-    ov20_021D3700(v1->unk_244, EasyChat_GetCurrentWordSlot(v0->unk_04));
+    EasyChatSentenceView_DrawSentence(v1->sentenceView);
+    EasyChatSentenceView_SetCursorPositionForSlot(v1->sentenceView, EasyChat_GetCurrentWordSlot(v0->unk_04));
 
     ov20_021D2238(v0);
 }
@@ -508,8 +508,8 @@ static void ov20_021D25EC(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D369C(v1->unk_244, 0);
-    ov20_021D36B0(v1->unk_244);
+    EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 0);
+    EasyChatSentenceView_HideNavigationArrows(v1->sentenceView);
 
     ov20_021D39D4(v1->unk_248, 1);
     ov20_021D39EC(v1->unk_248, ov20_021D1FD4(v1->unk_18));
@@ -523,8 +523,8 @@ static void ov20_021D2630(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
     ov20_021D39D4(v1->unk_248, 0);
-    ov20_021D36D0(v1->unk_244);
-    ov20_021D369C(v1->unk_244, 1);
+    EasyChatSentenceView_ShowNavigationArrows(v1->sentenceView);
+    EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 1);
     ov20_021D2238(v0);
 }
 
@@ -535,8 +535,8 @@ static void ov20_021D2660(SysTask *param0, void *param1)
 
     switch (v0->unk_14) {
     case 0:
-        ov20_021D3684(v1->unk_244);
-        ov20_021D36B0(v1->unk_244);
+        EasyChatSentenceView_SetCursorInactive(v1->sentenceView);
+        EasyChatSentenceView_HideNavigationArrows(v1->sentenceView);
         EasyChatCategories_BeginShowAnimation(v1->unk_24C);
         v0->unk_14++;
         break;
@@ -620,8 +620,8 @@ static void ov20_021D27E4(SysTask *param0, void *param1)
         break;
     case 1:
         if (EasyChatCategories_IsHideAnimationComplete(v1->unk_24C)) {
-            ov20_021D36D0(v1->unk_244);
-            ov20_021D3690(v1->unk_244);
+            EasyChatSentenceView_ShowNavigationArrows(v1->sentenceView);
+            EasyChatSentenceView_SetCursorActive(v1->sentenceView);
             ov20_021D2238(v0);
         }
         break;
@@ -722,10 +722,10 @@ static void ov20_021D29BC(SysTask *param0, void *param1)
         break;
     case 3:
         if (EasyChatCategories_IsFadeToBlackComplete(v1->unk_24C)) {
-            ov20_021D3228(v1->unk_244);
-            ov20_021D369C(v1->unk_244, 1);
-            ov20_021D36D0(v1->unk_244);
-            ov20_021D3690(v1->unk_244);
+            EasyChatSentenceView_DrawSentence(v1->sentenceView);
+            EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 1);
+            EasyChatSentenceView_ShowNavigationArrows(v1->sentenceView);
+            EasyChatSentenceView_SetCursorActive(v1->sentenceView);
             ov20_021D2238(v0);
         }
     }
@@ -759,8 +759,8 @@ static void ov20_021D2A9C(SysTask *param0, void *param1)
         break;
     case 3:
         if (EasyChatCategories_IsFadeToBlackComplete(v1->unk_24C)) {
-            ov20_021D3228(v1->unk_244);
-            ov20_021D369C(v1->unk_244, 0);
+            EasyChatSentenceView_DrawSentence(v1->sentenceView);
+            EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 0);
             ov20_021D39D4(v1->unk_248, 1);
             ov20_021D2238(v0);
         }
@@ -772,7 +772,7 @@ static void ov20_021D2B74(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3700(v1->unk_244, EasyChat_GetCurrentWordSlot(v1->unk_18));
+    EasyChatSentenceView_SetCursorPositionForSlot(v1->sentenceView, EasyChat_GetCurrentWordSlot(v1->unk_18));
     ov20_021D2238(v0);
 }
 
@@ -827,7 +827,7 @@ static void ov20_021D2C44(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3578(v1->unk_244, 0);
+    EasyChatSentenceView_DrawInstruction(v1->sentenceView, 0);
     ov20_021D2238(v0);
 }
 
@@ -836,13 +836,13 @@ static void ov20_021D2C60(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3578(v1->unk_244, 2);
-    ov20_021D3790(v1->unk_244, ov20_021D208C(v0->unk_04));
+    EasyChatSentenceView_DrawInstruction(v1->sentenceView, 2);
+    EasyChatSentenceView_DrawActionPrompt(v1->sentenceView, ov20_021D208C(v0->unk_04));
 
     if (ov20_021D39E0(v1->unk_248)) {
         ov20_021D39BC(v1->unk_248);
     } else {
-        ov20_021D3684(v1->unk_244);
+        EasyChatSentenceView_SetCursorInactive(v1->sentenceView);
     }
 
     ov20_021D2238(v0);
@@ -853,13 +853,13 @@ static void ov20_021D2CB0(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3578(v1->unk_244, 3);
-    ov20_021D3790(v1->unk_244, ov20_021D208C(v0->unk_04));
+    EasyChatSentenceView_DrawInstruction(v1->sentenceView, 3);
+    EasyChatSentenceView_DrawActionPrompt(v1->sentenceView, ov20_021D208C(v0->unk_04));
 
     if (ov20_021D39E0(v1->unk_248)) {
         ov20_021D39BC(v1->unk_248);
     } else {
-        ov20_021D3684(v1->unk_244);
+        EasyChatSentenceView_SetCursorInactive(v1->sentenceView);
     }
 
     ov20_021D2238(v0);
@@ -870,7 +870,7 @@ static void ov20_021D2D00(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3578(v1->unk_244, 1);
+    EasyChatSentenceView_DrawInstruction(v1->sentenceView, 1);
     ov20_021D2238(v0);
 }
 
@@ -879,7 +879,7 @@ static void ov20_021D2D1C(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D381C(v1->unk_244, ov20_021D208C(v0->unk_04));
+    EasyChatSentenceView_UpdateActionPromptSelection(v1->sentenceView, ov20_021D208C(v0->unk_04));
     ov20_021D2238(v0);
 }
 
@@ -888,13 +888,13 @@ static void ov20_021D2D3C(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D3578(v1->unk_244, 0);
-    ov20_021D384C(v1->unk_244);
+    EasyChatSentenceView_DrawInstruction(v1->sentenceView, 0);
+    EasyChatSentenceView_ClearActionPrompt(v1->sentenceView);
 
     if (ov20_021D39E0(v1->unk_248)) {
         ov20_021D39C8(v1->unk_248);
     } else {
-        ov20_021D3690(v1->unk_244);
+        EasyChatSentenceView_SetCursorActive(v1->sentenceView);
     }
 
     ov20_021D2238(v0);
@@ -938,7 +938,7 @@ static void ov20_021D2DD8(SysTask *param0, void *param1)
 
 u32 ov20_021D2DF4(UnkStruct_ov20_021D2128 *param0)
 {
-    return ov20_021D3574(param0->unk_244);
+    return EasyChatSentenceView_GetSlotCount(param0->sentenceView);
 }
 
 BgConfig *ov20_021D2E04(UnkStruct_ov20_021D2128 *param0)
