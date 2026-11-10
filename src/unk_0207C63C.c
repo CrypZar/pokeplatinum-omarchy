@@ -17,7 +17,7 @@ void sub_0207C63C(void);
 void sub_0207C664(void);
 void sub_0207C6AC(void);
 void sub_0207C730(void);
-void sub_0207C770(void);
+void EvolutionParticleSystem_DrawAndUpdate(void);
 UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
 void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
 BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
@@ -82,7 +82,7 @@ void sub_0207C730(void)
     ParticleSystem_ZeroAll();
 }
 
-void sub_0207C770(void)
+void EvolutionParticleSystem_DrawAndUpdate(void)
 {
     int v0;
     const MtxFx43 *v1;
