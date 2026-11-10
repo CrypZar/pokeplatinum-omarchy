@@ -295,7 +295,7 @@ Static main
 	Object src/battle_regulation_validation.c
 	Object src/unk_0207A6DC.c
 	Object src/evolution.c
-	Object src/unk_0207C63C.c
+	Object src/evolution_graphics.c
 	Object src/type_icon.c
 	Object src/bag_context.c
 	Object src/item.c

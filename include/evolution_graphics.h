@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_UNK_0207C63C_H
-#define POKEPLATINUM_UNK_0207C63C_H
+#ifndef POKEPLATINUM_EVOLUTION_GRAPHICS_H
+#define POKEPLATINUM_EVOLUTION_GRAPHICS_H
 
 #include "struct_defs/struct_0207C894.h"
 #include "struct_defs/struct_0207C8C4.h"
@@ -17,4 +17,4 @@ void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param
 BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
 void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
 
-#endif // POKEPLATINUM_UNK_0207C63C_H
+#endif // POKEPLATINUM_EVOLUTION_GRAPHICS_H
