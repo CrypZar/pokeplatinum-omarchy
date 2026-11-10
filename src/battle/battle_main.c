@@ -685,7 +685,7 @@ static void BattleMain_CopyBattleSysToDTOAndFree(ApplicationManager *appMan)
     dto->battleStatusMask = battleSys->battleStatusMask;
 
     if ((battleSys->battleStatusMask & BATTLE_STATUS_RECORDING) == FALSE) {
-        sub_0202F8AC(dto);
+        BattleRecording_CaptureBattleDTO(dto);
     }
 
     if (battleSys->overlayFlags != FALSE) {
