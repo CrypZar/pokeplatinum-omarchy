@@ -127,7 +127,7 @@ BOOL sub_0202F298(SaveData *saveData, int param1, int *param2, FieldBattleDTO *p
     }
 
     if (param3) {
-        sub_0202FAFC(param3, saveData);
+        BattleRecording_RestoreBattleDTO(param3, saveData);
     }
 
     *param2 = 1;
@@ -439,7 +439,7 @@ u8 BattleRecording_ReadBattlerInputByte(int param0, int param1)
     return gBattleRecording->unk_E8.unk_150.unk_00[param0][param1];
 }
 
-void sub_0202F8AC(FieldBattleDTO *param0)
+void BattleRecording_CaptureBattleDTO(FieldBattleDTO *param0)
 {
     int v0;
     UnkStruct_0202F298 *v1;
@@ -497,7 +497,7 @@ void sub_0202F8AC(FieldBattleDTO *param0)
     Options_Copy(param0->options, &v1->unk_1BE8);
 }
 
-void sub_0202FAA8(int param0, u32 param1)
+void BattleRecording_SetSystemVersion(int param0, u32 param1)
 {
     UnkStruct_0202F298 *v0;
     UnkStruct_0202FAA8 *v1;
@@ -512,7 +512,7 @@ void sub_0202FAA8(int param0, u32 param1)
     v1->unk_114[param0] = param1;
 }
 
-BOOL sub_0202FAC0(void)
+BOOL BattleRecording_AreSystemVersionsSupported(void)
 {
     int v0;
     UnkStruct_0202F298 *v1;
@@ -534,7 +534,7 @@ BOOL sub_0202FAC0(void)
     return 1;
 }
 
-void sub_0202FAFC(FieldBattleDTO *dto, SaveData *saveData)
+void BattleRecording_RestoreBattleDTO(FieldBattleDTO *dto, SaveData *saveData)
 {
     int i;
     UnkStruct_0202F298 *v1 = &gBattleRecording->unk_E8;
@@ -662,7 +662,7 @@ void sub_0202FE20(UnkStruct_02030A80 *param0, UnkStruct_0202F41C *param1, UnkStr
     sub_0202F860(&gBattleRecording->unk_E8, sizeof(UnkStruct_0202F298) - (sizeof(UnkStruct_0202F298_sub1)), gBattleRecording->unk_E8.unk_1BEC.unk_00 + ((gBattleRecording->unk_E8.unk_1BEC.unk_00 ^ 0xffff) << 16));
 
     if (param3 != NULL) {
-        sub_0202FAFC(param3, saveData);
+        BattleRecording_RestoreBattleDTO(param3, saveData);
     }
 }
 

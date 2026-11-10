@@ -306,7 +306,7 @@ static void sub_0207A934(int param0, int param1, void *param2, void *param3)
     LinkBattleCommState *linkBattleCommState = (LinkBattleCommState *)param3;
 
     linkBattleCommState->dto->systemVersion[param0] = *((u32 *)param2);
-    sub_0202FAA8(param0, linkBattleCommState->dto->systemVersion[param0]);
+    BattleRecording_SetSystemVersion(param0, linkBattleCommState->dto->systemVersion[param0]);
     linkBattleCommState->recvCount++;
 }
 
