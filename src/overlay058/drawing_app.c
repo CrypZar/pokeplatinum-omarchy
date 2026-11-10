@@ -58,9 +58,9 @@ typedef struct {
     int unk_04;
 } Overlay058StateHandlerEntry;
 
-static void ov58_021D115C(void *param0);
-static void ov58_021D1184(void);
-static void ov58_021D11A4(BgConfig *param0);
+static void Overlay058_VBlankCallback(void *param0);
+static void Overlay058_ConfigureVramBanks(void);
+static void Overlay058_InitializeBackgroundLayers(BgConfig *param0);
 static void ov58_021D12C4(UnkStruct_02095EAC *param0);
 static void ov58_021D13B4(UnkStruct_02095EAC *param0);
 static void ov58_021D13F0(BgConfig *param0);
@@ -174,8 +174,8 @@ int Overlay058_Init(ApplicationManager *appMan, int *param1)
 
         SetAutorepeat(4, 8);
 
-        ov58_021D1184();
-        ov58_021D11A4(v0->unk_00);
+        Overlay058_ConfigureVramBanks();
+        Overlay058_InitializeBackgroundLayers(v0->unk_00);
 
         SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_BLACK);
         SetScreenColorBrightness(DS_SCREEN_SUB, COLOR_BLACK);
@@ -192,7 +192,7 @@ int Overlay058_Init(ApplicationManager *appMan, int *param1)
 
         EnableTouchPad();
         InitializeTouchPad(2);
-        SetVBlankCallback(ov58_021D115C, v0->unk_00);
+        SetVBlankCallback(Overlay058_VBlankCallback, v0->unk_00);
 
         ov58_021D12C4(v0);
         ov58_021D1524();
@@ -363,7 +363,7 @@ int Overlay058_Exit(ApplicationManager *appMan, int *param1)
     return 0;
 }
 
-static void ov58_021D115C(void *param0)
+static void Overlay058_VBlankCallback(void *param0)
 {
     VramTransfer_Process();
     RenderOam_Transfer();
@@ -372,7 +372,7 @@ static void ov58_021D115C(void *param0)
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
 }
 
-static void ov58_021D1184(void)
+static void Overlay058_ConfigureVramBanks(void)
 {
     GXBanks v0 = {
         GX_VRAM_BG_128_A,
@@ -390,7 +390,7 @@ static void ov58_021D1184(void)
     GXLayers_SetBanks(&v0);
 }
 
-static void ov58_021D11A4(BgConfig *param0)
+static void Overlay058_InitializeBackgroundLayers(BgConfig *param0)
 {
     {
         GraphicsModes v0 = {
