@@ -103,8 +103,8 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
 static int Overlay059_ResetConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_CompleteConnectionHandshake(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1E98(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ShowPostHandshakeMessage(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdatePostHandshakeExit(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ShowParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ShowParticipantConfirmationMessage(UnkStruct_020961E8 *param0, int param1);
@@ -133,8 +133,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_ResetConnectionHandshakeStability,
     Overlay059_UpdateConnectionHandshakeStability,
     Overlay059_CompleteConnectionHandshake,
-    ov59_021D1E98,
-    ov59_021D1EB8,
+    Overlay059_ShowPostHandshakeMessage,
+    Overlay059_UpdatePostHandshakeExit,
     Overlay059_ShowParticipantConfirmationPrompt,
     Overlay059_UpdateParticipantConfirmationPrompt,
     Overlay059_ShowParticipantConfirmationMessage,
@@ -1077,7 +1077,7 @@ static int Overlay059_UpdateMixedRecordsSaveExitDelay(UnkStruct_020961E8 *param0
     return param1;
 }
 
-static int ov59_021D1E98(UnkStruct_020961E8 *param0, const int param1)
+static int Overlay059_ShowPostHandshakeMessage(UnkStruct_020961E8 *param0, const int param1)
 {
     ov59_021D2628(param0, 5, 0);
     Overlay059_SetMessageWaitState(param0, 10);
@@ -1086,7 +1086,7 @@ static int ov59_021D1E98(UnkStruct_020961E8 *param0, const int param1)
     return param1;
 }
 
-static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdatePostHandshakeExit(UnkStruct_020961E8 *param0, int param1)
 {
     if (++param0->stateTimer > 60) {
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_OUT, FADE_TYPE_CIRCLE_OUT, COLOR_BLACK, 16, 1, HEAP_ID_51);
