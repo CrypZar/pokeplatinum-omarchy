@@ -7,7 +7,7 @@
 #include "g3d_pipeline.h"
 
 void EvolutionScene_HideAllPlanes(void);
-void sub_0207C664(void);
+void EvolutionScene_ConfigureBlendAlpha(void);
 G3DPipelineBuffers *EvolutionScene_Init3DPipeline(enum HeapID heapID);
 void EvolutionScene_Configure3DRenderState(void);
 void sub_0207C730(void);
