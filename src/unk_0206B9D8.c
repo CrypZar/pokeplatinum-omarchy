@@ -456,7 +456,7 @@ u32 BattleTower_RngNext2(u32 rng)
     return rng * 1566083941 + 1;
 }
 
-u32 sub_0206C008(SaveData *saveData)
+u32 WifiBattleTower_SeedRandomStateFromMixedRecords(SaveData *saveData)
 {
     u32 rng = RecordMixedRNG_GetRand(SaveData_GetRecordMixedRNG(saveData));
     rng = BattleTower_RngNext2(rng);
@@ -466,7 +466,7 @@ u32 sub_0206C008(SaveData *saveData)
     return rng;
 }
 
-u32 sub_0206C02C(SaveData *saveData)
+u32 WifiBattleTower_GenerateNextMatchSeed(SaveData *saveData)
 {
     WifiBattleTowerRecord *record = SaveData_GetWifiBattleTowerRecord(saveData);
 
@@ -479,7 +479,7 @@ u32 sub_0206C02C(SaveData *saveData)
     return v0;
 }
 
-u32 sub_0206C068(SaveData *saveData)
+u32 WifiBattleTower_GenerateRoomSeed(SaveData *saveData)
 {
     WifiBattleTowerRecord *record = SaveData_GetWifiBattleTowerRecord(saveData);
     BattleTowerSave *save = SaveData_GetBattleTowerSave(saveData);
