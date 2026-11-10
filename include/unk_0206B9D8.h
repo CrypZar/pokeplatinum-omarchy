@@ -13,9 +13,9 @@ u16 BattleTower_ClaimPendingTrophyReward(SaveData *saveData);
 u16 BattleTower_GetPendingTrophyRewardStatus(SaveData *saveData);
 u32 BattleTower_RngNext(u32 param0);
 u32 BattleTower_RngNext2(u32 param0);
-u32 sub_0206C008(SaveData *saveData);
-u32 sub_0206C02C(SaveData *saveData);
-u32 sub_0206C068(SaveData *saveData);
+u32 WifiBattleTower_SeedRandomStateFromMixedRecords(SaveData *saveData);
+u32 WifiBattleTower_GenerateNextMatchSeed(SaveData *saveData);
+u32 WifiBattleTower_GenerateRoomSeed(SaveData *saveData);
 BOOL FieldSystem_IsInBattleTowerSalon(FieldSystem *fieldSystem);
 
 #endif // POKEPLATINUM_UNK_0206B9D8_H

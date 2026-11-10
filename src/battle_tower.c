@@ -275,7 +275,7 @@ u16 sub_0204A064(SaveData *saveData)
     BattleFrontierSave_SetStatAutoHostIdx(SaveData_GetBattleFrontier(saveData), BattleFrontierStats_GetTowerLatestStreakIndex(challengeMode), 0);
 
     if (challengeMode != BATTLE_TOWER_MODE_WIFI && challengeMode != BATTLE_TOWER_MODE_6) {
-        sub_0206C02C(saveData);
+        WifiBattleTower_GenerateNextMatchSeed(saveData);
     }
 
     return challengeMode;
@@ -871,9 +871,9 @@ u16 BattleTower_SetRngSeeds(BattleTower *battleTower, SaveData *saveData)
     }
 
     if (!streakActive) {
-        battleTower->rng = sub_0206C02C(saveData);
+        battleTower->rng = WifiBattleTower_GenerateNextMatchSeed(saveData);
     } else {
-        battleTower->rng = sub_0206C068(saveData);
+        battleTower->rng = WifiBattleTower_GenerateRoomSeed(saveData);
     }
 
     return battleTower->rng / 65535;
