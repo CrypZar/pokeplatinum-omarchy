@@ -43,13 +43,13 @@ typedef struct {
     Overlay059MixedRecordsApplyPayloadFunc unk_08;
 } Overlay059MixedRecordsDataAdapter;
 
-static u32 ov59_021D2F88(SaveData *saveData)
+static u32 Overlay059_GetMixedRecordsRNGPayloadSize(SaveData *saveData)
 {
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(saveData);
     return RecordMixedRNG_GetEntrySize(v0);
 }
 
-static void *ov59_021D2F94(SaveData *saveData, enum HeapID heapID, u32 param2)
+static void *Overlay059_CreateMixedRecordsRNGPayload(SaveData *saveData, enum HeapID heapID, u32 param2)
 {
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(saveData);
     void *v1 = Heap_AllocAtEnd(heapID, param2);
@@ -59,7 +59,7 @@ static void *ov59_021D2F94(SaveData *saveData, enum HeapID heapID, u32 param2)
     return v1;
 }
 
-static void ov59_021D2FBC(const Overlay059MixedRecordsApplyContext *param0)
+static void Overlay059_ApplyMixedRecordsRNGPayload(const Overlay059MixedRecordsApplyContext *param0)
 {
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(param0->saveData);
     RecordMixedRNG_MergeReceivedQueueEntries(param0->unk_08, param0->unk_0C, v0, param0->unk_10);
@@ -134,7 +134,7 @@ static void ov59_021D30DC(const Overlay059MixedRecordsApplyContext *param0)
 }
 
 static const Overlay059MixedRecordsDataAdapter Overlay059MixedRecordsDataAdapters[] = {
-    { ov59_021D2F88, ov59_021D2F94, ov59_021D2FBC },
+    { Overlay059_GetMixedRecordsRNGPayloadSize, Overlay059_CreateMixedRecordsRNGPayload, Overlay059_ApplyMixedRecordsRNGPayload },
     { ov59_021D2FD4, ov59_021D2FE0, ov59_021D300C },
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredTrainerSightingsBatch, NULL },
     { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredRecordsBatch, NULL },
