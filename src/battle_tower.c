@@ -528,7 +528,7 @@ static void sub_0204A5EC(BattleTower *battleTower, SaveData *saveData, u8 didWin
         SaveTeamToTowerRecord(battleTower, saveData, 0);
     case BATTLE_TOWER_MODE_DOUBLE:
         if (streak >= TOWER_BATTLES_PER_ROUND) {
-            sub_0206CFE4(SaveData_GetTVBroadcast(saveData), didWin, streak);
+            TVBroadcast_SetBattleTowerCornerOutcome(SaveData_GetTVBroadcast(saveData), didWin, streak);
         }
         break;
     case BATTLE_TOWER_MODE_WIFI:

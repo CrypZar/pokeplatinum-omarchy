@@ -12,7 +12,7 @@
 #include "struct_defs/image_clips.h"
 #include "struct_defs/struct_0202E7E4.h"
 #include "struct_defs/struct_0202E7F0.h"
-#include "struct_defs/struct_0202E7FC.h"
+#include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
 #include "struct_defs/struct_0202E81C.h"
@@ -303,7 +303,7 @@ static void sub_02049308(FieldSystem *fieldSystem, StringTemplate *template)
 
 static BOOL sub_02049348(FieldSystem *fieldSystem)
 {
-    UnkStruct_0202E7FC *v0 = sub_0202E7FC(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVBattleTowerCornerOutcome *v0 = TVBroadcast_GetBattleTowerCornerOutcome(SaveData_GetTVBroadcast(fieldSystem->saveData));
     return v0->unk_00;
 }
 
