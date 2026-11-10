@@ -10,7 +10,7 @@
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/tv_battle_points_news_data.h"
-#include "struct_defs/struct_0202E834.h"
+#include "struct_defs/tv_global_trade_news_data.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
 #include "charcode.h"
@@ -60,7 +60,7 @@ typedef struct TVBroadcast {
     TVBattleFrontierFrontlineNewsSingleData unk_B10;
     TVBattleFrontierFrontlineNewsMultiData unk_B2E;
     TVBattlePointsNewsData battlePointData;
-    TVBroadcast_GTSData gtsData;
+    TVGlobalTradeNewsData gtsData;
 } TVBroadcast;
 
 #endif // POKEPLATINUM_STRUCT_DEF_TV_H
