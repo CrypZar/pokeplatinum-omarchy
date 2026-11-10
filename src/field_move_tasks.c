@@ -39,7 +39,7 @@
 #include "system_flags.h"
 #include "terrain_collision_manager.h"
 #include "trainer_info.h"
-#include "unk_0203C954.h"
+#include "field_event_lookup.h"
 #include "unk_0203D1B8.h"
 #include "unk_020711C8.h"
 #include "vars_flags.h"
