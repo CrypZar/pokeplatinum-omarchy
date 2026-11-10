@@ -265,7 +265,7 @@ Static main
 	Object src/system_flags.c
 	Object src/system_vars.c
 	Object src/applications/town_map/context.c
-	Object src/unk_0206B9D8.c
+	Object src/battle_tower_support.c
 	Object src/great_marsh_lookout.c
 	Object src/trainer_case_badge_dirt.c
 	Object src/roaming_pokemon.c

@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_UNK_0206B9D8_H
-#define POKEPLATINUM_UNK_0206B9D8_H
+#ifndef POKEPLATINUM_BATTLE_TOWER_SUPPORT_H
+#define POKEPLATINUM_BATTLE_TOWER_SUPPORT_H
 
 #include "field/field_system_decl.h"
 
@@ -18,4 +18,4 @@ u32 WifiBattleTower_GenerateNextMatchSeed(SaveData *saveData);
 u32 WifiBattleTower_GenerateRoomSeed(SaveData *saveData);
 BOOL FieldSystem_IsInBattleTowerSalon(FieldSystem *fieldSystem);
 
-#endif // POKEPLATINUM_UNK_0206B9D8_H
+#endif // POKEPLATINUM_BATTLE_TOWER_SUPPORT_H
