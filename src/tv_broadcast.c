@@ -11,7 +11,7 @@
 #include "struct_defs/tv_safari_game_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
-#include "struct_defs/struct_0202E828.h"
+#include "struct_defs/tv_battle_points_news_data.h"
 #include "struct_defs/struct_0202E834.h"
 #include "struct_defs/tv.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
@@ -460,7 +460,7 @@ TVBattleFrontierFrontlineNewsMultiData *TVBroadcast_GetBattleFrontierFrontlineNe
     return &broadcast->unk_B2E;
 }
 
-TVBroadcast_BattlePointData *TVBroadcast_GetBattlePointData(TVBroadcast *broadcast)
+TVBattlePointsNewsData *TVBroadcast_GetBattlePointData(TVBroadcast *broadcast)
 {
     return &broadcast->battlePointData;
 }
