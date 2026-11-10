@@ -142,7 +142,7 @@ Static main
 	Object src/pal_park_transfers.c
 	Object src/link_contest_records.c
 	Object src/save_catchrecords.c
-	Object src/unk_0202F1D4.c
+	Object src/battle_recording.c
 	Object src/battle_factory_save.c
 	Object src/battle_hall_save.c
 	Object src/battle_castle_save.c

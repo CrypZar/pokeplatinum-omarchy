@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_UNK_0202F1D4_H
-#define POKEPLATINUM_UNK_0202F1D4_H
+#ifndef POKEPLATINUM_BATTLE_RECORDING_H
+#define POKEPLATINUM_BATTLE_RECORDING_H
 
 #include "struct_decls/struct_0202F298_decl.h"
 #include "struct_decls/struct_0202F41C_decl.h"
@@ -37,4 +37,4 @@ u64 sub_0202FE98(UnkStruct_0202F41C *param0, int param1, int param2);
 UnkStruct_0202F41C *sub_0202FF2C(enum HeapID heapID);
 void sub_0202FF44(UnkStruct_0202F41C *param0);
 
-#endif // POKEPLATINUM_UNK_0202F1D4_H
+#endif // POKEPLATINUM_BATTLE_RECORDING_H
