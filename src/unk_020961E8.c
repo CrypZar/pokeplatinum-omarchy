@@ -183,7 +183,7 @@ void sub_0209621C(int param0, int param1, void *param2, void *param3)
 
     sub_020963C0(v0, CommSys_CurNetId());
 
-    ov59_021D1D40(v0);
+    Overlay059_ShowMixedRecordsExchangeStatus(v0);
     ov59_021D2204(v0, 25, param0);
 
     CommManager_SetErrorHandling(1, 1);
