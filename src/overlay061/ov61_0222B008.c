@@ -262,7 +262,7 @@ int ov61_0222B338(UnkStruct_ov62_022349A8 *param0, UnkStruct_02030A80 *param1)
     GF_ASSERT((BattleRecording_SaveSize() - sizeof(u32)) == sizeof(UnkStruct_ov62_022349A8_sub3_sub3));
     GF_ASSERT(sizeof(UnkStruct_ov61_0222AFC0) == sizeof(UnkStruct_02030A80));
 
-    param0->unk_190.unk_00_val4 = (UnkStruct_ov62_022349A8_sub3_sub3 *)sub_0202F27C();
+    param0->unk_190.unk_00_val4 = (UnkStruct_ov62_022349A8_sub3_sub3 *)BattleRecording_GetData();
 
     ov62_02248624(param0->saveData);
 
