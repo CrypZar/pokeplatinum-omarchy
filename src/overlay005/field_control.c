@@ -768,7 +768,7 @@ static BOOL Field_ProcessStep(FieldSystem *fieldSystem)
 
 static BOOL Field_CheckCoordEvent(FieldSystem *fieldSystem)
 {
-    u16 event = sub_0203CC14(fieldSystem, MapHeaderData_GetCoordEvents(fieldSystem), MapHeaderData_GetNumCoordEvents(fieldSystem));
+    u16 event = FieldEvent_GetTriggeredCoordEventScript(fieldSystem, MapHeaderData_GetCoordEvents(fieldSystem), MapHeaderData_GetNumCoordEvents(fieldSystem));
 
     if (event != 0xffff) {
         ScriptManager_Set(fieldSystem, event, NULL);
