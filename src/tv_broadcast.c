@@ -8,7 +8,7 @@
 #include "struct_defs/tv_amity_square_watch_data.h"
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
-#include "struct_defs/struct_0202E808.h"
+#include "struct_defs/tv_safari_game_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/struct_0202E828.h"
@@ -445,7 +445,7 @@ TVBattleTowerCornerOutcome *TVBroadcast_GetBattleTowerCornerOutcome(TVBroadcast 
     return &broadcast->unk_B04;
 }
 
-UnkStruct_0202E808 *TVBroadcast_GetSafariGameData(TVBroadcast *broadcast)
+TVSafariGameData *TVBroadcast_GetSafariGameData(TVBroadcast *broadcast)
 {
     return &broadcast->safariGame;
 }

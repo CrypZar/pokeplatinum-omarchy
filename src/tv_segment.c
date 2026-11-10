@@ -18,7 +18,7 @@
 #include "struct_defs/tv_amity_square_watch_data.h"
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
-#include "struct_defs/struct_0202E808.h"
+#include "struct_defs/tv_safari_game_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/tv_battle_frontier_frontline_news_multi_data.h"
 #include "struct_defs/struct_0202E828.h"
@@ -598,7 +598,7 @@ void TVBroadcast_SetBattleTowerCornerOutcome(TVBroadcast *broadcast, BOOL didWin
 
 void TVBroadcast_ResetSafariGameData(TVBroadcast *broadcast)
 {
-    UnkStruct_0202E808 *safariGame = TVBroadcast_GetSafariGameData(broadcast);
+    TVSafariGameData *safariGame = TVBroadcast_GetSafariGameData(broadcast);
 
     safariGame->dummy = 1;
     safariGame->numPokemonCaught = 0;
@@ -608,7 +608,7 @@ void TVBroadcast_ResetSafariGameData(TVBroadcast *broadcast)
 
 void TVBroadcast_UpdateSafariGameData(TVBroadcast *broadcast, Pokemon *mon)
 {
-    UnkStruct_0202E808 *safariGame = TVBroadcast_GetSafariGameData(broadcast);
+    TVSafariGameData *safariGame = TVBroadcast_GetSafariGameData(broadcast);
 
     if (safariGame->numPokemonCaught == 0) {
         TVSegment_CopyPokemonValues(mon, &safariGame->species, &safariGame->gender, &safariGame->language, &safariGame->metGame);
@@ -1008,7 +1008,7 @@ void TVSegment_Save_SafariGameSpecialNewsBulletin(FieldSystem *fieldSystem)
     TVSegmentData segments;
     TVSegment_SafariGameSpecialNewsBulletin *safariGameSpecialNewsBulletin = &segments.safariGameSpecialNewsBulletin;
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(fieldSystem->saveData);
-    UnkStruct_0202E808 *safariGame = TVBroadcast_GetSafariGameData(broadcast);
+    TVSafariGameData *safariGame = TVBroadcast_GetSafariGameData(broadcast);
 
     if (safariGame->numPokemonCaught == 0) {
         return;
