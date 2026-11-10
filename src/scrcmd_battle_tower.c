@@ -219,7 +219,7 @@ BOOL ScrCmd_1DF(ScriptContext *ctx)
 {
     u16 v0 = ScriptContext_ReadHalfWord(ctx);
     u16 *v3 = FieldSystem_GetVarPointer(ctx->fieldSystem, v0);
-    *v3 = sub_0206BDBC(ctx->fieldSystem->saveData);
+    *v3 = BattleTower_ClaimPendingTrophyReward(ctx->fieldSystem->saveData);
 
     return FALSE;
 }
@@ -228,7 +228,7 @@ BOOL ScrCmd_1E0(ScriptContext *ctx)
 {
     u16 v0 = ScriptContext_ReadHalfWord(ctx);
     u16 *v3 = FieldSystem_GetVarPointer(ctx->fieldSystem, v0);
-    *v3 = sub_0206BF04(ctx->fieldSystem->saveData);
+    *v3 = BattleTower_GetPendingTrophyRewardStatus(ctx->fieldSystem->saveData);
 
     return FALSE;
 }

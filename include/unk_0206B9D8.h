@@ -9,8 +9,8 @@
 void BattleTower_SelectPokemon(FieldTask *param0, void **param1, u8 param2, u8 param3, u8 param4, u8 param5, u8 param6, u8 param7);
 void sub_0206BCE4(FieldTask *param0, u16 param1, u16 param2, u16 param3);
 void sub_0206BD88(FieldTask *param0, u16 param1, u16 param2);
-u16 sub_0206BDBC(SaveData *saveData);
-u16 sub_0206BF04(SaveData *saveData);
+u16 BattleTower_ClaimPendingTrophyReward(SaveData *saveData);
+u16 BattleTower_GetPendingTrophyRewardStatus(SaveData *saveData);
 u32 BattleTower_RngNext(u32 param0);
 u32 BattleTower_RngNext2(u32 param0);
 u32 sub_0206C008(SaveData *saveData);
