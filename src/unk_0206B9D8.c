@@ -6,7 +6,7 @@
 #include "constants/species.h"
 
 #include "struct_defs/battle_frontier.h"
-#include "struct_defs/struct_0206BC70.h"
+#include "struct_defs/wifi_battle_tower_app_args.h"
 #include "struct_defs/wifi_battle_tower_data.h"
 
 #include "applications/party_menu/defs.h"
@@ -52,12 +52,12 @@ typedef struct BattleTowerSelectPokemonTask {
 typedef struct {
     int unk_00;
     int unk_04;
-    UnkStruct_0206BC70 *unk_08;
+    WifiBattleTowerAppArgs *unk_08;
     u16 **unk_0C;
     u16 unk_10;
     u16 unk_12;
     u16 unk_14;
-} UnkStruct_0206BC48;
+} WifiBattleTowerTaskContext;
 
 typedef struct {
     u16 unk_00;
@@ -221,10 +221,10 @@ void BattleTower_SelectPokemon(FieldTask *task, void **partyMenu, u8 partyMenuMo
     FieldTask_InitCall(fieldSystem->task, BattleTowerSelectChallengersTask, taskEnv);
 }
 
-static int sub_0206BC48(UnkStruct_0206BC48 *param0, FieldSystem *fieldSystem)
+static int WifiBattleTowerTask_LaunchApp(WifiBattleTowerTaskContext *param0, FieldSystem *fieldSystem)
 {
     if (WiFiList_HasValidLogin(fieldSystem->saveData)) {
-        param0->unk_08 = sub_0203E1AC(fieldSystem, param0->unk_12, param0->unk_14);
+        param0->unk_08 = FieldSystem_StartWifiBattleTowerApp(fieldSystem, param0->unk_12, param0->unk_14);
         return 1;
     }
 
@@ -232,7 +232,7 @@ static int sub_0206BC48(UnkStruct_0206BC48 *param0, FieldSystem *fieldSystem)
     return 2;
 }
 
-static int sub_0206BC70(UnkStruct_0206BC48 *param0, FieldSystem *fieldSystem)
+static int WifiBattleTowerTask_CollectAppResult(WifiBattleTowerTaskContext *param0, FieldSystem *fieldSystem)
 {
     if (FieldSystem_IsRunningApplication(fieldSystem)) {
         return 1;
@@ -244,17 +244,17 @@ static int sub_0206BC70(UnkStruct_0206BC48 *param0, FieldSystem *fieldSystem)
     return 2;
 }
 
-static BOOL sub_0206BC94(FieldTask *taskMan)
+static BOOL WifiBattleTowerTask_Handle(FieldTask *taskMan)
 {
     FieldSystem *fieldSystem = FieldTask_GetFieldSystem(taskMan);
-    UnkStruct_0206BC48 *v2 = FieldTask_GetEnv(taskMan);
+    WifiBattleTowerTaskContext *v2 = FieldTask_GetEnv(taskMan);
 
     switch (v2->unk_04) {
     case 0:
-        v2->unk_04 = sub_0206BC48(v2, fieldSystem);
+        v2->unk_04 = WifiBattleTowerTask_LaunchApp(v2, fieldSystem);
         break;
     case 1:
-        v2->unk_04 = sub_0206BC70(v2, fieldSystem);
+        v2->unk_04 = WifiBattleTowerTask_CollectAppResult(v2, fieldSystem);
         break;
     case 2:
         u16 *v0 = FieldSystem_GetVarPointer(fieldSystem, v2->unk_10);
@@ -266,18 +266,18 @@ static BOOL sub_0206BC94(FieldTask *taskMan)
     return 0;
 }
 
-void sub_0206BCE4(FieldTask *taskMan, u16 param1, u16 param2, u16 param3)
+void WifiBattleTowerTask_Start(FieldTask *taskMan, u16 param1, u16 param2, u16 param3)
 {
     FieldSystem *fieldSystem = FieldTask_GetFieldSystem(taskMan);
-    UnkStruct_0206BC48 *v1 = Heap_Alloc(HEAP_ID_FIELD2, sizeof(UnkStruct_0206BC48));
+    WifiBattleTowerTaskContext *v1 = Heap_Alloc(HEAP_ID_FIELD2, sizeof(WifiBattleTowerTaskContext));
 
-    MI_CpuClear8(v1, sizeof(UnkStruct_0206BC48));
+    MI_CpuClear8(v1, sizeof(WifiBattleTowerTaskContext));
 
     v1->unk_12 = param1;
     v1->unk_14 = param3;
     v1->unk_10 = param2;
 
-    FieldTask_InitCall(fieldSystem->task, sub_0206BC94, v1);
+    FieldTask_InitCall(fieldSystem->task, WifiBattleTowerTask_Handle, v1);
 }
 
 static BOOL sub_0206BD1C(FieldTask *param0)
