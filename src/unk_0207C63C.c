@@ -24,7 +24,7 @@ BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
 void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
 static u32 EvolutionParticleSystem_AllocateTextureVRAM(u32 param0, BOOL param1);
 static u32 EvolutionParticleSystem_AllocatePaletteVRAM(u32 param0, BOOL param1);
-static ParticleSystem *sub_0207C7CC(enum HeapID heapID);
+static ParticleSystem *EvolutionParticleSystem_CreateParticleSystem(enum HeapID heapID);
 static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2);
 static void EvolutionParticleSystem_FreeResources(ParticleSystem *param0);
 static void EvolutionParticleSystem_SetEmitterPosition(SPLEmitter *param0);
@@ -124,7 +124,7 @@ static u32 EvolutionParticleSystem_AllocatePaletteVRAM(u32 param0, BOOL param1)
     return v1;
 }
 
-static ParticleSystem *sub_0207C7CC(enum HeapID heapID)
+static ParticleSystem *EvolutionParticleSystem_CreateParticleSystem(enum HeapID heapID)
 {
     ParticleSystem *v0;
     void *v1;
@@ -143,7 +143,7 @@ static ParticleSystem *sub_0207C7CC(enum HeapID heapID)
 
 static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2)
 {
-    ParticleSystem *v0 = sub_0207C7CC(heapID);
+    ParticleSystem *v0 = EvolutionParticleSystem_CreateParticleSystem(heapID);
     void *v1 = ParticleSystem_LoadResourceFromNARC(param1, param2, heapID);
 
     ParticleSystem_SetResource(v0, v1, (1 << 1) | (1 << 3), 1);
