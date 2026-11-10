@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_OV59_021D2B44_H
-#define POKEPLATINUM_OV59_021D2B44_H
+#ifndef POKEPLATINUM_OVERLAY059_WIFI_TV_EPISODES_H
+#define POKEPLATINUM_OVERLAY059_WIFI_TV_EPISODES_H
 
 #include "struct_decls/tv_broadcast.h"
 #include "struct_defs/tv.h"
@@ -19,4 +19,4 @@ void TVBroadcast_MergeTrainerSightingsWifiEpisodes(TVBroadcast *broadcast, int p
 void TVBroadcast_MergeRecordsWifiEpisodes(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4);
 void TVBroadcast_MergeInterviewsWifiEpisodes(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4);
 
-#endif // POKEPLATINUM_OV59_021D2B44_H
+#endif // POKEPLATINUM_OVERLAY059_WIFI_TV_EPISODES_H
