@@ -100,8 +100,8 @@ static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *
 static int Overlay059_ShowMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ShowParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1B74(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1B8C(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ResetConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1E98(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1);
@@ -130,8 +130,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1838,
     Overlay059_ShowParticipantConnectionPrompt,
     Overlay059_UpdateParticipantConnectionPrompt,
-    ov59_021D1B74,
-    ov59_021D1B8C,
+    Overlay059_ResetConnectionHandshakeStability,
+    Overlay059_UpdateConnectionHandshakeStability,
     ov59_021D1C14,
     ov59_021D1E98,
     ov59_021D1EB8,
@@ -893,7 +893,7 @@ static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *para
     return param1;
 }
 
-static int ov59_021D1B74(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ResetConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_4AC2 = 0;
     ov59_021D1994(param0);
@@ -901,7 +901,7 @@ static int ov59_021D1B74(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1B8C(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *param0, int param1)
 {
     if ((param0->unk_4AC0 != CommSys_ConnectedCount()) || (param0->unk_4AC0 != ov59_021D2528())) {
         param0->unk_4AC2 = 0;
