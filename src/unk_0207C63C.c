@@ -27,7 +27,7 @@ static u32 sub_0207C7B0(u32 param0, BOOL param1);
 static ParticleSystem *sub_0207C7CC(enum HeapID heapID);
 static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2);
 static void sub_0207C83C(ParticleSystem *param0);
-static void sub_0207C854(SPLEmitter *param0);
+static void EvolutionParticleSystem_SetEmitterPosition(SPLEmitter *param0);
 
 void EvolutionScene_HideAllPlanes(void)
 {
@@ -159,7 +159,7 @@ void sub_0207C83C(ParticleSystem *param0)
     Heap_Free(v0);
 }
 
-static void sub_0207C854(SPLEmitter *param0)
+static void EvolutionParticleSystem_SetEmitterPosition(SPLEmitter *param0)
 {
     VecFx32 v0 = { 0, 0, 0 };
 
@@ -193,7 +193,7 @@ void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param
     int v3;
     UnkStruct_0207C8C4 *v4 = param0;
 
-    ParticleSystem_CreateEmitterWithCallback(v4->unk_0C, param1, sub_0207C854, v4);
+    ParticleSystem_CreateEmitterWithCallback(v4->unk_0C, param1, EvolutionParticleSystem_SetEmitterPosition, v4);
     ParticleSystem_SetCameraProjection(v4->unk_0C, 1);
 }
 
