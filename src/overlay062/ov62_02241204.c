@@ -3485,7 +3485,7 @@ static BOOL ov62_0224536C(UnkStruct_0208C06C *param0)
         {
             int v2;
 
-            sub_0202F298(param0->saveData, 102, &v2, NULL, 0);
+            BattleRecording_LoadSavedRecording(param0->saveData, 102, &v2, NULL, 0);
             v0->unk_1D0 = sub_02030A80(HEAP_ID_102);
             sub_02030AA0(v0->unk_1D0, param0->saveData);
 
