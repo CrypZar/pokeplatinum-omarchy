@@ -321,7 +321,7 @@ void sub_0206BD88(FieldTask *param0, u16 param1, u16 param2)
     FieldTask_InitCall(fieldSystem->task, sub_0206BD1C, v1);
 }
 
-u16 sub_0206BDBC(SaveData *saveData)
+u16 BattleTower_ClaimPendingTrophyReward(SaveData *saveData)
 {
     BattleFrontierSave *frontier = SaveData_GetBattleFrontier(saveData);
     u16 v3 = BattleFrontierSave_GetStat(frontier, STAT_TOWER_RECORD_STREAK_SINGLE, 0xff);
@@ -390,7 +390,7 @@ u16 sub_0206BDBC(SaveData *saveData)
     return 4;
 }
 
-u16 sub_0206BF04(SaveData *saveData)
+u16 BattleTower_GetPendingTrophyRewardStatus(SaveData *saveData)
 {
     BattleFrontierSave *frontier = SaveData_GetBattleFrontier(saveData);
     u16 frontierStats = BattleFrontierSave_GetStat(frontier, STAT_TOWER_RECORD_STREAK_SINGLE, 0xff);
