@@ -72,8 +72,8 @@ static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan
 static void ov59_021D17C8(UnkStruct_020961E8 *param0);
 static void ov59_021D1994(UnkStruct_020961E8 *unused);
 static void Overlay059_UpdateStatusPulsePalette(u16 *param0);
-static BOOL ov59_021D2418(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3);
-static BOOL ov59_021D254C(UnkStruct_020961E8 *param0);
+static BOOL Overlay059_UpdateParticipantRosterWindow(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3);
+static BOOL Overlay059_RefreshParticipantRosterSnapshots(UnkStruct_020961E8 *param0);
 static void ov59_021D2628(UnkStruct_020961E8 *param0, int param1, int param2);
 static int ov59_021D26B8(int param0);
 static void ov59_021D26D8(UnkStruct_020961E8 *param0);
@@ -256,7 +256,7 @@ int ov59_021D0F00(ApplicationManager *appMan, int *param1)
         }
 
         if (v0->unk_4AA4 == 0) {
-            ov59_021D2418(v0->unk_2FC, 0, TEXT_COLOR(1, 3, 0), v0);
+            Overlay059_UpdateParticipantRosterWindow(v0->unk_2FC, 0, TEXT_COLOR(1, 3, 0), v0);
         }
 
         ov59_021D26E8(v0);
@@ -662,7 +662,7 @@ static void ov59_021D16A0(UnkStruct_020961E8 *param0, ApplicationManager *appMan
         Window_Add(param0->unk_00, &param0->unk_2FC[0], 0, 2, 6, 16, 11, 15, ((1 + (18 + 12) + 9) + 27 * 4) + 26 * 2);
         Window_FillTilemap(&param0->unk_2FC[0], 0);
 
-        ov59_021D2418(param0->unk_2FC, 0, TEXT_COLOR(1, 3, 0), param0);
+        Overlay059_UpdateParticipantRosterWindow(param0->unk_2FC, 0, TEXT_COLOR(1, 3, 0), param0);
     }
 }
 
@@ -1399,13 +1399,13 @@ static int Overlay059_CountParticipantsWithTrainerInfo(void)
     return v1;
 }
 
-static BOOL ov59_021D2418(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3)
+static BOOL Overlay059_UpdateParticipantRosterWindow(Window *param0, int unused, u32 param2, UnkStruct_020961E8 *param3)
 {
     int i;
     const int v1 = CommSys_CurNetId();
     String *v2 = NULL;
 
-    if (!ov59_021D254C(param3)) {
+    if (!Overlay059_RefreshParticipantRosterSnapshots(param3)) {
         return 0;
     }
 
@@ -1459,7 +1459,7 @@ int ov59_021D2544(void)
     return ov59_021D2528();
 }
 
-static BOOL ov59_021D254C(UnkStruct_020961E8 *param0)
+static BOOL Overlay059_RefreshParticipantRosterSnapshots(UnkStruct_020961E8 *param0)
 {
     int v0, v1 = 0;
 
