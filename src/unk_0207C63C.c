@@ -16,7 +16,7 @@
 void EvolutionScene_HideAllPlanes(void);
 void EvolutionScene_ConfigureBlendAlpha(void);
 void EvolutionScene_Configure3DRenderState(void);
-void sub_0207C730(void);
+void EvolutionParticleSystem_InitializeResources(void);
 void EvolutionParticleSystem_DrawAndUpdate(void);
 UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
 void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
@@ -64,7 +64,7 @@ void EvolutionScene_Configure3DRenderState(void)
     G3_ViewPort(0, 0, 255, 191);
 }
 
-void sub_0207C730(void)
+void EvolutionParticleSystem_InitializeResources(void)
 {
     NNSGfdTexKey v0;
     NNSGfdPlttKey v1;
