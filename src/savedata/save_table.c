@@ -38,7 +38,7 @@
 #include "underground.h"
 #include "unk_020298BC.h"
 #include "tv_broadcast.h"
-#include "unk_0202F1D4.h"
+#include "battle_recording.h"
 #include "unk_02030CE8.h"
 #include "vars_flags.h"
 #include "wifi_history_save_data.h"
