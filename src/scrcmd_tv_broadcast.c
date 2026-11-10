@@ -14,7 +14,7 @@
 #include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
-#include "struct_defs/struct_0202E810.h"
+#include "struct_defs/tv_battle_frontier_frontline_news_single_data.h"
 #include "struct_defs/struct_0202E81C.h"
 #include "struct_defs/tv_segment_contest_hall_showcased_pokemon.h"
 
@@ -282,7 +282,7 @@ static void sub_020492D4(FieldSystem *fieldSystem, StringTemplate *template)
 {
     charcode_t name[MON_NAME_LEN + 1];
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(fieldSystem->saveData);
-    UnkStruct_0202E810 *v2 = sub_0202E810(broadcast);
+    TVBattleFrontierFrontlineNewsSingleData *v2 = TVBroadcast_GetBattleFrontierFrontlineNewsSingleData(broadcast);
 
     MessageLoader_GetSpeciesName(v2->species, HEAP_ID_FIELD1, name);
     sub_0204922C(template, 0, name, GENDER_MALE, GAME_LANGUAGE, 1);
@@ -339,7 +339,7 @@ static BOOL sub_02049398(FieldSystem *fieldSystem)
 
 static BOOL sub_020493A8(FieldSystem *fieldSystem)
 {
-    UnkStruct_0202E810 *v0 = sub_0202E810(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVBattleFrontierFrontlineNewsSingleData *v0 = TVBroadcast_GetBattleFrontierFrontlineNewsSingleData(SaveData_GetTVBroadcast(fieldSystem->saveData));
     return v0->unk_00;
 }
 
