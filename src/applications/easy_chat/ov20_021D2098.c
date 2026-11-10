@@ -537,14 +537,14 @@ static void ov20_021D2660(SysTask *param0, void *param1)
     case 0:
         ov20_021D3684(v1->unk_244);
         ov20_021D36B0(v1->unk_244);
-        ov20_021D3EF8(v1->unk_24C);
+        EasyChatCategories_BeginShowAnimation(v1->unk_24C);
         v0->unk_14++;
         break;
     case 1:
-        if (ov20_021D3F10(v1->unk_24C)) {
+        if (EasyChatCategories_IsShowAnimationComplete(v1->unk_24C)) {
             ov20_021D3A2C(v1->unk_248);
             EasyChatCategories_DrawCursor(v1->unk_24C, EasyChat_GetCategoryCursorPos(v1->unk_18));
-            ov20_021D3E48(v1->unk_24C, 1);
+            EasyChatCategories_SetCursorVisible(v1->unk_24C, 1);
             ov20_021D2238(v0);
         }
         break;
@@ -562,13 +562,13 @@ static void ov20_021D26D8(SysTask *param0, void *param1)
         v0->unk_14++;
         break;
     case 1:
-        ov20_021D40A8(v1->unk_24C);
+        EasyChatCategories_BeginModeSlide(v1->unk_24C);
         v0->unk_14++;
         break;
     case 2:
-        if (ov20_021D40DC(v1->unk_24C)
+        if (EasyChatCategories_IsModeSlideComplete(v1->unk_24C)
             && ov20_021D4C2C(v1->unk_254)) {
-            ov20_021D4084(v1->unk_24C);
+            EasyChatCategories_SetModeOffset(v1->unk_24C);
             ov20_021D2238(v0);
         }
         break;
@@ -586,20 +586,20 @@ static void ov20_021D2740(SysTask *param0, void *param1)
         v0->unk_14++;
         break;
     case 1:
-        ov20_021D3E48(v1->unk_24C, 0);
-        ov20_021D40A8(v1->unk_24C);
+        EasyChatCategories_SetCursorVisible(v1->unk_24C, 0);
+        EasyChatCategories_BeginModeSlide(v1->unk_24C);
         v0->unk_14++;
         break;
     case 2:
-        if (ov20_021D40DC(v1->unk_24C)) {
-            ov20_021D4084(v1->unk_24C);
+        if (EasyChatCategories_IsModeSlideComplete(v1->unk_24C)) {
+            EasyChatCategories_SetModeOffset(v1->unk_24C);
             v0->unk_14++;
         }
         break;
     case 3:
         if (ov20_021D4C2C(v1->unk_254)) {
             EasyChatCategories_DrawCursor(v1->unk_24C, EasyChat_GetCategoryCursorPos(v1->unk_18));
-            ov20_021D3E48(v1->unk_24C, 1);
+            EasyChatCategories_SetCursorVisible(v1->unk_24C, 1);
             ov20_021D2238(v0);
         }
         break;
@@ -614,12 +614,12 @@ static void ov20_021D27E4(SysTask *param0, void *param1)
     switch (v0->unk_14) {
     case 0:
         ov20_021D3A40(v1->unk_248);
-        ov20_021D3E48(v1->unk_24C, 0);
-        ov20_021D3F60(v1->unk_24C);
+        EasyChatCategories_SetCursorVisible(v1->unk_24C, 0);
+        EasyChatCategories_BeginHideAnimation(v1->unk_24C);
         v0->unk_14++;
         break;
     case 1:
-        if (ov20_021D3F84(v1->unk_24C)) {
+        if (EasyChatCategories_IsHideAnimationComplete(v1->unk_24C)) {
             ov20_021D36D0(v1->unk_244);
             ov20_021D3690(v1->unk_244);
             ov20_021D2238(v0);
@@ -636,12 +636,12 @@ static void ov20_021D2848(SysTask *param0, void *param1)
     switch (v0->unk_14) {
     case 0:
         ov20_021D4294(v1->unk_250);
-        ov20_021D3E48(v1->unk_24C, 0);
-        ov20_021D4004(v1->unk_24C);
+        EasyChatCategories_SetCursorVisible(v1->unk_24C, 0);
+        EasyChatCategories_BeginAlphaFadeOut(v1->unk_24C);
         v0->unk_14++;
         break;
     case 1:
-        if (ov20_021D4020(v1->unk_24C)) {
+        if (EasyChatCategories_FinishAlphaFadeOutAndHideLayer(v1->unk_24C)) {
             ov20_021D42E4(v1->unk_250);
             v0->unk_14++;
         }
@@ -675,19 +675,19 @@ static void ov20_021D28E8(SysTask *param0, void *param1)
         break;
     case 2:
         if (ov20_021D43D8(v1->unk_250)) {
-            ov20_021D4084(v1->unk_24C);
+            EasyChatCategories_SetModeOffset(v1->unk_24C);
             v0->unk_14++;
         }
         break;
     case 3:
-        ov20_021D403C(v1->unk_24C);
+        EasyChatCategories_BeginAlphaFadeIn(v1->unk_24C);
         v0->unk_14++;
         break;
     case 4:
-        if (ov20_021D4078(v1->unk_24C)
+        if (EasyChatCategories_IsAlphaFadeInComplete(v1->unk_24C)
             && ov20_021D4C2C(v1->unk_254)) {
             EasyChatCategories_DrawCursor(v1->unk_24C, EasyChat_GetCategoryCursorPos(v1->unk_18));
-            ov20_021D3E48(v1->unk_24C, 1);
+            EasyChatCategories_SetCursorVisible(v1->unk_24C, 1);
             ov20_021D2238(v0);
         }
         break;
@@ -709,19 +709,19 @@ static void ov20_021D29BC(SysTask *param0, void *param1)
         break;
     case 1:
         if (ov20_021D43D8(v1->unk_250)) {
-            ov20_021D3FD0(v1->unk_24C);
-            ov20_021D403C(v1->unk_24C);
+            EasyChatCategories_ResetVerticalOffset(v1->unk_24C);
+            EasyChatCategories_BeginAlphaFadeIn(v1->unk_24C);
             v0->unk_14++;
         }
         break;
     case 2:
-        if (ov20_021D4078(v1->unk_24C)) {
-            ov20_021D3FE0(v1->unk_24C);
+        if (EasyChatCategories_IsAlphaFadeInComplete(v1->unk_24C)) {
+            EasyChatCategories_BeginFadeToBlack(v1->unk_24C);
             v0->unk_14++;
         }
         break;
     case 3:
-        if (ov20_021D3FF8(v1->unk_24C)) {
+        if (EasyChatCategories_IsFadeToBlackComplete(v1->unk_24C)) {
             ov20_021D3228(v1->unk_244);
             ov20_021D369C(v1->unk_244, 1);
             ov20_021D36D0(v1->unk_244);
@@ -746,19 +746,19 @@ static void ov20_021D2A9C(SysTask *param0, void *param1)
         break;
     case 1:
         if (ov20_021D43D8(v1->unk_250)) {
-            ov20_021D3FD0(v1->unk_24C);
-            ov20_021D403C(v1->unk_24C);
+            EasyChatCategories_ResetVerticalOffset(v1->unk_24C);
+            EasyChatCategories_BeginAlphaFadeIn(v1->unk_24C);
             v0->unk_14++;
         }
         break;
     case 2:
-        if (ov20_021D4078(v1->unk_24C)) {
-            ov20_021D3FE0(v1->unk_24C);
+        if (EasyChatCategories_IsAlphaFadeInComplete(v1->unk_24C)) {
+            EasyChatCategories_BeginFadeToBlack(v1->unk_24C);
             v0->unk_14++;
         }
         break;
     case 3:
-        if (ov20_021D3FF8(v1->unk_24C)) {
+        if (EasyChatCategories_IsFadeToBlackComplete(v1->unk_24C)) {
             ov20_021D3228(v1->unk_244);
             ov20_021D369C(v1->unk_244, 0);
             ov20_021D39D4(v1->unk_248, 1);
