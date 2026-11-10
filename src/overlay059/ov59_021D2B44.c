@@ -117,7 +117,7 @@ static const u8 *const TVWifiEpisodeAllowedSegmentIdsByCategory[] = {
     TVWifiEpisodeAllowedSegmentIdsCategory5
 };
 
-u32 ov59_021D2B44(const SaveData *saveData)
+u32 TVWifiEpisode_GetInterviewsBatchSize(const SaveData *saveData)
 {
     return sizeof(TVWifiEpisode) * 4;
 }
@@ -169,12 +169,12 @@ static void TVWifiEpisode_BuildFromSegmentInstances(SaveData *saveData, TVWifiEp
     }
 }
 
-TVWifiEpisode *ov59_021D2C28(SaveData *saveData, enum HeapID heapID, u32 param2)
+TVWifiEpisode *TVWifiEpisode_CreateFilteredInterviewsBatch(SaveData *saveData, enum HeapID heapID, u32 param2)
 {
     TVWifiEpisode *v0 = Heap_AllocAtEnd(heapID, param2);
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
-    GF_ASSERT(param2 == ov59_021D2B44(saveData));
+    GF_ASSERT(param2 == TVWifiEpisode_GetInterviewsBatchSize(saveData));
     TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_17C, 4, 1, 3);
 
     return v0;
@@ -202,12 +202,12 @@ TVWifiEpisode *ov59_021D2CB4(SaveData *saveData, enum HeapID heapID, u32 param2)
     return v0;
 }
 
-TVWifiEpisode *ov59_021D2CF8(SaveData *saveData, enum HeapID heapID, u32 param2)
+TVWifiEpisode *TVWifiEpisode_CreateInterviewsBatch(SaveData *saveData, enum HeapID heapID, u32 param2)
 {
     TVWifiEpisode *v0 = Heap_AllocAtEnd(heapID, param2);
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(saveData);
 
-    GF_ASSERT(param2 == ov59_021D2B44(saveData));
+    GF_ASSERT(param2 == TVWifiEpisode_GetInterviewsBatchSize(saveData));
     TVWifiEpisode_BuildFromSegmentInstances(saveData, v0, broadcast->unk_17C, 4, 0, 0);
 
     return v0;

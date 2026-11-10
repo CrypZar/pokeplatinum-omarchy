@@ -6,13 +6,13 @@
 
 #include "savedata.h"
 
-u32 ov59_021D2B44(const SaveData *saveData);
+u32 TVWifiEpisode_GetInterviewsBatchSize(const SaveData *saveData);
 u32 ov59_021D2B4C(const SaveData *saveData);
 u32 ov59_021D2B54(const SaveData *saveData);
-TVWifiEpisode *ov59_021D2C28(SaveData *saveData, enum HeapID heapID, u32 param2);
+TVWifiEpisode *TVWifiEpisode_CreateFilteredInterviewsBatch(SaveData *saveData, enum HeapID heapID, u32 param2);
 TVWifiEpisode *ov59_021D2C70(SaveData *saveData, enum HeapID heapID, u32 param2);
 TVWifiEpisode *ov59_021D2CB4(SaveData *saveData, enum HeapID heapID, u32 param2);
-TVWifiEpisode *ov59_021D2CF8(SaveData *saveData, enum HeapID heapID, u32 param2);
+TVWifiEpisode *TVWifiEpisode_CreateInterviewsBatch(SaveData *saveData, enum HeapID heapID, u32 param2);
 TVWifiEpisode *ov59_021D2D3C(SaveData *saveData, enum HeapID heapID, u32 param2);
 TVWifiEpisode *ov59_021D2D80(SaveData *saveData, enum HeapID heapID, u32 param2);
 void ov59_021D2F10(TVBroadcast *broadcast, int param1, int param2, const void **param3, const void **param4);
