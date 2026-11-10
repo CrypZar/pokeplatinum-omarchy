@@ -6,6 +6,11 @@ contributions, however small or large. Before getting started, please take a
 look through this document for some important tips on how to smooth out the
 experience of your first contribution.
 
+For work coordinated across multiple contributors or agents, read
+[`AGENTS.md`](AGENTS.md) and the [orchestration workflow](docs/agents/orchestration.md).
+Use a bounded work package, record validation evidence, and provide a handoff
+for the next contributor.
+
 Thanks again, and we look forward to hearing from you! 🎉
 
 ## Table of Contents

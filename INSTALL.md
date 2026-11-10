@@ -3,6 +3,11 @@
 This document details the steps necessary to build a copy of Pokémon Platinum
 (EN-US) using this repository.
 
+For the multi-agent roadmap and the planned Omarchy Linux workflow, see
+[`AGENTS.md`](AGENTS.md) and [`docs/roadmap/omarchy-linux.md`](docs/roadmap/omarchy-linux.md).
+The Omarchy runtime target is intentionally documented separately because
+building the ROM and running a Linux program are different concerns.
+
 ## Table of Contents
 
 - [1. Setting Up Your Development Environment](#1-setting-up-your-development-environment)
