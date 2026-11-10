@@ -148,7 +148,7 @@ static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { ov58_021D23C8, 0x1 }
 };
 
-int ov58_021D0D80(ApplicationManager *appMan, int *param1)
+int Overlay058_Init(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_02095EAC *v0;
     NARC *v1;
@@ -231,7 +231,7 @@ int ov58_021D0D80(ApplicationManager *appMan, int *param1)
     return 0;
 }
 
-int ov58_021D0F08(ApplicationManager *appMan, int *param1)
+int Overlay058_Main(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_02095EAC *v0 = ApplicationManager_Data(appMan);
 
@@ -291,7 +291,7 @@ int ov58_021D0F08(ApplicationManager *appMan, int *param1)
     return 0;
 }
 
-int ov58_021D1018(ApplicationManager *appMan, int *param1)
+int Overlay058_Exit(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_02095EAC *v0 = ApplicationManager_Data(appMan);
     UnkStruct_0203DDFC *v1 = (UnkStruct_0203DDFC *)ApplicationManager_Args(appMan);
@@ -1320,7 +1320,7 @@ static int ov58_021D23C8(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-void ov58_021D2434(UnkStruct_02095EAC *param0, int param1, u8 param2)
+void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int param1, u8 param2)
 {
     switch (param1) {
     case 1:
@@ -1675,7 +1675,7 @@ static int ov58_021D2A30(void)
     return v0;
 }
 
-int ov58_021D2A4C(void)
+int Overlay058_CountParticipantsWithTrainerInfo(void)
 {
     return ov58_021D2A30();
 }
