@@ -15,7 +15,7 @@
 #include "player_avatar.h"
 #include "player_move.h"
 #include "trainer_encounter.h"
-#include "unk_020655F4.h"
+#include "map_object_movement_actions.h"
 
 typedef struct {
     int unk_00;
