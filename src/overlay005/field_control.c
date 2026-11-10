@@ -261,7 +261,7 @@ BOOL FieldInput_Process(const FieldInput *input, FieldSystem *fieldSystem)
         if (PersistedMapFeatures_IsCurrentDynamicMap(fieldSystem, DYNAMIC_MAP_FEATURES_DISTORTION_WORLD) == TRUE) {
             validInteraction = Field_DistortionInteract(fieldSystem, &object);
         } else {
-            validInteraction = sub_0203CA40(fieldSystem, &object);
+            validInteraction = FieldSystem_TryGetFacingInteractableMapObject(fieldSystem, &object);
         }
 
         if (validInteraction == TRUE) {
@@ -404,7 +404,7 @@ BOOL FieldInput_Process_Colosseum(FieldInput *input, FieldSystem *fieldSystem)
     if (input->interact) {
         MapObject *object;
 
-        if (sub_0203CA40(fieldSystem, &object) == TRUE && MapObject_GetMovementType(object) != 0x1) {
+        if (FieldSystem_TryGetFacingInteractableMapObject(fieldSystem, &object) == TRUE && MapObject_GetMovementType(object) != 0x1) {
             if (PlayerAvatar_CheckForceStopMovement(fieldSystem->playerAvatar) == TRUE) {
                 PlayerAvatar_ForceStopMovement(fieldSystem->playerAvatar, PlayerAvatar_GetFacingDir(fieldSystem->playerAvatar));
             }
@@ -459,7 +459,7 @@ BOOL FieldInput_Process_UnionRoom(const FieldInput *input, FieldSystem *fieldSys
     if (input->interact) {
         MapObject *object;
 
-        if (sub_0203CA40(fieldSystem, &object) == TRUE) {
+        if (FieldSystem_TryGetFacingInteractableMapObject(fieldSystem, &object) == TRUE) {
             if (PlayerAvatar_CheckForceStopMovement(fieldSystem->playerAvatar) == TRUE) {
                 PlayerAvatar_ForceStopMovement(fieldSystem->playerAvatar, PlayerAvatar_GetFacingDir(fieldSystem->playerAvatar));
             }
@@ -496,7 +496,7 @@ int FieldInput_Process_BattleTower(const FieldInput *input, FieldSystem *fieldSy
     if (input->interact) {
         MapObject *object;
 
-        if (sub_0203CA40(fieldSystem, &object) == TRUE) {
+        if (FieldSystem_TryGetFacingInteractableMapObject(fieldSystem, &object) == TRUE) {
             if (PlayerAvatar_CheckForceStopMovement(fieldSystem->playerAvatar) == TRUE) {
                 PlayerAvatar_ForceStopMovement(fieldSystem->playerAvatar, PlayerAvatar_GetFacingDir(fieldSystem->playerAvatar));
             }
