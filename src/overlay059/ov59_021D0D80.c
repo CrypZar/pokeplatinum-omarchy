@@ -77,7 +77,7 @@ static BOOL ov59_021D254C(UnkStruct_020961E8 *param0);
 static void ov59_021D2628(UnkStruct_020961E8 *param0, int param1, int param2);
 static int ov59_021D26B8(int param0);
 static void ov59_021D26D8(UnkStruct_020961E8 *param0);
-static int ov59_021D23FC(void);
+static int Overlay059_CountParticipantsWithTrainerInfo(void);
 static int ov59_021D2528(void);
 static void ov59_021D2524(UnkStruct_020961E8 *unused);
 static void ov59_021D1784(Window *param0, String *param1, int param2);
@@ -705,7 +705,7 @@ static int ov59_021D1838(UnkStruct_020961E8 *param0, int param1)
     ov59_021D1864(param0);
 
     if (CommSys_CurNetId() == 0) {
-        if (ov59_021D23FC() != 1) {
+        if (Overlay059_CountParticipantsWithTrainerInfo() != 1) {
             ov59_021D2524(param0);
         }
     } else {
@@ -1384,7 +1384,7 @@ static void Overlay059_UpdateStatusPulsePalette(u16 *param0)
     GX_LoadOBJPltt((u16 *)&v1, (5 + 16) * 2, 2);
 }
 
-static int ov59_021D23FC(void)
+static int Overlay059_CountParticipantsWithTrainerInfo(void)
 {
     int i, v1 = 0;
 
