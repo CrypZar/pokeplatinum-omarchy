@@ -259,7 +259,7 @@ static BOOL sub_0208BC8C(UnkStruct_0208BC3C *param0, enum HeapID heapID)
         param0->unk_10 = FieldBattleDTO_New(heapID, 0x0);
 
         if (BattleRecording_Exists() == 0) {
-            sub_0202F298(param0->saveData, heapID, &v0, param0->unk_10, param0->unk_14->unk_86C);
+            BattleRecording_LoadSavedRecording(param0->saveData, heapID, &v0, param0->unk_10, param0->unk_14->unk_86C);
         } else {
             BattleRecording_RestoreBattleDTO(param0->unk_10, param0->saveData);
             v0 = 1;
