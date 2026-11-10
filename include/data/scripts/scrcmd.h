@@ -177,7 +177,7 @@ ScriptCommand(SCRCMD_0A8,                                                  ScrCm
 ScriptCommand(SCRCMD_OPENSEALCAPSULEEDITOR,                                ScrCmd_OpenSealCapsuleEditor)
 ScriptCommand(SCRCMD_OPENREGIONMAP,                                        ScrCmd_OpenRegionMap)
 ScriptCommand(SCRCMD_OPENPOKEMONSTORAGE,                                   ScrCmd_OpenPokemonStorage)
-ScriptCommand(SCRCMD_0AC,                                                  ScrCmd_0AC)
+ScriptCommand(SCRCMD_0AC,                                                  ScrCmd_OpenDrawingApp)
 ScriptCommand(SCRCMD_OPENUNIONROOMTRAINERCASE,                             ScrCmd_OpenUnionRoomTrainerCase)
 ScriptCommand(SCRCMD_0AE,                                                  ScrCmd_0AE)
 ScriptCommand(SCRCMD_OPENMIXEDRECORDSLOBBY,                                                  ScrCmd_OpenMixedRecordsLobby)

@@ -384,7 +384,7 @@ static BOOL ScrCmd_OpenPoffinCooking(ScriptContext *ctx);
 static BOOL ScrCmd_CheckCanCookPoffin(ScriptContext *ctx);
 static BOOL ScrCmd_OpenBattleTowerRecordsApp(ScriptContext *ctx);
 static BOOL ScrCmd_OpenPokemonStorage(ScriptContext *ctx);
-static BOOL ScrCmd_0AC(ScriptContext *ctx);
+static BOOL ScrCmd_OpenDrawingApp(ScriptContext *ctx);
 static BOOL ScrCmd_OpenUnionRoomTrainerCase(ScriptContext *ctx);
 static BOOL ScrCmd_0AE(ScriptContext *ctx);
 static BOOL ScrCmd_OpenMixedRecordsLobby(ScriptContext *ctx);
@@ -3302,11 +3302,11 @@ static BOOL ScrCmd_OpenPokemonStorage(ScriptContext *ctx)
     return TRUE;
 }
 
-static BOOL ScrCmd_0AC(ScriptContext *ctx)
+static BOOL ScrCmd_OpenDrawingApp(ScriptContext *ctx)
 {
     FieldSystem *fieldSystem = ctx->fieldSystem;
 
-    sub_0203DDFC(fieldSystem);
+    FieldSystem_OpenDrawingApp(fieldSystem);
     ScriptContext_Pause(ctx, ScriptContext_WaitForApplicationExit);
 
     return TRUE;
