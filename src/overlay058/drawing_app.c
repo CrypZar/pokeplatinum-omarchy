@@ -70,10 +70,10 @@ static void Overlay058_LoadSpriteResources(UnkStruct_02095EAC *param0, NARC *par
 static void Overlay058_CreateSprites(UnkStruct_02095EAC *param0);
 static void Overlay058_CreateWindows(UnkStruct_02095EAC *param0, ApplicationManager *appMan);
 static void Overlay058_RemoveWindows(UnkStruct_02095EAC *param0);
-static void ov58_021D1A10(Sprite *param0, int param1, int param2);
-static void ov58_021D1A80(UnkStruct_02095EAC *param0);
-static int ov58_021D1CF4(UnkStruct_02095EAC *param0, int param1);
-static void ov58_021D1D40(UnkStruct_02095EAC *param0);
+static void Overlay058_PositionPlayerCursor(Sprite *param0, int param1, int param2);
+static void Overlay058_HandleDrawingTouchInput(UnkStruct_02095EAC *param0);
+static int Overlay058_HandleDrawingSessionState(UnkStruct_02095EAC *param0, int param1);
+static void Overlay058_UpdateDrawingDisplay(UnkStruct_02095EAC *param0);
 static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1FB0(UnkStruct_02095EAC *param0, int param1);
@@ -108,8 +108,8 @@ static int ov58_021D2A30(void);
 static int ov58_021D1DBC(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1);
-static void ov58_021D1CAC(Sprite **param0, int param1);
-static void ov58_021D1CDC(Sprite **param0, BOOL param1);
+static void Overlay058_SelectColorSprite(Sprite **param0, int param1);
+static void Overlay058_SetStartButtonSpriteState(Sprite **param0, BOOL param1);
 static void ov58_021D2528(Window *param0, void *param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9);
 static void ov58_021D2B3C(UnkStruct_02095EAC *param0, int param1);
 static int ov58_021D2B5C(UnkStruct_02095EAC *param0);
@@ -126,7 +126,7 @@ static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { ov58_021D1D64, 0x0 },
     { ov58_021D1DBC, 0x0 },
     { ov58_021D1DC8, 0x0 },
-    { ov58_021D1CF4, 0x0 },
+    { Overlay058_HandleDrawingSessionState, 0x0 },
     { ov58_021D1DFC, 0x1 },
     { ov58_021D1E4C, 0x1 },
     { ov58_021D1FB0, 0x1 },
@@ -754,7 +754,7 @@ static void Overlay058_RemoveWindows(UnkStruct_02095EAC *param0)
     Window_Remove(&param0->unk_33C);
 }
 
-static void ov58_021D1A10(Sprite *param0, int param1, int param2)
+static void Overlay058_PositionPlayerCursor(Sprite *param0, int param1, int param2)
 {
     VecFx32 v0;
 
@@ -791,7 +791,7 @@ static const TouchScreenRect sOverlay058DrawingCanvasTouchRegion[] = {
     { 0xFF, 0x0, 0x0, 0x0 }
 };
 
-static void ov58_021D1A80(UnkStruct_02095EAC *param0)
+static void Overlay058_HandleDrawingTouchInput(UnkStruct_02095EAC *param0)
 {
     int v0 = -1, v1;
     int v2 = 0;
@@ -810,7 +810,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
         case 7:
             if (param0->unk_43DA != v0) {
                 param0->unk_43DA = v0;
-                ov58_021D1CAC(param0->unk_2AC, v0);
+                Overlay058_SelectColorSprite(param0->unk_2AC, v0);
                 Sound_PlayEffect(SE_CONFIRM_sseq_3);
             }
             break;
@@ -826,7 +826,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
                     param0->unk_9458 = 2;
                     ov58_021D2A98(param0, 1, TEXT_SPEED_FAST);
                     ov58_021D2CB0(param0, 5);
-                    ov58_021D1CDC(param0->unk_2AC, 1);
+                    Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 1);
                     v2 = 1;
                     Sound_PlayEffect(SE_CONFIRM_sseq_3);
                 } else {
@@ -835,7 +835,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
                     } else {
                         ov58_021D2A98(param0, 1, TEXT_SPEED_FAST);
                         ov58_021D2CB0(param0, 5);
-                        ov58_021D1CDC(param0->unk_2AC, 1);
+                        Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 1);
                         v2 = 1;
                         Sound_PlayEffect(SE_CONFIRM_sseq_3);
                     }
@@ -867,7 +867,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
     Sprite_SetDrawFlag(param0->unk_23C[CommSys_CurNetId()], FALSE);
 
     if (v1 != 0xffffffff) {
-        ov58_021D1A10(param0->unk_23C[CommSys_CurNetId()], gSystem.touchX, gSystem.touchY);
+        Overlay058_PositionPlayerCursor(param0->unk_23C[CommSys_CurNetId()], gSystem.touchX, gSystem.touchY);
         Sprite_SetDrawFlag(param0->unk_23C[CommSys_CurNetId()], TRUE);
     }
 
@@ -885,7 +885,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
     }
 }
 
-static void ov58_021D1CAC(Sprite **param0, int param1)
+static void Overlay058_SelectColorSprite(Sprite **param0, int param1)
 {
     int v0;
 
@@ -898,7 +898,7 @@ static void ov58_021D1CAC(Sprite **param0, int param1)
     }
 }
 
-static void ov58_021D1CDC(Sprite **param0, BOOL param1)
+static void Overlay058_SetStartButtonSpriteState(Sprite **param0, BOOL param1)
 {
     if (param1 == 1) {
         Sprite_SetAnim(param0[8], sOverlay058DrawingUiSpriteLayout[8][2] + 1);
@@ -907,9 +907,9 @@ static void ov58_021D1CDC(Sprite **param0, BOOL param1)
     }
 }
 
-static int ov58_021D1CF4(UnkStruct_02095EAC *param0, int param1)
+static int Overlay058_HandleDrawingSessionState(UnkStruct_02095EAC *param0, int param1)
 {
-    ov58_021D1A80(param0);
+    Overlay058_HandleDrawingTouchInput(param0);
 
     if (CommSys_CurNetId() == 0) {
         if (ov58_021D28C8() != 1) {
@@ -925,7 +925,7 @@ static int ov58_021D1CF4(UnkStruct_02095EAC *param0, int param1)
     return param1;
 }
 
-static void ov58_021D1D40(UnkStruct_02095EAC *param0)
+static void Overlay058_UpdateDrawingDisplay(UnkStruct_02095EAC *param0)
 {
     ov58_021D2820(param0);
     ov58_021D2754(&param0->unk_32C, param0->unk_43E6, param0->drawingContinuationsByPlayer, 0);
@@ -944,14 +944,14 @@ static int ov58_021D1D64(UnkStruct_02095EAC *param0, int param1)
 
     G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, -6);
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
 
 static int ov58_021D1DBC(UnkStruct_02095EAC *param0, int param1)
 {
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -961,7 +961,7 @@ static int ov58_021D1DC8(UnkStruct_02095EAC *param0, int param1)
 
     ov58_021D2B3C(param0, 1);
     ov58_021D2CB0(param0, 4);
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     param0->unk_9468 = 0;
 
@@ -987,7 +987,7 @@ static int ov58_021D1DFC(UnkStruct_02095EAC *param0, int param1)
         ov58_021D2CB0(param0, 6);
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -998,7 +998,7 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
     param0->unk_43DC.unk_08_3 = 0;
 
     if ((param0->unk_43E6[0].unk_09 == 2) && (CommSys_CurNetId() != 0)) {
-        ov58_021D1D40(param0);
+        Overlay058_UpdateDrawingDisplay(param0);
 
         if (ov58_021D2D30(param0)) {
             Sound_PlayEffect(SEQ_SE_DP_CUSTOM06_sseq);
@@ -1008,12 +1008,12 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
     }
 
     if ((CommSys_CurNetId() == 0) && (param0->unk_9418 != 0)) {
-        ov58_021D1D40(param0);
+        Overlay058_UpdateDrawingDisplay(param0);
         return param1;
     }
 
     if (ov58_021D2A30() != CommSys_ConnectedCount()) {
-        ov58_021D1D40(param0);
+        Overlay058_UpdateDrawingDisplay(param0);
         return param1;
     }
 
@@ -1045,7 +1045,7 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
         break;
     case YES_NO_TOUCH_MENU_NO:
         ov58_021D2CB0(param0, 4);
-        ov58_021D1CDC(param0->unk_2AC, 0);
+        Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
         Window_EraseMessageBox(&param0->unk_33C, 1);
         ov58_021D2D10(param0);
         Window_CopyToVRAM(&param0->unk_32C);
@@ -1057,7 +1057,7 @@ static int ov58_021D1E4C(UnkStruct_02095EAC *param0, int param1)
         break;
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1067,7 +1067,7 @@ static int ov58_021D1FB0(UnkStruct_02095EAC *param0, int param1)
     param0->unk_43DC.unk_08_3 = 0;
     param0->unk_941E = 0;
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1080,7 +1080,7 @@ static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1)
         param0->unk_941E = 0;
 
         ov58_021D2CB0(param0, 9);
-        ov58_021D1D40(param0);
+        Overlay058_UpdateDrawingDisplay(param0);
 
         return param1;
     }
@@ -1100,7 +1100,7 @@ static int ov58_021D1FD4(UnkStruct_02095EAC *param0, int param1)
         ov58_021D2CB0(param0, 10);
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1111,8 +1111,8 @@ static int ov58_021D206C(UnkStruct_02095EAC *param0, int param1)
     param0->unk_9420 = 0;
 
     ov58_021D2CB0(param0, 4);
-    ov58_021D1CDC(param0->unk_2AC, 0);
-    ov58_021D1D40(param0);
+    Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1123,7 +1123,7 @@ static int ov58_021D20A8(UnkStruct_02095EAC *param0, int param1)
 
     ov58_021D2A98(param0, 6, TEXT_SPEED_FAST);
     ov58_021D2CB0(param0, 11);
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1135,7 +1135,7 @@ static int ov58_021D20C8(UnkStruct_02095EAC *param0, int param1)
         ov58_021D2CB0(param0, 12);
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1147,7 +1147,7 @@ static int ov58_021D20F4(UnkStruct_02095EAC *param0, int param1)
         param1 = 3;
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1169,7 +1169,7 @@ static int ov58_021D2130(UnkStruct_02095EAC *param0, int param1)
         ov58_021D2CB0(param0, 14);
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1179,7 +1179,7 @@ static int ov58_021D2180(UnkStruct_02095EAC *param0, int param1)
     int v0 = YesNoTouchMenu_ProcessInput(param0->unk_9454);
 
     if ((param0->unk_37C != ov58_021D2A30()) || (param0->unk_9418 != 0)) {
-        ov58_021D1D40(param0);
+        Overlay058_UpdateDrawingDisplay(param0);
         return param1;
     }
 
@@ -1193,7 +1193,7 @@ static int ov58_021D2180(UnkStruct_02095EAC *param0, int param1)
         break;
     case YES_NO_TOUCH_MENU_NO:
         ov58_021D2CB0(param0, 4);
-        ov58_021D1CDC(param0->unk_2AC, 0);
+        Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
         Window_EraseMessageBox(&param0->unk_33C, 1);
         ov58_021D2D10(param0);
 
@@ -1204,7 +1204,7 @@ static int ov58_021D2180(UnkStruct_02095EAC *param0, int param1)
         break;
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1214,7 +1214,7 @@ static int ov58_021D223C(UnkStruct_02095EAC *param0, int param1)
 
     ov58_021D2A98(param0, 3, TEXT_SPEED_FAST);
     ov58_021D2CB0(param0, 16);
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1226,7 +1226,7 @@ static int ov58_021D2270(UnkStruct_02095EAC *param0, int param1)
         CommTiming_StartSync(200);
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1237,7 +1237,7 @@ static int ov58_021D2298(UnkStruct_02095EAC *param0, int param1)
         param1 = 3;
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1250,7 +1250,7 @@ static int ov58_021D22DC(UnkStruct_02095EAC *param0, int param1)
 {
     ov58_021D2A98(param0, 5, TEXT_SPEED_FAST);
     ov58_021D2CB0(param0, 20);
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1261,7 +1261,7 @@ static int ov58_021D22FC(UnkStruct_02095EAC *param0, int param1)
         ov58_021D2CB0(param0, 12);
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1280,7 +1280,7 @@ static int ov58_021D2320(UnkStruct_02095EAC *param0, int param1)
     }
 
     param0->unk_9414 = CommSys_ConnectedCount();
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
 
     return param1;
 }
@@ -1296,7 +1296,7 @@ static int ov58_021D2380(UnkStruct_02095EAC *param0, int param1)
         param0->unk_374 = 0;
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1316,7 +1316,7 @@ static int ov58_021D23C8(UnkStruct_02095EAC *param0, int param1)
         }
     }
 
-    ov58_021D1D40(param0);
+    Overlay058_UpdateDrawingDisplay(param0);
     return param1;
 }
 
@@ -1328,7 +1328,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
             ov58_021D2D10(param0);
         }
 
-        ov58_021D1CDC(param0->unk_2AC, 0);
+        Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
         StringTemplate_SetPlayerName(param0->unk_0C, 0, CommInfo_TrainerInfo(param2));
 
         param0->unk_384 = param2;
@@ -1358,7 +1358,7 @@ void Overlay058_HandleCommunicationStateEvent(UnkStruct_02095EAC *param0, int pa
             Window_CopyToVRAM(&param0->unk_32C);
         }
 
-        ov58_021D1CDC(param0->unk_2AC, 0);
+        Overlay058_SetStartButtonSpriteState(param0->unk_2AC, 0);
         break;
     case 15:
         break;
@@ -1566,7 +1566,7 @@ static void ov58_021D2820(UnkStruct_02095EAC *param0)
         if (v0 != CommSys_CurNetId()) {
             if ((v1[v0].unk_08_3 != 0) && (CommInfo_TrainerInfo(v0) != NULL)) {
                 Sprite_SetDrawFlag(param0->unk_23C[v0], TRUE);
-                ov58_021D1A10(param0->unk_23C[v0], v1[v0].unk_00[v1[v0].unk_08_3 - 1], v1[v0].unk_04[v1[v0].unk_08_3 - 1]);
+                Overlay058_PositionPlayerCursor(param0->unk_23C[v0], v1[v0].unk_00[v1[v0].unk_08_3 - 1], v1[v0].unk_04[v1[v0].unk_08_3 - 1]);
             } else {
                 Sprite_SetDrawFlag(param0->unk_23C[v0], FALSE);
             }
