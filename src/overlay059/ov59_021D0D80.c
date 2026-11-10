@@ -113,7 +113,7 @@ static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int 
 static int ov59_021D20A4(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_PrepareParticipantWait(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_WaitAfterParticipantJoin(UnkStruct_020961E8 *param0, int param1);
@@ -143,7 +143,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_UpdateExitSynchronization,
     ov59_021D20A4,
     ov59_021D20D0,
-    ov59_021D20F4,
+    Overlay059_PrepareParticipantWait,
     ov59_021D2154,
     ov59_021D2190,
     Overlay059_ShowMixedRecordsExchangeStartPrompt,
@@ -1214,7 +1214,7 @@ static int ov59_021D20D0(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_PrepareParticipantWait(UnkStruct_020961E8 *param0, int param1)
 {
     if ((param0->unk_4C != 0xff) && (Overlay059_IsMessagePrinterDone(param0->unk_4C) == 0)) {
         Text_RemovePrinter(param0->unk_4C);
