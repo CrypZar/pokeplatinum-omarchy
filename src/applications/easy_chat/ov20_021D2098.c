@@ -6,11 +6,11 @@
 #include "applications/easy_chat/categories.h"
 #include "applications/easy_chat/main.h"
 #include "applications/easy_chat/sentence_view.h"
-#include "applications/easy_chat/ov20_021D3864.h"
+#include "applications/easy_chat/mode_selector.h"
 #include "applications/easy_chat/word_list_view.h"
 #include "applications/easy_chat/ov20_021D4728.h"
 #include "applications/easy_chat/easy_chat_sentence_view_decl.h"
-#include "applications/easy_chat/struct_ov20_021D3980_decl.h"
+#include "applications/easy_chat/easy_chat_mode_selector_decl.h"
 #include "applications/easy_chat/easy_chat_word_list_view_decl.h"
 #include "applications/easy_chat/struct_ov20_021D4AD4_decl.h"
 
@@ -44,7 +44,7 @@ typedef struct UnkStruct_ov20_021D2128_t {
     void *unk_234[2];
     void *unk_23C[2];
     EasyChatSentenceView *sentenceView;
-    UnkStruct_ov20_021D3980 *unk_248;
+    EasyChatModeSelector *modeSelector;
     EasyChatCategoriesContext *unk_24C;
     EasyChatWordListView *wordListView;
     UnkStruct_ov20_021D4AD4 *unk_254;
@@ -283,8 +283,8 @@ static void ov20_021D2260(SysTask *param0, void *param1)
     v0->unk_00->sentenceView = EasyChatSentenceView_New(v0->unk_00, v0->unk_04, v0->unk_08);
     EasyChatSentenceView_Initialize(v0->unk_00->sentenceView, narc);
 
-    v0->unk_00->unk_248 = ov20_021D3864(v0->unk_00, v0->unk_04, v0->unk_08);
-    ov20_021D3898(v0->unk_00->unk_248, narc);
+    v0->unk_00->modeSelector = EasyChatModeSelector_New(v0->unk_00, v0->unk_04, v0->unk_08);
+    EasyChatModeSelector_Initialize(v0->unk_00->modeSelector, narc);
 
     v0->unk_00->unk_24C = EasyChatCategoriesContext_New(v0->unk_00, v0->unk_04, v0->unk_08);
     EasyChatCategories_DrawInterface(v0->unk_00->unk_24C, narc);
@@ -338,7 +338,7 @@ static void ov20_021D2414(SysTask *param0, void *param1)
             int v2;
 
             EasyChatSentenceView_Free(v0->unk_00->sentenceView);
-            ov20_021D3880(v0->unk_00->unk_248);
+            EasyChatModeSelector_Free(v0->unk_00->modeSelector);
             EasyChatCategoriesContext_Free(v0->unk_00->unk_24C);
             EasyChatWordListView_Free(v0->unk_00->wordListView);
             ov20_021D4764(v0->unk_00->unk_254);
@@ -511,8 +511,8 @@ static void ov20_021D25EC(SysTask *param0, void *param1)
     EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 0);
     EasyChatSentenceView_HideNavigationArrows(v1->sentenceView);
 
-    ov20_021D39D4(v1->unk_248, 1);
-    ov20_021D39EC(v1->unk_248, ov20_021D1FD4(v1->unk_18));
+    EasyChatModeSelector_SetCursorVisible(v1->modeSelector, 1);
+    EasyChatModeSelector_SetSelectedMode(v1->modeSelector, ov20_021D1FD4(v1->unk_18));
 
     ov20_021D2238(v0);
 }
@@ -522,7 +522,7 @@ static void ov20_021D2630(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D39D4(v1->unk_248, 0);
+    EasyChatModeSelector_SetCursorVisible(v1->modeSelector, 0);
     EasyChatSentenceView_ShowNavigationArrows(v1->sentenceView);
     EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 1);
     ov20_021D2238(v0);
@@ -542,7 +542,7 @@ static void ov20_021D2660(SysTask *param0, void *param1)
         break;
     case 1:
         if (EasyChatCategories_IsShowAnimationComplete(v1->unk_24C)) {
-            ov20_021D3A2C(v1->unk_248);
+            EasyChatModeSelector_ShowCategoryModeLabels(v1->modeSelector);
             EasyChatCategories_DrawCursor(v1->unk_24C, EasyChat_GetCategoryCursorPos(v1->unk_18));
             EasyChatCategories_SetCursorVisible(v1->unk_24C, 1);
             ov20_021D2238(v0);
@@ -613,7 +613,7 @@ static void ov20_021D27E4(SysTask *param0, void *param1)
 
     switch (v0->unk_14) {
     case 0:
-        ov20_021D3A40(v1->unk_248);
+        EasyChatModeSelector_RestoreDefaultBackgroundOffset(v1->modeSelector);
         EasyChatCategories_SetCursorVisible(v1->unk_24C, 0);
         EasyChatCategories_BeginHideAnimation(v1->unk_24C);
         v0->unk_14++;
@@ -701,7 +701,7 @@ static void ov20_021D29BC(SysTask *param0, void *param1)
 
     switch (v0->unk_14) {
     case 0:
-        ov20_021D3A40(v1->unk_248);
+        EasyChatModeSelector_RestoreDefaultBackgroundOffset(v1->modeSelector);
         EasyChatWordListView_SetSelectionIndicatorsVisible(v1->wordListView, 0);
         ov20_021D4DBC(v1->unk_254, 0);
         EasyChatWordListView_BeginHideTransition(v1->wordListView);
@@ -738,7 +738,7 @@ static void ov20_021D2A9C(SysTask *param0, void *param1)
 
     switch (v0->unk_14) {
     case 0:
-        ov20_021D3A40(v1->unk_248);
+        EasyChatModeSelector_RestoreDefaultBackgroundOffset(v1->modeSelector);
         EasyChatWordListView_SetSelectionIndicatorsVisible(v1->wordListView, 0);
         ov20_021D4DBC(v1->unk_254, 0);
         EasyChatWordListView_BeginHideTransition(v1->wordListView);
@@ -761,7 +761,7 @@ static void ov20_021D2A9C(SysTask *param0, void *param1)
         if (EasyChatCategories_IsFadeToBlackComplete(v1->unk_24C)) {
             EasyChatSentenceView_DrawSentence(v1->sentenceView);
             EasyChatSentenceView_SetCursorVisible(v1->sentenceView, 0);
-            ov20_021D39D4(v1->unk_248, 1);
+            EasyChatModeSelector_SetCursorVisible(v1->modeSelector, 1);
             ov20_021D2238(v0);
         }
     }
@@ -781,7 +781,7 @@ static void ov20_021D2B94(SysTask *param0, void *param1)
     UnkStruct_ov20_021D2238 *v0 = param1;
     UnkStruct_ov20_021D2128 *v1 = v0->unk_00;
 
-    ov20_021D39EC(v1->unk_248, ov20_021D1FD4(v1->unk_18));
+    EasyChatModeSelector_SetSelectedMode(v1->modeSelector, ov20_021D1FD4(v1->unk_18));
     ov20_021D2238(v0);
 }
 
@@ -839,8 +839,8 @@ static void ov20_021D2C60(SysTask *param0, void *param1)
     EasyChatSentenceView_DrawInstruction(v1->sentenceView, 2);
     EasyChatSentenceView_DrawActionPrompt(v1->sentenceView, ov20_021D208C(v0->unk_04));
 
-    if (ov20_021D39E0(v1->unk_248)) {
-        ov20_021D39BC(v1->unk_248);
+    if (EasyChatModeSelector_IsCursorVisible(v1->modeSelector)) {
+        EasyChatModeSelector_SetCursorSelectedAnimation(v1->modeSelector);
     } else {
         EasyChatSentenceView_SetCursorInactive(v1->sentenceView);
     }
@@ -856,8 +856,8 @@ static void ov20_021D2CB0(SysTask *param0, void *param1)
     EasyChatSentenceView_DrawInstruction(v1->sentenceView, 3);
     EasyChatSentenceView_DrawActionPrompt(v1->sentenceView, ov20_021D208C(v0->unk_04));
 
-    if (ov20_021D39E0(v1->unk_248)) {
-        ov20_021D39BC(v1->unk_248);
+    if (EasyChatModeSelector_IsCursorVisible(v1->modeSelector)) {
+        EasyChatModeSelector_SetCursorSelectedAnimation(v1->modeSelector);
     } else {
         EasyChatSentenceView_SetCursorInactive(v1->sentenceView);
     }
@@ -891,8 +891,8 @@ static void ov20_021D2D3C(SysTask *param0, void *param1)
     EasyChatSentenceView_DrawInstruction(v1->sentenceView, 0);
     EasyChatSentenceView_ClearActionPrompt(v1->sentenceView);
 
-    if (ov20_021D39E0(v1->unk_248)) {
-        ov20_021D39C8(v1->unk_248);
+    if (EasyChatModeSelector_IsCursorVisible(v1->modeSelector)) {
+        EasyChatModeSelector_SetCursorDefaultAnimation(v1->modeSelector);
     } else {
         EasyChatSentenceView_SetCursorActive(v1->sentenceView);
     }
