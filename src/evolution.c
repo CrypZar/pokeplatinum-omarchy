@@ -49,7 +49,7 @@
 #include "system.h"
 #include "text.h"
 #include "unk_0202419C.h"
-#include "unk_0207C63C.h"
+#include "evolution_graphics.h"
 #include "vram_transfer.h"
 
 #include "constdata/const_020F410C.h"
