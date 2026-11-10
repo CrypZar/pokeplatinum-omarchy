@@ -20,7 +20,7 @@ void sub_0207C730(void);
 void sub_0207C770(void);
 UnkStruct_0207C8C4 *sub_0207C894(UnkStruct_0207C894 *param0);
 void sub_0207C8C4(UnkStruct_0207C8C4 *param0, int param1);
-BOOL sub_0207C8E0(UnkStruct_0207C8C4 *param0);
+BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
 void sub_0207C8F4(UnkStruct_0207C8C4 *param0);
 static u32 sub_0207C794(u32 param0, BOOL param1);
 static u32 sub_0207C7B0(u32 param0, BOOL param1);
@@ -197,7 +197,7 @@ void sub_0207C8C4(UnkStruct_0207C8C4 *param0, int param1)
     ParticleSystem_SetCameraProjection(v4->unk_0C, 1);
 }
 
-BOOL sub_0207C8E0(UnkStruct_0207C8C4 *param0)
+BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0)
 {
     UnkStruct_0207C8C4 *v0 = param0;
 
