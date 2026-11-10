@@ -49,7 +49,7 @@ static u8 PlayerAvatar_IsAtSameHeightAsMapObject(PlayerAvatar *playerAvatar, Map
 {
     MapObject *v0 = PlayerAvatar_GetMapObject(playerAvatar);
 
-    if (sub_020630DC(v0) == sub_020630DC(param1)) {
+    if (MapObject_GetHeightLevel(v0) == MapObject_GetHeightLevel(param1)) {
         return 1;
     }
 

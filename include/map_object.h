@@ -268,7 +268,7 @@ void MapObject_GetSpritePosOffset(const MapObject *mapObj, VecFx32 *vec);
 void MapObject_SetSpritePosOffset(MapObject *mapObj, const VecFx32 *vec);
 void MapObject_GetSpriteTerrainOffset(const MapObject *mapObj, VecFx32 *vec);
 void MapObject_SetSpriteTerrainOffset(MapObject *mapObj, const VecFx32 *spriteOffset);
-int sub_020630DC(const MapObject *mapObj);
+int MapObject_GetHeightLevel(const MapObject *mapObj);
 void ObjectEvent_SetLocalID(ObjectEvent *objectEvent, int localID);
 int ObjectEvent_GetLocalID(const ObjectEvent *objectEvent);
 void ObjectEvent_SetGraphicsID(ObjectEvent *objectEvent, int graphicsID);
