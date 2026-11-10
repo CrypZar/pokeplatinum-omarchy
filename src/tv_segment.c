@@ -16,7 +16,7 @@
 #include "struct_defs/image_clips.h"
 #include "struct_defs/special_encounter.h"
 #include "struct_defs/struct_0202E7E4.h"
-#include "struct_defs/struct_0202E7F0.h"
+#include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
@@ -266,7 +266,7 @@ typedef struct TVSegment_StreetCornerPersonalityCheckup {
 } TVSegment_StreetCornerPersonalityCheckup;
 
 typedef struct TVSegment_ThreeCheersForPoffinCorner {
-    UnkStruct_0202E7F0 unk_00;
+    TVPoffinCornerData unk_00;
     u16 customMessageWord;
 } TVSegment_ThreeCheersForPoffinCorner;
 
@@ -575,9 +575,9 @@ void sub_0206CFB4(TVBroadcast *broadcast, int param1)
     SaveData_SetChecksum(SAVE_TABLE_ENTRY_TV_BROADCAST);
 }
 
-void sub_0206CFCC(TVBroadcast *broadcast, int param1)
+void TVBroadcast_SetPoffinCornerData(TVBroadcast *broadcast, int param1)
 {
-    UnkStruct_0202E7F0 *v0 = sub_0202E7F0(broadcast);
+    TVPoffinCornerData *v0 = TVBroadcast_GetPoffinCornerData(broadcast);
 
     v0->unk_00 = 1;
     v0->unk_01 = param1;
@@ -1809,7 +1809,7 @@ void TVSegment_Save_ThreeCheersForPoffinCorner(FieldSystem *fieldSystem, u16 cus
 {
     TVSegmentData segments;
     TVSegment_ThreeCheersForPoffinCorner *threeCheersForPoffinCorner = &segments.threeCheersForPoffinCorner;
-    UnkStruct_0202E7F0 *v2 = sub_0202E7F0(SaveData_GetTVBroadcast(fieldSystem->saveData));
+    TVPoffinCornerData *v2 = TVBroadcast_GetPoffinCornerData(SaveData_GetTVBroadcast(fieldSystem->saveData));
 
     threeCheersForPoffinCorner->unk_00 = *v2;
     threeCheersForPoffinCorner->customMessageWord = customMessageWord;

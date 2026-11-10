@@ -6,7 +6,7 @@
 #include "constants/tv_broadcast.h"
 
 #include "struct_defs/struct_0202E7E4.h"
-#include "struct_defs/struct_0202E7F0.h"
+#include "struct_defs/tv_poffin_corner_data.h"
 #include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
@@ -435,7 +435,7 @@ UnkStruct_0202E7E4 *sub_0202E7E4(TVBroadcast *broadcast)
     return &broadcast->unk_ADE;
 }
 
-UnkStruct_0202E7F0 *sub_0202E7F0(TVBroadcast *broadcast)
+TVPoffinCornerData *TVBroadcast_GetPoffinCornerData(TVBroadcast *broadcast)
 {
     return &broadcast->unk_B02;
 }
