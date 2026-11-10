@@ -63,8 +63,8 @@ static void Overlay059_ConfigureVramBanks(void);
 static void Overlay059_InitializeBackgroundLayers(BgConfig *param0);
 static void Overlay059_InitializeLobbyState(UnkStruct_020961E8 *param0, NARC *param1);
 static void Overlay059_FreeLobbyStateResources(UnkStruct_020961E8 *param0);
-static void ov59_021D1354(BgConfig *param0);
-static void ov59_021D1388(UnkStruct_020961E8 *param0, NARC *param1);
+static void Overlay059_FreeBackgroundLayers(BgConfig *param0);
+static void Overlay059_LoadBackgroundGraphics(UnkStruct_020961E8 *param0, NARC *param1);
 static void ov59_021D1474(void);
 static void ov59_021D14A4(UnkStruct_020961E8 *param0, NARC *param1);
 static void Overlay059_CreateLobbySprites(UnkStruct_020961E8 *param0);
@@ -194,7 +194,7 @@ int Overlay059_Init(ApplicationManager *appMan, int *param1)
         ResetScreenMasterBrightness(DS_SCREEN_SUB);
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_IN, FADE_TYPE_CIRCLE_IN, COLOR_BLACK, 16, 1, HEAP_ID_51);
 
-        ov59_021D1388(v0, v1);
+        Overlay059_LoadBackgroundGraphics(v0, v1);
         SetVBlankCallback(ov59_021D1100, v0);
 
         Overlay059_InitializeLobbyState(v0, v1);
@@ -304,7 +304,7 @@ int Overlay059_Exit(ApplicationManager *appMan, int *unused)
     PlttTransfer_Free();
 
     ov59_021D17C8(v0);
-    ov59_021D1354(v0->unk_00);
+    Overlay059_FreeBackgroundLayers(v0->unk_00);
 
     CommManager_SetMaxNumConnections(2);
     CommManager_UnionRestartSearch();
@@ -531,7 +531,7 @@ static void Overlay059_FreeLobbyStateResources(UnkStruct_020961E8 *param0)
     String_Free(param0->unk_44);
 }
 
-static void ov59_021D1354(BgConfig *param0)
+static void Overlay059_FreeBackgroundLayers(BgConfig *param0)
 {
     Bg_FreeTilemapBuffer(param0, BG_LAYER_SUB_2);
     Bg_FreeTilemapBuffer(param0, BG_LAYER_SUB_1);
@@ -541,7 +541,7 @@ static void ov59_021D1354(BgConfig *param0)
     Heap_Free(param0);
 }
 
-static void ov59_021D1388(UnkStruct_020961E8 *param0, NARC *param1)
+static void Overlay059_LoadBackgroundGraphics(UnkStruct_020961E8 *param0, NARC *param1)
 {
     BgConfig *bgConfig = param0->unk_00;
 
