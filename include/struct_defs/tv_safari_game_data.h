@@ -1,5 +1,5 @@
-#ifndef POKEPLATINUM_STRUCT_0202E808_H
-#define POKEPLATINUM_STRUCT_0202E808_H
+#ifndef POKEPLATINUM_TV_SAFARI_GAME_DATA_H
+#define POKEPLATINUM_TV_SAFARI_GAME_DATA_H
 
 typedef struct {
     u8 dummy;
@@ -9,6 +9,6 @@ typedef struct {
     u8 language;
     u8 metGame;
     u8 numPokemonCaught;
-} UnkStruct_0202E808;
+} TVSafariGameData;
 
 #endif // POKEPLATINUM_STRUCT_0202E808_H
