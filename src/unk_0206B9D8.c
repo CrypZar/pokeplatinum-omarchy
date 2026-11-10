@@ -62,7 +62,7 @@ typedef struct {
 typedef struct {
     u16 unk_00;
     u16 unk_02;
-} UnkStruct_0206BD88;
+} BattleTowerReceivedDataContext;
 
 enum BattleTowerSelectionSubTask {
     SUBTASK_OPEN_PARTY_MENU,
@@ -280,10 +280,10 @@ void WifiBattleTowerTask_Start(FieldTask *taskMan, u16 param1, u16 param2, u16 p
     FieldTask_InitCall(fieldSystem->task, WifiBattleTowerTask_Handle, v1);
 }
 
-static BOOL sub_0206BD1C(FieldTask *param0)
+static BOOL BattleTower_ReceivedDataTask(FieldTask *param0)
 {
     FieldSystem *fieldSystem = FieldTask_GetFieldSystem(param0);
-    UnkStruct_0206BD88 *v3 = FieldTask_GetEnv(param0);
+    BattleTowerReceivedDataContext *v3 = FieldTask_GetEnv(param0);
 
     const void *v1 = sub_0203664C(1 - CommSys_CurNetId());
 
@@ -308,17 +308,17 @@ static BOOL sub_0206BD1C(FieldTask *param0)
     return 1;
 }
 
-void sub_0206BD88(FieldTask *param0, u16 param1, u16 param2)
+void BattleTower_StartReceivedDataTask(FieldTask *param0, u16 param1, u16 param2)
 {
     FieldSystem *fieldSystem = FieldTask_GetFieldSystem(param0);
-    UnkStruct_0206BD88 *v1 = Heap_Alloc(HEAP_ID_FIELD2, sizeof(UnkStruct_0206BD88));
+    BattleTowerReceivedDataContext *v1 = Heap_Alloc(HEAP_ID_FIELD2, sizeof(BattleTowerReceivedDataContext));
 
-    MI_CpuClear8(v1, sizeof(UnkStruct_0206BD88));
+    MI_CpuClear8(v1, sizeof(BattleTowerReceivedDataContext));
 
     v1->unk_00 = param1;
     v1->unk_02 = param2;
 
-    FieldTask_InitCall(fieldSystem->task, sub_0206BD1C, v1);
+    FieldTask_InitCall(fieldSystem->task, BattleTower_ReceivedDataTask, v1);
 }
 
 u16 BattleTower_ClaimPendingTrophyReward(SaveData *saveData)
