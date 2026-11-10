@@ -1065,9 +1065,9 @@ void sub_0203DDDC(FieldTask *taskMan)
 }
 
 const ApplicationManagerTemplate Unk_020EA258 = {
-    ov58_021D0D80,
-    ov58_021D0F08,
-    ov58_021D1018,
+    Overlay058_Init,
+    Overlay058_Main,
+    Overlay058_Exit,
     FS_OVERLAY_ID(overlay58)
 };
 

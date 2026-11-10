@@ -208,7 +208,7 @@ void sub_02095F9C(int param0, int param1, void *param2, void *param3)
 {
     UnkStruct_02095EAC *v0 = (UnkStruct_02095EAC *)param3;
 
-    ov58_021D2434(v0, 3, 0);
+    Overlay058_HandleCommunicationStateEvent(v0, 3, 0);
     MI_CpuClearFast(v0->unk_4434, 30 * 15 * 32);
 
     if (CommSys_CurNetId() == 0) {
@@ -232,7 +232,7 @@ void sub_02095FE4(int param0, int param1, void *param2, void *param3)
 
             switch (v2->unk_02) {
             case 0:
-                if ((v0->unk_37C != CommSys_ConnectedCount()) || (v0->unk_37C != ov58_021D2A4C()) || (v0->unk_37C != MATH_CountPopulation(WirelessManager_GetConnectedBitmap()))) {
+                if ((v0->unk_37C != CommSys_ConnectedCount()) || (v0->unk_37C != Overlay058_CountParticipantsWithTrainerInfo()) || (v0->unk_37C != MATH_CountPopulation(WirelessManager_GetConnectedBitmap()))) {
                     v1.unk_03 = 0;
                 } else {
                     v0->unk_9418 |= 1 << param0;
@@ -251,15 +251,15 @@ void sub_02095FE4(int param0, int param1, void *param2, void *param3)
         case 0:
             if (v2->unk_00 == CommSys_CurNetId()) {
                 if (v2->unk_03 == 0) {
-                    ov58_021D2434(v0, 9, v2->unk_00);
+                    Overlay058_HandleCommunicationStateEvent(v0, 9, v2->unk_00);
                 } else {
                     v0->unk_941C = v2->unk_01;
-                    ov58_021D2434(v0, 8, v2->unk_00);
+                    Overlay058_HandleCommunicationStateEvent(v0, 8, v2->unk_00);
                 }
             }
             break;
         case 1:
-            ov58_021D2434(v0, 21, v2->unk_00);
+            Overlay058_HandleCommunicationStateEvent(v0, 21, v2->unk_00);
             break;
         }
     }
@@ -275,7 +275,7 @@ void sub_020960D8(int param0, int param1, void *param2, void *param3)
     UnkStruct_02095EAC *v0 = (UnkStruct_02095EAC *)param3;
     u8 v1 = *(u8 *)param2;
 
-    ov58_021D2434(v0, 1, v1);
+    Overlay058_HandleCommunicationStateEvent(v0, 1, v1);
 
     if ((CommSys_CurNetId() == 0) && (v0->unk_364 == 1)) {
         v0->unk_4430 = 0;
@@ -298,7 +298,7 @@ void sub_02096114(int param0, int param1, void *param2, void *param3)
     UnkStruct_02095EAC *v0 = (UnkStruct_02095EAC *)param3;
 
     if (CommSys_CurNetId() != 0) {
-        ov58_021D2434(v0, 15, 0);
+        Overlay058_HandleCommunicationStateEvent(v0, 15, 0);
     }
 }
 
