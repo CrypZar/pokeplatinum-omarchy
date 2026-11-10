@@ -5,7 +5,7 @@
 
 #include "struct_defs/struct_0202E7E4.h"
 #include "struct_defs/struct_0202E7F0.h"
-#include "struct_defs/struct_0202E7FC.h"
+#include "struct_defs/tv_battle_tower_corner_outcome.h"
 #include "struct_defs/struct_0202E808.h"
 #include "struct_defs/struct_0202E810.h"
 #include "struct_defs/struct_0202E81C.h"
@@ -55,7 +55,7 @@ typedef struct TVBroadcast {
     TVSegment_ContestHall_ShowcasedPokemon showcasedPokemon;
     UnkStruct_0202E7E4 unk_ADE;
     UnkStruct_0202E7F0 unk_B02;
-    UnkStruct_0202E7FC unk_B04;
+    TVBattleTowerCornerOutcome unk_B04;
     UnkStruct_0202E808 safariGame;
     UnkStruct_0202E810 unk_B10;
     UnkStruct_0202E81C unk_B2E;
