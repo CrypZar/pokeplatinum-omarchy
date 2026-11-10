@@ -116,8 +116,8 @@ static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int par
 static int ov59_021D20F4(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1998(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D19E4(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_WaitAfterParticipantJoin(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ResumeParticipantLobby(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_BeginMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMixedRecordsSaveSync(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMixedRecordsSaveExitDelay(UnkStruct_020961E8 *param0, int param1);
@@ -125,8 +125,8 @@ static int Overlay059_UpdateParticipantConfirmationExitDelay(UnkStruct_020961E8 
 
 static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_InitializeParticipantLobby,
-    ov59_021D1998,
-    ov59_021D19E4,
+    Overlay059_WaitAfterParticipantJoin,
+    Overlay059_ResumeParticipantLobby,
     Overlay059_UpdateParticipantLobby,
     Overlay059_ShowParticipantConnectionPrompt,
     Overlay059_UpdateParticipantConnectionPrompt,
@@ -767,7 +767,7 @@ static void ov59_021D1994(UnkStruct_020961E8 *unused)
 {
 }
 
-static int ov59_021D1998(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_WaitAfterParticipantJoin(UnkStruct_020961E8 *param0, int param1)
 {
     Overlay059_SetMessageWaitState(param0, 2);
     ov59_021D1994(param0);
@@ -792,7 +792,7 @@ static int Overlay059_UpdateMessageWaitState(UnkStruct_020961E8 *param0, int par
     return param1;
 }
 
-static int ov59_021D19E4(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ResumeParticipantLobby(UnkStruct_020961E8 *param0, int param1)
 {
     if (CommSys_CurNetId() == 0) {
         int v0 = 0;
