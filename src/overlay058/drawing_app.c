@@ -61,15 +61,15 @@ typedef struct {
 static void Overlay058_VBlankCallback(void *param0);
 static void Overlay058_ConfigureVramBanks(void);
 static void Overlay058_InitializeBackgroundLayers(BgConfig *param0);
-static void ov58_021D12C4(UnkStruct_02095EAC *param0);
-static void ov58_021D13B4(UnkStruct_02095EAC *param0);
-static void ov58_021D13F0(BgConfig *param0);
-static void ov58_021D142C(UnkStruct_02095EAC *param0, NARC *param1);
-static void ov58_021D1524(void);
-static void ov58_021D1554(UnkStruct_02095EAC *param0, NARC *param1);
-static void ov58_021D16D8(UnkStruct_02095EAC *param0);
-static void ov58_021D18AC(UnkStruct_02095EAC *param0, ApplicationManager *appMan);
-static void ov58_021D19D4(UnkStruct_02095EAC *param0);
+static void Overlay058_InitializeDrawingState(UnkStruct_02095EAC *param0);
+static void Overlay058_FreeDrawingState(UnkStruct_02095EAC *param0);
+static void Overlay058_FreeBackgroundConfig(BgConfig *param0);
+static void Overlay058_LoadGraphics(UnkStruct_02095EAC *param0, NARC *param1);
+static void Overlay058_InitializeSpriteTransfers(void);
+static void Overlay058_LoadSpriteResources(UnkStruct_02095EAC *param0, NARC *param1);
+static void Overlay058_CreateSprites(UnkStruct_02095EAC *param0);
+static void Overlay058_CreateWindows(UnkStruct_02095EAC *param0, ApplicationManager *appMan);
+static void Overlay058_RemoveWindows(UnkStruct_02095EAC *param0);
 static void ov58_021D1A10(Sprite *param0, int param1, int param2);
 static void ov58_021D1A80(UnkStruct_02095EAC *param0);
 static int ov58_021D1CF4(UnkStruct_02095EAC *param0, int param1);
@@ -188,17 +188,17 @@ int Overlay058_Init(ApplicationManager *appMan, int *param1)
 
         v1 = NARC_ctor(NARC_INDEX_GRAPHIC__OEKAKI, HEAP_ID_DRAWING);
 
-        ov58_021D142C(v0, v1);
+        Overlay058_LoadGraphics(v0, v1);
 
         EnableTouchPad();
         InitializeTouchPad(2);
         SetVBlankCallback(Overlay058_VBlankCallback, v0->unk_00);
 
-        ov58_021D12C4(v0);
-        ov58_021D1524();
-        ov58_021D1554(v0, v1);
-        ov58_021D16D8(v0);
-        ov58_021D18AC(v0, appMan);
+        Overlay058_InitializeDrawingState(v0);
+        Overlay058_InitializeSpriteTransfers();
+        Overlay058_LoadSpriteResources(v0, v1);
+        Overlay058_CreateSprites(v0);
+        Overlay058_CreateWindows(v0, appMan);
 
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_SUB_52, SEQ_NONE, 0);
 
@@ -318,8 +318,8 @@ int Overlay058_Exit(ApplicationManager *appMan, int *param1)
         CharTransfer_Free();
         PlttTransfer_Free();
 
-        ov58_021D19D4(v0);
-        ov58_021D13F0(v0->unk_00);
+        Overlay058_RemoveWindows(v0);
+        Overlay058_FreeBackgroundConfig(v0->unk_00);
 
         DisableTouchPad();
         MessageLoader_Free(v0->unk_10);
@@ -349,7 +349,7 @@ int Overlay058_Exit(ApplicationManager *appMan, int *param1)
     case 3:
         CommManager_SetMaxNumConnections(2);
 
-        ov58_021D13B4(v0);
+        Overlay058_FreeDrawingState(v0);
 
         Heap_Free(v0->drawingAppArgs);
         ApplicationManager_FreeData(appMan);
@@ -507,7 +507,7 @@ static void Overlay058_InitializeBackgroundLayers(BgConfig *param0)
     Bg_ClearTilesRange(5, 32, 0, HEAP_ID_DRAWING);
 }
 
-static void ov58_021D12C4(UnkStruct_02095EAC *param0)
+static void Overlay058_InitializeDrawingState(UnkStruct_02095EAC *param0)
 {
     int v0;
 
@@ -546,7 +546,7 @@ static void ov58_021D12C4(UnkStruct_02095EAC *param0)
     param0->unk_378 = 0;
 }
 
-static void ov58_021D13B4(UnkStruct_02095EAC *param0)
+static void Overlay058_FreeDrawingState(UnkStruct_02095EAC *param0)
 {
     int v0;
 
@@ -561,7 +561,7 @@ static void ov58_021D13B4(UnkStruct_02095EAC *param0)
     String_Free(param0->unk_28);
 }
 
-static void ov58_021D13F0(BgConfig *param0)
+static void Overlay058_FreeBackgroundConfig(BgConfig *param0)
 {
     Bg_FreeTilemapBuffer(param0, BG_LAYER_SUB_1);
     Bg_FreeTilemapBuffer(param0, BG_LAYER_SUB_0);
@@ -572,7 +572,7 @@ static void ov58_021D13F0(BgConfig *param0)
     Heap_Free(param0);
 }
 
-static void ov58_021D142C(UnkStruct_02095EAC *param0, NARC *param1)
+static void Overlay058_LoadGraphics(UnkStruct_02095EAC *param0, NARC *param1)
 {
     BgConfig *v0 = param0->unk_00;
 
@@ -588,7 +588,7 @@ static void ov58_021D142C(UnkStruct_02095EAC *param0, NARC *param1)
     LoadStandardWindowGraphics(v0, BG_LAYER_MAIN_0, 1 + (18 + 12), 11, 0, HEAP_ID_DRAWING);
 }
 
-static void ov58_021D1524(void)
+static void Overlay058_InitializeSpriteTransfers(void)
 {
     {
         CharTransferTemplate v0 = {
@@ -603,7 +603,7 @@ static void ov58_021D1524(void)
     PlttTransfer_Clear();
 }
 
-static void ov58_021D1554(UnkStruct_02095EAC *param0, NARC *param1)
+static void Overlay058_LoadSpriteResources(UnkStruct_02095EAC *param0, NARC *param1)
 {
     int v0;
 
@@ -648,7 +648,7 @@ static const u16 sOverlay058DrawingUiSpriteLayout[][3] = {
     { 0x34, 0x9, 0x21 }
 };
 
-static void ov58_021D16D8(UnkStruct_02095EAC *param0)
+static void Overlay058_CreateSprites(UnkStruct_02095EAC *param0)
 {
     int v0;
 
@@ -715,7 +715,7 @@ static void ov58_021D16D8(UnkStruct_02095EAC *param0)
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
 }
 
-static void ov58_021D18AC(UnkStruct_02095EAC *param0, ApplicationManager *appMan)
+static void Overlay058_CreateWindows(UnkStruct_02095EAC *param0, ApplicationManager *appMan)
 {
     Window_Add(param0->unk_00, &param0->unk_33C, 0, 2, 1, 27, 4, 13, 1 + (18 + 12) + 9);
     Window_FillTilemap(&param0->unk_33C, 0xf0f);
@@ -741,7 +741,7 @@ static void ov58_021D18AC(UnkStruct_02095EAC *param0, ApplicationManager *appMan
     }
 }
 
-static void ov58_021D19D4(UnkStruct_02095EAC *param0)
+static void Overlay058_RemoveWindows(UnkStruct_02095EAC *param0)
 {
     int v0;
 
