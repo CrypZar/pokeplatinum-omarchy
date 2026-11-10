@@ -22,8 +22,8 @@ UnkStruct_0207C8C4 *EvolutionParticleSystem_New(UnkStruct_0207C894 *param0);
 void EvolutionParticleSystem_CreateEmitter(UnkStruct_0207C8C4 *param0, int param1);
 BOOL EvolutionParticleSystem_HasActiveEmitters(UnkStruct_0207C8C4 *param0);
 void EvolutionParticleSystem_Free(UnkStruct_0207C8C4 *param0);
-static u32 sub_0207C794(u32 param0, BOOL param1);
-static u32 sub_0207C7B0(u32 param0, BOOL param1);
+static u32 EvolutionParticleSystem_AllocateTextureVRAM(u32 param0, BOOL param1);
+static u32 EvolutionParticleSystem_AllocatePaletteVRAM(u32 param0, BOOL param1);
 static ParticleSystem *sub_0207C7CC(enum HeapID heapID);
 static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2);
 static void EvolutionParticleSystem_FreeResources(ParticleSystem *param0);
@@ -100,7 +100,7 @@ void EvolutionParticleSystem_DrawAndUpdate(void)
     G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_Z);
 }
 
-static u32 sub_0207C794(u32 param0, BOOL param1)
+static u32 EvolutionParticleSystem_AllocateTextureVRAM(u32 param0, BOOL param1)
 {
     NNSGfdTexKey v0;
     u32 v1;
@@ -112,7 +112,7 @@ static u32 sub_0207C794(u32 param0, BOOL param1)
     return v1;
 }
 
-static u32 sub_0207C7B0(u32 param0, BOOL param1)
+static u32 EvolutionParticleSystem_AllocatePaletteVRAM(u32 param0, BOOL param1)
 {
     NNSGfdPlttKey v0;
     u32 v1;
@@ -131,7 +131,7 @@ static ParticleSystem *sub_0207C7CC(enum HeapID heapID)
     Camera *camera;
 
     v1 = Heap_Alloc(heapID, 0x4800);
-    v0 = ParticleSystem_New(sub_0207C794, sub_0207C7B0, v1, 0x4800, 1, heapID);
+    v0 = ParticleSystem_New(EvolutionParticleSystem_AllocateTextureVRAM, EvolutionParticleSystem_AllocatePaletteVRAM, v1, 0x4800, 1, heapID);
     camera = ParticleSystem_GetCamera(v0);
 
     if (camera != NULL) {
