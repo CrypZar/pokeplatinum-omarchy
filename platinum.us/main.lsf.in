@@ -1097,7 +1097,7 @@ Overlay game_start
 Overlay overlay58
 {
 	After main
-	Object src/overlay058/ov58_021D0D80.c
+	Object src/overlay058/drawing_app.c
 }
 
 Overlay overlay59

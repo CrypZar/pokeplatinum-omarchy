@@ -1,4 +1,4 @@
-#include "overlay058/ov58_021D0D80.h"
+#include "overlay058/drawing_app.h"
 
 #include <nitro.h>
 #include <string.h>
