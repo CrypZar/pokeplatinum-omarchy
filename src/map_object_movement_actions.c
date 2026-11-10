@@ -141,7 +141,7 @@ void LocalMapObj_SetAnimationCode(MapObject *mapObj, enum MovementAction movemen
     MapObject_SetStatusFlagOff(mapObj, MAP_OBJ_STATUS_5);
 }
 
-void sub_02065668(MapObject *mapObj, enum MovementAction movementAction)
+void LocalMapObj_SetMovementActionAndResetStep(MapObject *mapObj, enum MovementAction movementAction)
 {
     MapObject_SetMovementAction(mapObj, movementAction);
     MapObject_SetMovementStep(mapObj, 0);
@@ -161,7 +161,7 @@ BOOL LocalMapObj_CheckAnimationFinished(const MapObject *mapObj)
     return TRUE;
 }
 
-BOOL sub_020656AC(MapObject *mapObj)
+BOOL LocalMapObj_CheckAnimationFinishedAndClear(MapObject *mapObj)
 {
     if (!MapObject_CheckStatusFlag(mapObj, MAP_OBJ_STATUS_4)) {
         return TRUE;
@@ -176,7 +176,7 @@ BOOL sub_020656AC(MapObject *mapObj)
     return TRUE;
 }
 
-void sub_020656DC(MapObject *mapObj)
+void LocalMapObj_StopAnimation(MapObject *mapObj)
 {
     MapObject_SetStatusFlagOff(mapObj, MAP_OBJ_STATUS_4);
     MapObject_SetStatusFlagOn(mapObj, MAP_OBJ_STATUS_5);
@@ -212,7 +212,7 @@ void MapObject_FinishAnimation(SysTask *task)
 
     GF_ASSERT(LocalMapObj_CheckAnimationFinished(data->mapObj) == TRUE);
 
-    sub_020656AC(data->mapObj);
+    LocalMapObj_CheckAnimationFinishedAndClear(data->mapObj);
     Heap_FreeExplicit(HEAP_ID_FIELD1, data);
     SysTask_Done(task);
 }
@@ -373,7 +373,7 @@ void MapObject_DoMovementAction(MapObject *mapObj)
     } while (MapObject_DoMovementActionStep(mapObj, movementAction, movementStep));
 }
 
-BOOL sub_020658DC(MapObject *mapObj)
+BOOL LocalMapObj_UpdateMovementAction(MapObject *mapObj)
 {
     MapObject_DoMovementAction(mapObj);
 

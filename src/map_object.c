@@ -547,7 +547,7 @@ static void sub_02061FA8(const MapObjectManager *mapObjMan, MapObject *mapObj)
     sub_02062010(mapObj);
     MapObject_SetMapObjectManager(mapObj, mapObjMan);
     sub_0206239C(mapObj);
-    sub_020656DC(mapObj);
+    LocalMapObj_StopAnimation(mapObj);
     sub_02062670(mapObj);
     MapObjectMan_AddMoveTask(mapObjMan, mapObj);
     sub_02062B34(mapObj);
@@ -734,7 +734,7 @@ static void sub_0206234C(MapObject *mapObj, const MapObjectManager *mapObjMan)
     MapObject_SetMapObjectManager(mapObj, mapObjMan);
     MapObject_Face(mapObj, MapObject_GetInitialDir(mapObj));
     MapObject_Turn(mapObj, MapObject_GetInitialDir(mapObj));
-    sub_020656DC(mapObj);
+    LocalMapObj_StopAnimation(mapObj);
 }
 
 static void sub_0206239C(MapObject *mapObj)
@@ -2439,7 +2439,7 @@ void MapObject_SetPosDirFromVec(MapObject *mapObj, const VecFx32 *pos, int dir)
 
     MapObject_Face(mapObj, dir);
 
-    sub_020656DC(mapObj);
+    LocalMapObj_StopAnimation(mapObj);
     MapObject_SetStatusFlagOn(mapObj, MAP_OBJ_STATUS_START_MOVEMENT);
     MapObject_SetStatusFlagOff(mapObj, MAP_OBJ_STATUS_1 | MAP_OBJ_STATUS_END_MOVEMENT);
 }
@@ -2465,7 +2465,7 @@ void MapObject_SetPosDirFromCoords(MapObject *mapObj, int x, int y, int z, int d
     MapObject_SetStatusFlagOn(mapObj, MAP_OBJ_STATUS_START_MOVEMENT);
     MapObject_SetStatusFlagOff(mapObj, MAP_OBJ_STATUS_1 | MAP_OBJ_STATUS_END_MOVEMENT);
 
-    sub_020656DC(mapObj);
+    LocalMapObj_StopAnimation(mapObj);
 }
 
 void MapObject_SwitchMovementType(MapObject *mapObj, u32 movementType)
