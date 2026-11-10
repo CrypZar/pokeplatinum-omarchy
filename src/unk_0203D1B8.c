@@ -18,7 +18,7 @@
 #include "struct_defs/image_clips.h"
 #include "struct_defs/struct_0203DA00.h"
 #include "struct_defs/struct_0203DDFC.h"
-#include "struct_defs/struct_0203DE34.h"
+#include "struct_defs/overlay059_app_args.h"
 #include "struct_defs/struct_0203E348.h"
 #include "struct_defs/struct_0203E6C0.h"
 #include "struct_defs/struct_0206BC70.h"
@@ -1071,7 +1071,7 @@ const ApplicationManagerTemplate Unk_020EA258 = {
     FS_OVERLAY_ID(overlay58)
 };
 
-const ApplicationManagerTemplate Unk_020EA248 = {
+const ApplicationManagerTemplate gOverlay059AppTemplate = {
     Overlay059_Init,
     Overlay059_Main,
     Overlay059_Exit,
@@ -1089,9 +1089,9 @@ void sub_0203DDFC(FieldSystem *fieldSystem)
     FieldSystem_StartChildProcess(fieldSystem, &Unk_020EA258, v0);
 }
 
-void *sub_0203DE34(FieldSystem *fieldSystem)
+void *FieldSystem_OpenMixedRecordsLobby(FieldSystem *fieldSystem)
 {
-    UnkStruct_0203DE34 *v0 = Heap_Alloc(HEAP_ID_FIELD2, sizeof(UnkStruct_0203DE34));
+    Overlay059AppArgs *v0 = Heap_Alloc(HEAP_ID_FIELD2, sizeof(Overlay059AppArgs));
 
     v0->saveData = fieldSystem->saveData;
     v0->unk_04 = fieldSystem->unk_80;
@@ -1099,7 +1099,7 @@ void *sub_0203DE34(FieldSystem *fieldSystem)
     v0->records = SaveData_GetGameRecords(fieldSystem->saveData);
     v0->journalEntry = fieldSystem->journalEntry;
 
-    FieldSystem_StartChildProcess(fieldSystem, &Unk_020EA248, v0);
+    FieldSystem_StartChildProcess(fieldSystem, &gOverlay059AppTemplate, v0);
 
     return v0;
 }

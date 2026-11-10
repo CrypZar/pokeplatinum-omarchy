@@ -74,7 +74,7 @@ BOOL sub_0203DB24(FieldSystem *fieldSystem, void *param1);
 BOOL sub_0203DBF0(FieldTask *param0);
 void sub_0203DDDC(FieldTask *param0);
 void sub_0203DDFC(FieldSystem *fieldSystem);
-void *sub_0203DE34(FieldSystem *fieldSystem);
+void *FieldSystem_OpenMixedRecordsLobby(FieldSystem *fieldSystem);
 void sub_0203DE78(FieldSystem *fieldSystem, SaveData *saveData);
 void sub_0203DE88(FieldSystem *fieldSystem, SaveData *saveData);
 void sub_0203DFE8(
