@@ -60,7 +60,7 @@
 #include "system_flags.h"
 #include "trainer_info.h"
 #include "unk_020298BC.h"
-#include "unk_0202E2CC.h"
+#include "tv_broadcast.h"
 #include "unk_02054884.h"
 #include "unk_0205DFC4.h"
 #include "unk_02094EDC.h"
