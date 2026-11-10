@@ -11,7 +11,7 @@ void FieldSystem_GetMapObjectAtFacingPosition(FieldSystem *fieldSystem, MapObjec
 u8 FieldSystem_TryGetFacingInteractableMapObject(FieldSystem *fieldSystem, MapObject **param1);
 u16 FieldEvent_GetInteractedBgEventScript(FieldSystem *fieldSystem, const BgEvent *bgEvents, int numBgEvents);
 u16 FieldEvent_GetInteractedWallSignScript(FieldSystem *fieldSystem, const BgEvent *bgEvents, int numBgEvents);
-u8 sub_0203CBE0(FieldSystem *fieldSystem, MapObject **param1);
+u8 FieldSystem_TryGetFacingSignInteractionObject(FieldSystem *fieldSystem, MapObject **param1);
 u16 FieldEvent_GetTriggeredCoordEventScript(FieldSystem *fieldSystem, void *param1, int param2);
 
 #endif // POKEPLATINUM_FIELD_EVENT_LOOKUP_H

@@ -189,7 +189,7 @@ u16 FieldEvent_GetInteractedWallSignScript(FieldSystem *fieldSystem, const BgEve
     return 0xffff;
 }
 
-u8 sub_0203CBE0(FieldSystem *fieldSystem, MapObject **param1)
+u8 FieldSystem_TryGetFacingSignInteractionObject(FieldSystem *fieldSystem, MapObject **param1)
 {
     if (PlayerAvatar_GetFacingDir(fieldSystem->playerAvatar) != DIR_NORTH) {
         return 0;
