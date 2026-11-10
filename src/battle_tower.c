@@ -37,7 +37,7 @@
 #include "system_vars.h"
 #include "trainer_info.h"
 #include "tv_segment.h"
-#include "unk_0206B9D8.h"
+#include "battle_tower_support.h"
 #include "vars_flags.h"
 
 typedef struct {
