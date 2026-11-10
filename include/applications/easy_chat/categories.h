@@ -26,21 +26,21 @@ typedef struct {
 EasyChatCategoriesContext *EasyChatCategoriesContext_New(UnkStruct_ov20_021D2128 *param0, const EasyChatApp *easyChatApp, const EasyChatWordList *param2);
 void EasyChatCategoriesContext_Free(EasyChatCategoriesContext *ctx);
 void EasyChatCategories_DrawInterface(EasyChatCategoriesContext *ctx, NARC *narc);
-void ov20_021D3E48(EasyChatCategoriesContext *ctx, BOOL param1);
+void EasyChatCategories_SetCursorVisible(EasyChatCategoriesContext *ctx, BOOL param1);
 void EasyChatCategories_DrawCursor(EasyChatCategoriesContext *ctx, u32 selectedIndex);
-void ov20_021D3EF8(EasyChatCategoriesContext *ctx);
-BOOL ov20_021D3F10(EasyChatCategoriesContext *ctx);
-void ov20_021D3F60(EasyChatCategoriesContext *ctx);
-BOOL ov20_021D3F84(EasyChatCategoriesContext *ctx);
-void ov20_021D3FD0(EasyChatCategoriesContext *ctx);
-void ov20_021D3FE0(EasyChatCategoriesContext *ctx);
-BOOL ov20_021D3FF8(EasyChatCategoriesContext *ctx);
-void ov20_021D4004(EasyChatCategoriesContext *ctx);
-BOOL ov20_021D4020(EasyChatCategoriesContext *ctx);
-void ov20_021D403C(EasyChatCategoriesContext *ctx);
-BOOL ov20_021D4078(EasyChatCategoriesContext *ctx);
-void ov20_021D4084(EasyChatCategoriesContext *ctx);
-void ov20_021D40A8(EasyChatCategoriesContext *ctx);
-BOOL ov20_021D40DC(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_BeginShowAnimation(EasyChatCategoriesContext *ctx);
+BOOL EasyChatCategories_IsShowAnimationComplete(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_BeginHideAnimation(EasyChatCategoriesContext *ctx);
+BOOL EasyChatCategories_IsHideAnimationComplete(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_ResetVerticalOffset(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_BeginFadeToBlack(EasyChatCategoriesContext *ctx);
+BOOL EasyChatCategories_IsFadeToBlackComplete(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_BeginAlphaFadeOut(EasyChatCategoriesContext *ctx);
+BOOL EasyChatCategories_FinishAlphaFadeOutAndHideLayer(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_BeginAlphaFadeIn(EasyChatCategoriesContext *ctx);
+BOOL EasyChatCategories_IsAlphaFadeInComplete(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_SetModeOffset(EasyChatCategoriesContext *ctx);
+void EasyChatCategories_BeginModeSlide(EasyChatCategoriesContext *ctx);
+BOOL EasyChatCategories_IsModeSlideComplete(EasyChatCategoriesContext *ctx);
 
 #endif // POKEPLATINUM_APPLICATIONS_EASY_CHAT_CATEGORIES_H

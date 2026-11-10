@@ -41,7 +41,7 @@
 static u32 EasyChatCategories_PrintGroups(EasyChatCategoriesContext *ctx, BgConfig *bgConfig, u32 baseTile);
 static u32 EasyChatCategories_PrintABCModeSelection(EasyChatCategoriesContext *ctx, BgConfig *bgConfig, u32 baseTile);
 static u32 EasyChatCategories_PrintCancelText(EasyChatCategoriesContext *ctx, BgConfig *bgConfig, u32 baseTile);
-static void ov20_021D3E0C(EasyChatCategoriesContext *ctx);
+static void EasyChatCategories_CreateCursorSprite(EasyChatCategoriesContext *ctx);
 
 EasyChatCategoriesContext *EasyChatCategoriesContext_New(UnkStruct_ov20_021D2128 *param0, const EasyChatApp *easyChatApp, const EasyChatWordList *param2)
 {
@@ -81,7 +81,7 @@ void EasyChatCategories_DrawInterface(EasyChatCategoriesContext *ctx, NARC *narc
     EasyChatCategories_PrintCancelText(ctx, bgConfig, baseTile);
     Bg_SetOffset(bgConfig, BG_LAYER_MAIN_1, BG_OFFSET_UPDATE_SET_X, GROUP_MODE_BG_X_OFFSET);
     Bg_SetOffset(bgConfig, BG_LAYER_MAIN_1, BG_OFFSET_UPDATE_SET_Y, 2);
-    ov20_021D3E0C(ctx);
+    EasyChatCategories_CreateCursorSprite(ctx);
 
     G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG1, -10);
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_ALL, TRUE);
@@ -215,7 +215,7 @@ static u32 EasyChatCategories_PrintCancelText(EasyChatCategoriesContext *ctx, Bg
     return baseTile;
 }
 
-static void ov20_021D3E0C(EasyChatCategoriesContext *ctx)
+static void EasyChatCategories_CreateCursorSprite(EasyChatCategoriesContext *ctx)
 {
     SpriteResourcesHeader v0;
 
@@ -225,7 +225,7 @@ static void ov20_021D3E0C(EasyChatCategoriesContext *ctx)
     Sprite_SetDrawFlag(ctx->cursorSprite, FALSE);
 }
 
-void ov20_021D3E48(EasyChatCategoriesContext *ctx, BOOL param1)
+void EasyChatCategories_SetCursorVisible(EasyChatCategoriesContext *ctx, BOOL param1)
 {
     Sprite_SetDrawFlag(ctx->cursorSprite, param1);
 
@@ -273,13 +273,13 @@ void EasyChatCategories_DrawCursor(EasyChatCategoriesContext *ctx, u32 selectedI
     Sprite_SetAnim(ctx->cursorSprite, animID);
 }
 
-void ov20_021D3EF8(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_BeginShowAnimation(EasyChatCategoriesContext *ctx)
 {
     ctx->unk_14 = 0;
     ov20_021D4FB0(&(ctx->unk_1C), GX_BLEND_PLANEMASK_BG1, -10, 0, 16);
 }
 
-BOOL ov20_021D3F10(EasyChatCategoriesContext *ctx)
+BOOL EasyChatCategories_IsShowAnimationComplete(EasyChatCategoriesContext *ctx)
 {
     switch (ctx->unk_14) {
     case 0:
@@ -295,13 +295,13 @@ BOOL ov20_021D3F10(EasyChatCategoriesContext *ctx)
     return 0;
 }
 
-void ov20_021D3F60(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_BeginHideAnimation(EasyChatCategoriesContext *ctx)
 {
     ctx->unk_14 = 0;
     ov20_021D4E38(&(ctx->unk_3C), ctx->bgConfig, 1, 1, -24, 6);
 }
 
-BOOL ov20_021D3F84(EasyChatCategoriesContext *ctx)
+BOOL EasyChatCategories_IsHideAnimationComplete(EasyChatCategoriesContext *ctx)
 {
     switch (ctx->unk_14) {
     case 0:
@@ -317,27 +317,27 @@ BOOL ov20_021D3F84(EasyChatCategoriesContext *ctx)
     return 0;
 }
 
-void ov20_021D3FD0(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_ResetVerticalOffset(EasyChatCategoriesContext *ctx)
 {
     Bg_SetOffset(ctx->bgConfig, BG_LAYER_MAIN_1, BG_OFFSET_UPDATE_SET_Y, 2);
 }
 
-void ov20_021D3FE0(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_BeginFadeToBlack(EasyChatCategoriesContext *ctx)
 {
     ov20_021D4FB0(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
 }
 
-BOOL ov20_021D3FF8(EasyChatCategoriesContext *ctx)
+BOOL EasyChatCategories_IsFadeToBlackComplete(EasyChatCategoriesContext *ctx)
 {
     return ov20_021D4FF0(&ctx->unk_1C);
 }
 
-void ov20_021D4004(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_BeginAlphaFadeOut(EasyChatCategoriesContext *ctx)
 {
     ov20_021D4F1C(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 124, 0, (6 * 2));
 }
 
-BOOL ov20_021D4020(EasyChatCategoriesContext *ctx)
+BOOL EasyChatCategories_FinishAlphaFadeOutAndHideLayer(EasyChatCategoriesContext *ctx)
 {
     if (ov20_021D4F4C(&ctx->unk_1C)) {
         Bg_ToggleLayer(BG_LAYER_MAIN_1, FALSE);
@@ -347,19 +347,19 @@ BOOL ov20_021D4020(EasyChatCategoriesContext *ctx)
     return FALSE;
 }
 
-void ov20_021D403C(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_BeginAlphaFadeIn(EasyChatCategoriesContext *ctx)
 {
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 16);
     Bg_ToggleLayer(BG_LAYER_MAIN_1, TRUE);
     ov20_021D4F1C(&ctx->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 124, (6 * 2));
 }
 
-BOOL ov20_021D4078(EasyChatCategoriesContext *ctx)
+BOOL EasyChatCategories_IsAlphaFadeInComplete(EasyChatCategoriesContext *ctx)
 {
     return ov20_021D4F4C(&ctx->unk_1C);
 }
 
-void ov20_021D4084(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_SetModeOffset(EasyChatCategoriesContext *ctx)
 {
     int val;
 
@@ -372,7 +372,7 @@ void ov20_021D4084(EasyChatCategoriesContext *ctx)
     Bg_SetOffset(ctx->bgConfig, BG_LAYER_MAIN_1, BG_OFFSET_UPDATE_SET_X, val);
 }
 
-void ov20_021D40A8(EasyChatCategoriesContext *ctx)
+void EasyChatCategories_BeginModeSlide(EasyChatCategoriesContext *ctx)
 {
     int v0;
 
@@ -385,7 +385,7 @@ void ov20_021D40A8(EasyChatCategoriesContext *ctx)
     ov20_021D4E38(&ctx->unk_3C, ctx->bgConfig, 1, 0, v0, 16);
 }
 
-BOOL ov20_021D40DC(EasyChatCategoriesContext *ctx)
+BOOL EasyChatCategories_IsModeSlideComplete(EasyChatCategoriesContext *ctx)
 {
     return ov20_021D4E8C(&ctx->unk_3C);
 }
