@@ -54,9 +54,9 @@
 #include "yes_no_touch_menu.h"
 
 typedef struct {
-    int (*unk_00)(UnkStruct_02095EAC *, int);
+    int (*handler)(UnkStruct_02095EAC *, int);
     int unk_04;
-} UnkStruct_ov58_021D3180;
+} Overlay058StateHandlerEntry;
 
 static void ov58_021D115C(void *param0);
 static void ov58_021D1184(void);
@@ -121,7 +121,7 @@ static void ov58_021D2D10(UnkStruct_02095EAC *param0);
 static int ov58_021D2D30(UnkStruct_02095EAC *param0);
 static void ov58_021D2D4C(UnkStruct_ov58_021D2820 *param0, TouchPadDataBuffer *param1, int param2, int param3);
 
-static UnkStruct_ov58_021D3180 Unk_ov58_021D3180[] = {
+static Overlay058StateHandlerEntry sOverlay058StateHandlers[] = {
     { NULL, 0x1 },
     { ov58_021D1D64, 0x0 },
     { ov58_021D1DBC, 0x0 },
@@ -258,8 +258,8 @@ int ov58_021D0F08(ApplicationManager *appMan, int *param1)
         }
         break;
     case 1:
-        if (Unk_ov58_021D3180[v0->unk_368].unk_00 != NULL) {
-            *param1 = Unk_ov58_021D3180[v0->unk_368].unk_00(v0, *param1);
+        if (sOverlay058StateHandlers[v0->unk_368].handler != NULL) {
+            *param1 = sOverlay058StateHandlers[v0->unk_368].handler(v0, *param1);
         }
 
         ov58_021D28E4(v0->unk_2DC, 0, TEXT_COLOR(14, 13, 15), v0);
@@ -275,8 +275,8 @@ int ov58_021D0F08(ApplicationManager *appMan, int *param1)
         ov58_021D2888(&v0->unk_43D8);
         break;
     case 2:
-        if ((Unk_ov58_021D3180[v0->unk_368].unk_00 != NULL) && Unk_ov58_021D3180[v0->unk_368].unk_04) {
-            *param1 = Unk_ov58_021D3180[v0->unk_368].unk_00(v0, *param1);
+        if ((sOverlay058StateHandlers[v0->unk_368].handler != NULL) && sOverlay058StateHandlers[v0->unk_368].unk_04) {
+            *param1 = sOverlay058StateHandlers[v0->unk_368].handler(v0, *param1);
         }
         break;
     case 3:
@@ -1829,7 +1829,7 @@ static void ov58_021D2CB8(UnkStruct_02095EAC *param0, int param1)
         if (param1 != 2) {
             param0->unk_368 = param0->unk_36C;
         } else {
-            if (Unk_ov58_021D3180[param0->unk_36C].unk_04) {
+            if (sOverlay058StateHandlers[param0->unk_36C].unk_04) {
                 param0->unk_368 = param0->unk_36C;
             }
         }
