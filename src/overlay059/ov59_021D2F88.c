@@ -31,17 +31,17 @@ typedef struct {
     int unk_0C;
     const void **unk_10;
     const void **unk_14;
-} UnkStruct_ov59_021D2FBC;
+} Overlay059MixedRecordsApplyContext;
 
-typedef u32 (*UnkFuncPtr_ov59_021D33FC)(SaveData *);
-typedef void *(*UnkFuncPtr_ov59_021D33FC_1)(SaveData *, enum HeapID heapID, u32);
-typedef void (*UnkFuncPtr_ov59_021D33FC_2)(const UnkStruct_ov59_021D2FBC *);
+typedef u32 (*Overlay059MixedRecordsPayloadSizeFunc)(SaveData *);
+typedef void *(*Overlay059MixedRecordsBuildPayloadFunc)(SaveData *, enum HeapID heapID, u32);
+typedef void (*Overlay059MixedRecordsApplyPayloadFunc)(const Overlay059MixedRecordsApplyContext *);
 
 typedef struct {
-    UnkFuncPtr_ov59_021D33FC unk_00;
-    UnkFuncPtr_ov59_021D33FC_1 unk_04;
-    UnkFuncPtr_ov59_021D33FC_2 unk_08;
-} UnkStruct_ov59_021D33FC;
+    Overlay059MixedRecordsPayloadSizeFunc unk_00;
+    Overlay059MixedRecordsBuildPayloadFunc unk_04;
+    Overlay059MixedRecordsApplyPayloadFunc unk_08;
+} Overlay059MixedRecordsDataAdapter;
 
 static u32 ov59_021D2F88(SaveData *saveData)
 {
@@ -59,7 +59,7 @@ static void *ov59_021D2F94(SaveData *saveData, enum HeapID heapID, u32 param2)
     return v1;
 }
 
-static void ov59_021D2FBC(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D2FBC(const Overlay059MixedRecordsApplyContext *param0)
 {
     RecordMixedRNG *v0 = SaveData_GetRecordMixedRNG(param0->saveData);
     RecordMixedRNG_MergeReceivedQueueEntries(param0->unk_08, param0->unk_0C, v0, param0->unk_10);
@@ -83,25 +83,25 @@ static void *ov59_021D2FE0(SaveData *saveData, enum HeapID heapID, u32 param2)
     return v2;
 }
 
-static void ov59_021D300C(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D300C(const Overlay059MixedRecordsApplyContext *param0)
 {
     ImageClips *imageClips = SaveData_GetImageClips(param0->saveData);
     sub_0202A6A8(param0->unk_08, param0->unk_0C, imageClips, param0->unk_10);
 }
 
-static void ov59_021D3028(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D3028(const Overlay059MixedRecordsApplyContext *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
     TVBroadcast_MergeTrainerSightingsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
-static void ov59_021D3048(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D3048(const Overlay059MixedRecordsApplyContext *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
     TVBroadcast_MergeRecordsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
 }
 
-static void ov59_021D3068(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D3068(const Overlay059MixedRecordsApplyContext *param0)
 {
     TVBroadcast *broadcast = SaveData_GetTVBroadcast(param0->saveData);
     TVBroadcast_MergeInterviewsWifiEpisodes(broadcast, param0->unk_08, param0->unk_0C, param0->unk_10, param0->unk_14);
@@ -112,7 +112,7 @@ static void *ov59_021D3088(SaveData *saveData, enum HeapID heapID, u32 param2)
     return SaveData_GetRankingEntries(saveData, heapID);
 }
 
-static void ov59_021D3090(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D3090(const Overlay059MixedRecordsApplyContext *param0)
 {
     Rankings *v0 = SaveData_GetRankings(param0->saveData);
 
@@ -128,22 +128,22 @@ static void *ov59_021D30B4(SaveData *saveData, enum HeapID heapID, u32 param2)
     return profile;
 }
 
-static void ov59_021D30DC(const UnkStruct_ov59_021D2FBC *param0)
+static void ov59_021D30DC(const Overlay059MixedRecordsApplyContext *param0)
 {
     return;
 }
 
-static const UnkStruct_ov59_021D33FC Unk_ov59_021D33FC[] = {
+static const Overlay059MixedRecordsDataAdapter Overlay059MixedRecordsDataAdapters[] = {
     { ov59_021D2F88, ov59_021D2F94, ov59_021D2FBC },
     { ov59_021D2FD4, ov59_021D2FE0, ov59_021D300C },
-    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetTrainerSightingsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateFilteredTrainerSightingsBatch, NULL },
-    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetRecordsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateFilteredRecordsBatch, NULL },
-    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetInterviewsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateFilteredInterviewsBatch, NULL },
-    { (UnkFuncPtr_ov59_021D33FC)RankingsEntries_Size, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D3088, ov59_021D3090 },
-    { (UnkFuncPtr_ov59_021D33FC)WifiPlayerProfile_Size, (UnkFuncPtr_ov59_021D33FC_1)ov59_021D30B4, ov59_021D30DC },
-    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetTrainerSightingsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateTrainerSightingsBatch, ov59_021D3028 },
-    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetRecordsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateRecordsBatch, ov59_021D3048 },
-    { (UnkFuncPtr_ov59_021D33FC)TVWifiEpisode_GetInterviewsBatchSize, (UnkFuncPtr_ov59_021D33FC_1)TVWifiEpisode_CreateInterviewsBatch, ov59_021D3068 }
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredTrainerSightingsBatch, NULL },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredRecordsBatch, NULL },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetInterviewsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateFilteredInterviewsBatch, NULL },
+    { (Overlay059MixedRecordsPayloadSizeFunc)RankingsEntries_Size, (Overlay059MixedRecordsBuildPayloadFunc)ov59_021D3088, ov59_021D3090 },
+    { (Overlay059MixedRecordsPayloadSizeFunc)WifiPlayerProfile_Size, (Overlay059MixedRecordsBuildPayloadFunc)ov59_021D30B4, ov59_021D30DC },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetTrainerSightingsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateTrainerSightingsBatch, ov59_021D3028 },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetRecordsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateRecordsBatch, ov59_021D3048 },
+    { (Overlay059MixedRecordsPayloadSizeFunc)TVWifiEpisode_GetInterviewsBatchSize, (Overlay059MixedRecordsBuildPayloadFunc)TVWifiEpisode_CreateInterviewsBatch, ov59_021D3068 }
 };
 
 void ov59_021D30E0(SaveData *saveData, UnkStruct_ov59_021D30E0 *param1)
@@ -153,9 +153,9 @@ void ov59_021D30E0(SaveData *saveData, UnkStruct_ov59_021D30E0 *param1)
     int v2, v3;
     u32 v4 = 3000;
     u8 *v5 = param1->unk_00;
-    const UnkStruct_ov59_021D33FC *v6 = Unk_ov59_021D33FC;
+    const Overlay059MixedRecordsDataAdapter *v6 = Overlay059MixedRecordsDataAdapters;
 
-    v3 = NELEMS(Unk_ov59_021D33FC);
+    v3 = NELEMS(Overlay059MixedRecordsDataAdapters);
 
     for (v2 = 0; v2 < v3; v2++) {
         v0 = v6[v2].unk_00(saveData);
@@ -173,7 +173,7 @@ void ov59_021D30E0(SaveData *saveData, UnkStruct_ov59_021D30E0 *param1)
 
 void ov59_021D313C(SaveData *saveData, const UnkStruct_ov59_021D30E0 *param1)
 {
-    UnkStruct_ov59_021D2FBC v0;
+    Overlay059MixedRecordsApplyContext v0;
     u32 v1;
     u32 v2 = 0;
     u32 v3 = 3000;
@@ -194,19 +194,19 @@ void ov59_021D313C(SaveData *saveData, const UnkStruct_ov59_021D30E0 *param1)
     v9[4 - 2] = 0;
 
     for (i = 0; i < 2; i++) {
-        v9[2 - 2] += Unk_ov59_021D33FC[i].unk_00(saveData);
+        v9[2 - 2] += Overlay059MixedRecordsDataAdapters[i].unk_00(saveData);
     }
 
     for (i = 0; i < 3; i++) {
-        v9[3 - 2] += Unk_ov59_021D33FC[i].unk_00(saveData);
+        v9[3 - 2] += Overlay059MixedRecordsDataAdapters[i].unk_00(saveData);
     }
 
     for (i = 0; i < 4; i++) {
-        v9[4 - 2] += Unk_ov59_021D33FC[i].unk_00(saveData);
+        v9[4 - 2] += Overlay059MixedRecordsDataAdapters[i].unk_00(saveData);
     }
 
-    for (i = 0; i < NELEMS(Unk_ov59_021D33FC); i++) {
-        v1 = Unk_ov59_021D33FC[i].unk_00(saveData);
+    for (i = 0; i < NELEMS(Overlay059MixedRecordsDataAdapters); i++) {
+        v1 = Overlay059MixedRecordsDataAdapters[i].unk_00(saveData);
         GF_ASSERT(v3 > v1);
 
         for (v5 = 0; v5 < 5; v5++) {
@@ -231,8 +231,8 @@ void ov59_021D313C(SaveData *saveData, const UnkStruct_ov59_021D30E0 *param1)
             break;
         }
 
-        if (Unk_ov59_021D33FC[i].unk_08 != NULL) {
-            Unk_ov59_021D33FC[i].unk_08(&v0);
+        if (Overlay059MixedRecordsDataAdapters[i].unk_08 != NULL) {
+            Overlay059MixedRecordsDataAdapters[i].unk_08(&v0);
         }
 
         v2 += v1;
