@@ -3833,7 +3833,7 @@ void HearthomeGym_DynamicMapFeaturesInit(FieldSystem *fieldSystem)
 
                 features->clueX += room->offsetX;
                 features->clueZ += room->offsetZ;
-            } while (sub_0206326C(fieldSystem->mapObjMan, features->clueX, features->clueZ, 0) != NULL);
+            } while (MapObjectMan_FindAtCoords(fieldSystem->mapObjMan, features->clueX, features->clueZ, 0) != NULL);
 
             GF_ASSERT(features->correctDoorID < room->firstDoorID + room->numExitDoors);
             GF_ASSERT(features->clueX < room->offsetX + room->sizeX);
