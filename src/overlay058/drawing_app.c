@@ -633,7 +633,7 @@ static void ov58_021D1554(UnkStruct_02095EAC *param0, NARC *param1)
     SpriteTransfer_RequestPlttWholeRange(param0->unk_1D4[1][1]);
 }
 
-static const u16 Unk_ov58_021D2EEC[][3] = {
+static const u16 sOverlay058DrawingUiSpriteLayout[][3] = {
     { 0xD, 0xAB, 0x5 },
     { 0x25, 0xAB, 0x7 },
     { 0x3D, 0xAB, 0x9 },
@@ -684,13 +684,13 @@ static void ov58_021D16D8(UnkStruct_02095EAC *param0)
 
         for (v0 = 0; v0 < 9 + 3; v0++) {
             v1.resourceData = &param0->unk_218;
-            v1.position.x = FX32_ONE * (Unk_ov58_021D2EEC[v0][0]);
-            v1.position.y = FX32_ONE * (Unk_ov58_021D2EEC[v0][1]);
+            v1.position.x = FX32_ONE * (sOverlay058DrawingUiSpriteLayout[v0][0]);
+            v1.position.y = FX32_ONE * (sOverlay058DrawingUiSpriteLayout[v0][1]);
 
             param0->unk_2AC[v0] = SpriteList_AddAffine(&v1);
 
             Sprite_SetAnimateFlag(param0->unk_2AC[v0], 1);
-            Sprite_SetAnim(param0->unk_2AC[v0], Unk_ov58_021D2EEC[v0][2]);
+            Sprite_SetAnim(param0->unk_2AC[v0], sOverlay058DrawingUiSpriteLayout[v0][2]);
 
             if (v0 >= 8) {
                 Sprite_SetExplicitPriority(param0->unk_2AC[v0], 2);
@@ -765,7 +765,7 @@ static void ov58_021D1A10(Sprite *param0, int param1, int param2)
     Sprite_SetPosition(param0, &v0);
 }
 
-static const TouchScreenRect Unk_ov58_021D2EB8[] = {
+static const TouchScreenRect sOverlay058DrawingUiTouchRegions[] = {
     { 0x96, 0xBD, 0x0, 0x17 },
     { 0x96, 0xBD, 0x18, 0x2F },
     { 0x96, 0xBD, 0x30, 0x47 },
@@ -781,12 +781,12 @@ static const TouchScreenRect Unk_ov58_021D2EB8[] = {
     { 0xFF, 0x0, 0x0, 0x0 }
 };
 
-static const TouchScreenRect Unk_ov58_021D2DD4[] = {
+static const TouchScreenRect sOverlay058PromptTouchRegion[] = {
     { 0x30, 0x70, 0xC8, 0xF8 },
     { 0xFF, 0x0, 0x0, 0x0 }
 };
 
-static const TouchScreenRect Unk_ov58_021D2DDC[] = {
+static const TouchScreenRect sOverlay058DrawingCanvasTouchRegion[] = {
     { 0x10, 0x88, 0x8, 0xF8 },
     { 0xFF, 0x0, 0x0, 0x0 }
 };
@@ -796,7 +796,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
     int v0 = -1, v1;
     int v2 = 0;
 
-    v0 = TouchScreen_CheckRectanglePressed(Unk_ov58_021D2EB8);
+    v0 = TouchScreen_CheckRectanglePressed(sOverlay058DrawingUiTouchRegions);
 
     if (v0 != 0xffffffff) {
         switch (v0) {
@@ -863,7 +863,7 @@ static void ov58_021D1A80(UnkStruct_02095EAC *param0)
         }
     }
 
-    v1 = TouchScreen_CheckRectangleHeld(Unk_ov58_021D2DDC);
+    v1 = TouchScreen_CheckRectangleHeld(sOverlay058DrawingCanvasTouchRegion);
     Sprite_SetDrawFlag(param0->unk_23C[CommSys_CurNetId()], FALSE);
 
     if (v1 != 0xffffffff) {
@@ -891,9 +891,9 @@ static void ov58_021D1CAC(Sprite **param0, int param1)
 
     for (v0 = 0; v0 < 8; v0++) {
         if (v0 == param1) {
-            Sprite_SetAnim(param0[v0], Unk_ov58_021D2EEC[v0][2] + 1);
+            Sprite_SetAnim(param0[v0], sOverlay058DrawingUiSpriteLayout[v0][2] + 1);
         } else {
-            Sprite_SetAnim(param0[v0], Unk_ov58_021D2EEC[v0][2]);
+            Sprite_SetAnim(param0[v0], sOverlay058DrawingUiSpriteLayout[v0][2]);
         }
     }
 }
@@ -901,9 +901,9 @@ static void ov58_021D1CAC(Sprite **param0, int param1)
 static void ov58_021D1CDC(Sprite **param0, BOOL param1)
 {
     if (param1 == 1) {
-        Sprite_SetAnim(param0[8], Unk_ov58_021D2EEC[8][2] + 1);
+        Sprite_SetAnim(param0[8], sOverlay058DrawingUiSpriteLayout[8][2] + 1);
     } else {
-        Sprite_SetAnim(param0[8], Unk_ov58_021D2EEC[8][2]);
+        Sprite_SetAnim(param0[8], sOverlay058DrawingUiSpriteLayout[8][2]);
     }
 }
 
@@ -1767,7 +1767,7 @@ static int ov58_021D2B5C(UnkStruct_02095EAC *param0)
 
             if (param0->unk_945C) {
                 ov58_021D2D10(param0);
-                Sprite_SetAnim(param0->unk_2AC[8], Unk_ov58_021D2EEC[8][2]);
+                Sprite_SetAnim(param0->unk_2AC[8], sOverlay058DrawingUiSpriteLayout[8][2]);
             }
 
             return 2;
@@ -1857,7 +1857,7 @@ static void ov58_021D2D10(UnkStruct_02095EAC *param0)
 
 static int ov58_021D2D30(UnkStruct_02095EAC *param0)
 {
-    int v0 = TouchScreen_CheckRectanglePressed(Unk_ov58_021D2DD4);
+    int v0 = TouchScreen_CheckRectanglePressed(sOverlay058PromptTouchRegion);
 
     if (v0 != 0xffffffff) {
         return 1;
