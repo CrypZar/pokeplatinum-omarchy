@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "struct_decls/struct_02095EAC_decl.h"
-#include "struct_defs/struct_0203DDFC.h"
+#include "struct_defs/overlay058_drawing_app_args.h"
 #include "struct_defs/struct_02095EAC_t.h"
 #include "struct_defs/struct_02095FE4.h"
 
@@ -182,7 +182,7 @@ int Overlay058_Init(ApplicationManager *appMan, int *param1)
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_IN, FADE_TYPE_CIRCLE_IN, COLOR_BLACK, 16, 1, HEAP_ID_DRAWING);
 
         {
-            UnkStruct_0203DDFC *v2 = (UnkStruct_0203DDFC *)ApplicationManager_Args(appMan);
+            Overlay058DrawingAppArgs *v2 = (Overlay058DrawingAppArgs *)ApplicationManager_Args(appMan);
             v0->unk_08 = v2;
         }
 
@@ -294,7 +294,7 @@ int Overlay058_Main(ApplicationManager *appMan, int *param1)
 int Overlay058_Exit(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_02095EAC *v0 = ApplicationManager_Data(appMan);
-    UnkStruct_0203DDFC *v1 = (UnkStruct_0203DDFC *)ApplicationManager_Args(appMan);
+    Overlay058DrawingAppArgs *v1 = (Overlay058DrawingAppArgs *)ApplicationManager_Args(appMan);
     int v2;
     void *journalEntryOnlineEvent;
 
