@@ -353,7 +353,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
             v1.unk_04 = 0;
             evolutionData->unk_30 = sub_0207C894(&v1);
 
-            sub_0207C8C4(evolutionData->unk_30, 0);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 0);
             PokemonSprite_StartFade(evolutionData->monSprites[0], 0, 16, 4, 0x7FFF);
             PokemonSprite_StartFade(evolutionData->monSprites[1], 0, 16, 4, 0x7FFF);
 
@@ -371,12 +371,12 @@ static void Evolution_Main(EvolutionData *evolutionData)
         }
 
         if (--evolutionData->delay == 0) {
-            sub_0207C8C4(evolutionData->unk_30, 1);
-            sub_0207C8C4(evolutionData->unk_30, 2);
-            sub_0207C8C4(evolutionData->unk_30, 7);
-            sub_0207C8C4(evolutionData->unk_30, 8);
-            sub_0207C8C4(evolutionData->unk_30, 9);
-            sub_0207C8C4(evolutionData->unk_30, 11);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 1);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 2);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 7);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 8);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 9);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 11);
             Sound_PlayEffect(SEQ_SE_DP_W060C_sseq);
             evolutionData->shrinkAndGrowState = 0x10;
             evolutionData->attributeDelta = 8;
@@ -385,11 +385,11 @@ static void Evolution_Main(EvolutionData *evolutionData)
         break;
     case EVOLUTION_STATE_ANIMATION_ALTERNATE_POKEMON:
         if (EvolutionParticleSystem_HasActiveEmitters(evolutionData->unk_30) == FALSE) {
-            sub_0207C8C4(evolutionData->unk_30, 3);
-            sub_0207C8C4(evolutionData->unk_30, 4);
-            sub_0207C8C4(evolutionData->unk_30, 5);
-            sub_0207C8C4(evolutionData->unk_30, 6);
-            sub_0207C8C4(evolutionData->unk_30, 10);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 3);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 4);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 5);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 6);
+            EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 10);
             PaletteData_StartFade(evolutionData->paletteData, PLTTBUF_MAIN_BG_F | PLTTBUF_SUB_BG_F | PLTTBUF_MAIN_OBJ_F | PLTTBUF_SUB_OBJ_F, 0xC00 ^ 0xFFFF, 2, 0, 16, 0x7FFF);
             PokemonSprite_SetAttribute(evolutionData->monSprites[0], MON_SPRITE_SCALE_X, 0);
             PokemonSprite_SetAttribute(evolutionData->monSprites[0], MON_SPRITE_SCALE_Y, 0);
@@ -409,7 +409,7 @@ static void Evolution_Main(EvolutionData *evolutionData)
 
         if (PaletteData_GetSelectedBuffersMask(evolutionData->paletteData) == 0) {
             if (--evolutionData->delay == 0) {
-                sub_0207C8C4(evolutionData->unk_30, 12);
+                EvolutionParticleSystem_CreateEmitter(evolutionData->unk_30, 12);
                 PaletteData_StartFade(evolutionData->paletteData, PLTTBUF_MAIN_BG_F | PLTTBUF_SUB_BG_F | PLTTBUF_MAIN_OBJ_F | PLTTBUF_SUB_OBJ_F, 0xC00 ^ 0xFFFF, 4, 16, 0, 0x7FFF);
                 PokemonSpriteManager_StartFadeAll(evolutionData->monSpriteMan, 16, 0, 3, 0x7FFF);
                 Sound_PlayEffect(SEQ_SE_DP_W080_sseq);
