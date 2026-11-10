@@ -183,7 +183,7 @@ int Overlay058_Init(ApplicationManager *appMan, int *param1)
 
         {
             Overlay058DrawingAppArgs *v2 = (Overlay058DrawingAppArgs *)ApplicationManager_Args(appMan);
-            v0->unk_08 = v2;
+            v0->drawingAppArgs = v2;
         }
 
         v1 = NARC_ctor(NARC_INDEX_GRAPHIC__OEKAKI, HEAP_ID_DRAWING);
@@ -302,7 +302,7 @@ int Overlay058_Exit(ApplicationManager *appMan, int *param1)
     case 0:
         journalEntryOnlineEvent = JournalEntry_CreateEventDrewPictures(39);
 
-        JournalEntry_SaveData(v1->unk_04, journalEntryOnlineEvent, JOURNAL_ONLINE_EVENT);
+        JournalEntry_SaveData(v1->journalEntry, journalEntryOnlineEvent, JOURNAL_ONLINE_EVENT);
         SetVBlankCallback(NULL, NULL);
         SpriteTransfer_ResetCharTransfer(v0->unk_1D4[0][0]);
         SpriteTransfer_ResetCharTransfer(v0->unk_1D4[1][0]);
@@ -351,7 +351,7 @@ int Overlay058_Exit(ApplicationManager *appMan, int *param1)
 
         ov58_021D13B4(v0);
 
-        Heap_Free(v0->unk_08);
+        Heap_Free(v0->drawingAppArgs);
         ApplicationManager_FreeData(appMan);
         SetVBlankCallback(NULL, NULL);
         Heap_Destroy(HEAP_ID_DRAWING);
@@ -584,7 +584,7 @@ static void ov58_021D142C(UnkStruct_02095EAC *param0, NARC *param1)
     Graphics_LoadTilemapToBgLayerFromOpenNARC(param1, 4, v0, 2, 0, 32 * 24 * 2, 1, HEAP_ID_DRAWING);
     Graphics_LoadTilesToBgLayerFromOpenNARC(param1, 3, v0, 5, 0, 32 * 8 * 0x20, 1, HEAP_ID_DRAWING);
     Graphics_LoadTilemapToBgLayerFromOpenNARC(param1, 5, v0, 5, 0, 32 * 24 * 2, 1, HEAP_ID_DRAWING);
-    LoadMessageBoxGraphics(v0, BG_LAYER_MAIN_0, 1, 10, Options_Frame(param0->unk_08->options), HEAP_ID_DRAWING);
+    LoadMessageBoxGraphics(v0, BG_LAYER_MAIN_0, 1, 10, Options_Frame(param0->drawingAppArgs->options), HEAP_ID_DRAWING);
     LoadStandardWindowGraphics(v0, BG_LAYER_MAIN_0, 1 + (18 + 12), 11, 0, HEAP_ID_DRAWING);
 }
 

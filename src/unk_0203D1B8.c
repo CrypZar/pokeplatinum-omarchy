@@ -1083,7 +1083,7 @@ void FieldSystem_OpenDrawingApp(FieldSystem *fieldSystem)
     Overlay058DrawingAppArgs *v0 = Heap_Alloc(HEAP_ID_FIELD3, sizeof(Overlay058DrawingAppArgs));
 
     v0->unk_00 = fieldSystem->unk_80;
-    v0->unk_04 = fieldSystem->journalEntry;
+    v0->journalEntry = fieldSystem->journalEntry;
     v0->options = SaveData_GetOptions(fieldSystem->saveData);
 
     FieldSystem_StartChildProcess(fieldSystem, &gOverlay058AppTemplate, v0);
