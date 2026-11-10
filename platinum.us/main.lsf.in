@@ -1106,7 +1106,7 @@ Overlay overlay59
 	Object src/overlay059/mixed_records_lobby.c
 	Object src/overlay059/ov59_021D2A2C.c
 	Object src/overlay059/ov59_021D2B44.c
-	Object src/overlay059/ov59_021D2F88.c
+	Object src/overlay059/mixed_records_payloads.c
 }
 
 Overlay http

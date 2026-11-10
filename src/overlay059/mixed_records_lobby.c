@@ -10,7 +10,7 @@
 #include "struct_defs/struct_020961E8_t.h"
 #include "struct_defs/struct_02096274.h"
 
-#include "overlay059/ov59_021D2F88.h"
+#include "overlay059/mixed_records_payloads.h"
 #include "overlay059/status_palette_animation.h"
 
 #include "appearance.h"
