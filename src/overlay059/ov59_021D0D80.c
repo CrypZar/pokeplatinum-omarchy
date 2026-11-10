@@ -90,9 +90,9 @@ static void Overlay059_UpdateStatusPaletteAnimation(SysTask *sysTask, void *para
 static int Overlay059_GetMessageTextSpeed(UnkStruct_020961E8 *param0);
 static void Overlay059_SetMaximumConnectionCount(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D292C(UnkStruct_020961E8 *param0, int param1);
-static void ov59_021D1864(UnkStruct_020961E8 *param0);
+static void Overlay059_HandleParticipantLobbyInput(UnkStruct_020961E8 *param0);
 static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1838(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateParticipantLobby(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1D14(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ApplyReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
@@ -127,7 +127,7 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D17F8,
     ov59_021D1998,
     ov59_021D19E4,
-    ov59_021D1838,
+    Overlay059_UpdateParticipantLobby,
     Overlay059_ShowParticipantConnectionPrompt,
     Overlay059_UpdateParticipantConnectionPrompt,
     Overlay059_ResetConnectionHandshakeStability,
@@ -700,9 +700,9 @@ static int ov59_021D17F8(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1838(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateParticipantLobby(UnkStruct_020961E8 *param0, int param1)
 {
-    ov59_021D1864(param0);
+    Overlay059_HandleParticipantLobbyInput(param0);
 
     if (CommSys_CurNetId() == 0) {
         if (Overlay059_CountParticipantsWithTrainerInfo() != 1) {
@@ -715,7 +715,7 @@ static int ov59_021D1838(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static void ov59_021D1864(UnkStruct_020961E8 *param0)
+static void Overlay059_HandleParticipantLobbyInput(UnkStruct_020961E8 *param0)
 {
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
         if (CommSys_CurNetId() == 0) {
