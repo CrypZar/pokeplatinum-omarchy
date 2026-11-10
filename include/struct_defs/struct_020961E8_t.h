@@ -56,7 +56,7 @@ struct UnkStruct_020961E8_t {
     int overlayState;
     int stateAfterMessage;
     int unk_3B0;
-    int unk_3B4;
+    int stateTimer;
     u8 unk_3B8[8][2];
     TrainerInfo *unk_3C8[5][2];
     int unk_3F0[5];

@@ -1060,7 +1060,7 @@ static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1)
         Sprite_SetAnim(param0->unk_28C[0], 0);
 
         param0->unk_0C.unk_00 = 0;
-        param0->unk_3B4 = 0;
+        param0->stateTimer = 0;
         gSystem.inhibitReset = 0;
         param0->unk_4AA4 = 0;
     }
@@ -1070,7 +1070,7 @@ static int ov59_021D1E0C(UnkStruct_020961E8 *param0, int param1)
 
 static int ov59_021D1E7C(UnkStruct_020961E8 *param0, const int param1)
 {
-    if (param0->unk_3B4++ > 60) {
+    if (param0->stateTimer++ > 60) {
         param0->overlayState = 15;
     }
 
@@ -1088,7 +1088,7 @@ static int ov59_021D1E98(UnkStruct_020961E8 *param0, const int param1)
 
 static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1)
 {
-    if (++param0->unk_3B4 > 60) {
+    if (++param0->stateTimer > 60) {
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_CIRCLE_OUT, FADE_TYPE_CIRCLE_OUT, COLOR_BLACK, 16, 1, HEAP_ID_51);
         param1 = 3;
     }
@@ -1151,7 +1151,7 @@ static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1)
     }
 
     Overlay059_SetMessageWaitState(param0, 14);
-    param0->unk_3B4 = 0;
+    param0->stateTimer = 0;
 
     ov59_021D1994(param0);
 
@@ -1160,9 +1160,9 @@ static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1)
 
 static int ov59_021D2020(UnkStruct_020961E8 *param0, int param1)
 {
-    param0->unk_3B4++;
+    param0->stateTimer++;
 
-    if (param0->unk_3B4 > 45) {
+    if (param0->stateTimer > 45) {
         param0->overlayState = 15;
     }
 
@@ -1242,7 +1242,7 @@ static int ov59_021D2154(UnkStruct_020961E8 *param0, int param1)
     }
 
     param0->overlayState = 21;
-    param0->unk_3B4 = 0;
+    param0->stateTimer = 0;
 
     ov59_021D1994(param0);
     return param1;
@@ -1260,7 +1260,7 @@ static int ov59_021D2190(UnkStruct_020961E8 *param0, int param1)
         param0->unk_4ABC = 0;
     }
 
-    if ((++param0->unk_3B4 > 60) && (param0->unk_4ABC == 0)) {
+    if ((++param0->stateTimer > 60) && (param0->unk_4ABC == 0)) {
         param0->overlayState = 0;
 
         if (CommSys_CurNetId() == 0) {
