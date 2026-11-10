@@ -13,7 +13,7 @@
 #include "spl.h"
 #include "unk_0202419C.h"
 
-void sub_0207C63C(void);
+void EvolutionScene_HideAllPlanes(void);
 void sub_0207C664(void);
 void EvolutionScene_Configure3DRenderState(void);
 void sub_0207C730(void);
@@ -29,7 +29,7 @@ static ParticleSystem *sub_0207C814(enum HeapID heapID, int param1, int param2);
 static void sub_0207C83C(ParticleSystem *param0);
 static void sub_0207C854(SPLEmitter *param0);
 
-void sub_0207C63C(void)
+void EvolutionScene_HideAllPlanes(void)
 {
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
