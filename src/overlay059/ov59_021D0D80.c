@@ -105,8 +105,8 @@ static int Overlay059_UpdateConnectionHandshakeStability(UnkStruct_020961E8 *par
 static int Overlay059_CompleteConnectionHandshake(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1E98(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1F24(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ShowParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1FD0(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_StartExitSynchronization(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateExitSynchronization(UnkStruct_020961E8 *param0, int param1);
@@ -135,8 +135,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     Overlay059_CompleteConnectionHandshake,
     ov59_021D1E98,
     ov59_021D1EB8,
-    ov59_021D1EF4,
-    ov59_021D1F24,
+    Overlay059_ShowParticipantConfirmationPrompt,
+    Overlay059_UpdateParticipantConfirmationPrompt,
     ov59_021D1FD0,
     Overlay059_UpdateParticipantConfirmationExitDelay,
     Overlay059_StartExitSynchronization,
@@ -1097,7 +1097,7 @@ static int ov59_021D1EB8(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ShowParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Overlay059YesNoChoiceWindowTemplate, 1 + (18 + 12), 11, 51);
     param0->overlayState = 12;
@@ -1107,7 +1107,7 @@ static int ov59_021D1EF4(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1F24(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateParticipantConfirmationPrompt(UnkStruct_020961E8 *param0, int param1)
 {
     if ((param0->unk_4AAC != ov59_021D2528()) || (param0->unk_4AB4 != 0)) {
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_KEY_UP | PAD_KEY_DOWN)) {
