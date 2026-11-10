@@ -98,8 +98,8 @@ static int Overlay059_WaitForReceivedMixedRecords(UnkStruct_020961E8 *param0, in
 static int Overlay059_ApplyReceivedMixedRecords(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_UpdateMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1);
 static int Overlay059_ShowMixedRecordsExchangeStartPrompt(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1A14(UnkStruct_020961E8 *param0, int param1);
-static int ov59_021D1A44(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_ShowParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1);
+static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1B74(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1B8C(UnkStruct_020961E8 *param0, int param1);
 static int ov59_021D1C14(UnkStruct_020961E8 *param0, int param1);
@@ -128,8 +128,8 @@ static int (*Overlay059StateHandlers[])(UnkStruct_020961E8 *, int) = {
     ov59_021D1998,
     ov59_021D19E4,
     ov59_021D1838,
-    ov59_021D1A14,
-    ov59_021D1A44,
+    Overlay059_ShowParticipantConnectionPrompt,
+    Overlay059_UpdateParticipantConnectionPrompt,
     ov59_021D1B74,
     ov59_021D1B8C,
     ov59_021D1C14,
@@ -816,7 +816,7 @@ static const WindowTemplate Unk_ov59_021D3288 = {
     0x178
 };
 
-static int ov59_021D1A14(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_ShowParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1)
 {
     param0->unk_384 = Menu_MakeYesNoChoice(param0->unk_00, &Unk_ov59_021D3288, 1 + (18 + 12), 11, 51);
     param0->overlayState = 5;
@@ -826,7 +826,7 @@ static int ov59_021D1A14(UnkStruct_020961E8 *param0, int param1)
     return param1;
 }
 
-static int ov59_021D1A44(UnkStruct_020961E8 *param0, int param1)
+static int Overlay059_UpdateParticipantConnectionPrompt(UnkStruct_020961E8 *param0, int param1)
 {
     if (CommSys_CurNetId()) {
         if (param0->unk_4AA0) {
